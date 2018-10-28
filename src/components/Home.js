@@ -1,44 +1,79 @@
 import React, { Component } from 'react';
-
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
+import { Link } from 'react-router-dom';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      users: null
+      boardName: '',
+      boards: []
     };
+
+    this.createBoard = this.createBoard.bind(this);
   }
 
   componentDidMount() {
-    db.onceGetUsers().then(snapshot =>
-      this.setState({ users: snapshot.val() })
+    db.onceGetBoards().then(snapshot => {
+      if (!snapshot.val()) {
+        return;
+      }
+      this.setState({
+        boards: getBoardsWithKey(snapshot.val())
+      });
+    });
+  }
+
+  createBoard() {
+    if (!this.state.boardName) {
+      return;
+    }
+    db.doAddBoard({
+      title: this.state.boardName
+    }).then(
+      db.onceGetBoards().then(snapshot =>
+        this.setState({
+          boards: getBoardsWithKey(snapshot.val())
+        })
+      )
     );
   }
 
   render() {
-    const { users } = this.state;
+    const { boards } = this.state;
 
     return (
       <div>
         <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
-
-        {!!users && <UserList users={users} />}
+        <input
+          onChange={event => this.setState({ boardName: event.target.value })}
+          value={this.state.boardName}
+        />
+        <button onClick={this.createBoard}>Create board</button>
+        <BoardList boards={boards} />
       </div>
     );
   }
 }
 
-const UserList = ({ users }) => (
-  <div>
-    <h2>List of Usernames of Users</h2>
-    <p>(Saved on Sign Up in Firebase Database)</p>
+const getBoardsWithKey = value => {
+  return Object.values(value).map((val, index) => {
+    return {
+      title: val.title,
+      key: Object.keys(value)[index].replace('-', '')
+    };
+  });
+};
 
-    {Object.keys(users).map(key => (
-      <div key={key}>{users[key].username}</div>
+const BoardList = ({ boards }) => (
+  <div>
+    List of boardes
+    {boards.map((board, index) => (
+      <div key={index}>
+        <Link to={`b/${board.key}`}>{board.title}</Link>
+      </div>
     ))}
   </div>
 );

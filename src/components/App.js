@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import './App.css';
 import * as routes from '../constants/routes';
 import withAuthentication from './withAuthentication';
 
@@ -11,12 +12,12 @@ import SignInPage from './SignIn';
 import PasswordForgetPage from './PasswordForget';
 import HomePage from './Home';
 import AccountPage from './Account';
+import BoardPage from './Board';
 
 class App extends Component {
   constructor(props) {
     super(props);
   }
-// TODO: RESET PASSWORD
 
   render() {
     return (
@@ -34,6 +35,7 @@ class App extends Component {
           />
           <Route exact path={routes.HOME} component={HomePage} />
           <Route exact path={routes.ACCOUNT} component={AccountPage} />
+          <Route exact path={routes.BOARD} component={BoardPage} />
         </div>
       </Router>
     );
@@ -41,4 +43,3 @@ class App extends Component {
 }
 
 export default withAuthentication(App);
-
