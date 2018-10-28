@@ -26,7 +26,19 @@ export const doAddList = (boardId, list) =>
     ...list
   });
 
+export const doDeleteList = (boardId, listId) =>
+  db
+    .ref(`boards/-${boardId}/lists`)
+    .child(`-${listId}`)
+    .remove();
+
 export const doAddCart = (boardId, listId, cart) =>
   db.ref(`boards/-${boardId}/lists/-${listId}/carts`).push({
     ...cart
   });
+
+export const doDeleteCart = (boardId, listId, cartId) =>
+  db
+    .ref(`boards/-${boardId}/lists/-${listId}/carts`)
+    .child(`-${cartId}`)
+    .remove();

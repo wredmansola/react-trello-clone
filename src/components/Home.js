@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import withAuthorization from './withAuthorization';
 import { db } from '../firebase';
-import { Link } from 'react-router-dom';
+
+import BoardList from './BoardList';
+
+import expandWithKey from '../utils';
 
 class HomePage extends Component {
   constructor(props) {
@@ -21,7 +24,7 @@ class HomePage extends Component {
         return;
       }
       this.setState({
-        boards: getBoardsWithKey(snapshot.val())
+        boards: expandWithKey(snapshot.val())
       });
     });
   }
@@ -35,7 +38,7 @@ class HomePage extends Component {
     }).then(
       db.onceGetBoards().then(snapshot =>
         this.setState({
-          boards: getBoardsWithKey(snapshot.val())
+          boards: expandWithKey(snapshot.val())
         })
       )
     );
@@ -43,40 +46,20 @@ class HomePage extends Component {
 
   render() {
     const { boards } = this.state;
-
     return (
       <div>
         <h1>Home</h1>
+        Create board: &nbsp;
         <input
           onChange={event => this.setState({ boardName: event.target.value })}
           value={this.state.boardName}
         />
-        <button onClick={this.createBoard}>Create board</button>
+        <button onClick={this.createBoard}>Add</button>
         <BoardList boards={boards} />
       </div>
     );
   }
 }
-
-const getBoardsWithKey = value => {
-  return Object.values(value).map((val, index) => {
-    return {
-      title: val.title,
-      key: Object.keys(value)[index].replace('-', '')
-    };
-  });
-};
-
-const BoardList = ({ boards }) => (
-  <div>
-    List of boardes
-    {boards.map((board, index) => (
-      <div key={index}>
-        <Link to={`b/${board.key}`}>{board.title}</Link>
-      </div>
-    ))}
-  </div>
-);
 
 const authCondition = authUser => !!authUser;
 
