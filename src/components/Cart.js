@@ -5,7 +5,7 @@ const Cart = ({ cart, listId, onDelete }) => {
   return (
     <div className="cart">
       <span>{cart.value.title}</span>
-      <span className="delete" onClick={e => onDelete(listId, cart.key)}>
+      <span className="delete-list" onClick={e => onDelete(listId, cart.key)}>
         X
       </span>
     </div>
