@@ -74,15 +74,13 @@ class BoardPage extends Component {
   }
 
   deleteList(listId) {
-    console.log(listId);
     db.doDeleteList(this.state.boardId, listId)
       .then(() => db.onceGetBoard(this.state.boardId))
       .then(snapshot => {
         let snapshotVal = snapshot.val();
-        if (!snapshotVal) {
-          return;
-        }
-        const lists = mergeDataWithKey(snapshotVal.lists);
+        const lists = snapshotVal.lists
+          ? mergeDataWithKey(snapshotVal.lists)
+          : [];
         this.updateList(lists);
       });
   }
@@ -92,7 +90,7 @@ class BoardPage extends Component {
     return this.state.isLoading ? (
       <div>Loading...</div>
     ) : (
-      <div class="board">
+      <div className="board">
         <h1>{boardTitle}</h1>
         Create list:&nbsp;
         <input

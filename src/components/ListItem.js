@@ -25,7 +25,7 @@ class ListItem extends Component {
   }
 
   render() {
-    const { list, index, deleteList } = this.props;
+    const { list, index, deleteList, deleteCart, editCart } = this.props;
     const carts = this.props.list.value.carts
       ? mergeDataWithKey(this.props.list.value.carts)
       : [];
@@ -42,20 +42,26 @@ class ListItem extends Component {
           return (
             <div key={index}>
               <Cart
-                onDelete={this.props.deleteCart}
+                onDelete={deleteCart}
+                onEdit={editCart}
                 listId={list.key}
                 cart={cart}
               />
             </div>
           );
         })}
-        <input
-          onChange={event => this.setState({ cartName: event.target.value })}
-          value={this.state.cartName}
-        />
-        <button className="btn" onClick={e => this.addCart(list.key, cartName)}>
-          Add cart
-        </button>
+        <div className="list-add-cart">
+          <input
+            onChange={event => this.setState({ cartName: event.target.value })}
+            value={this.state.cartName}
+          />
+          <button
+            className="btn"
+            onClick={e => this.addCart(list.key, cartName)}
+          >
+            Add cart
+          </button>
+        </div>
       </div>
     );
   }

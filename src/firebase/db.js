@@ -42,3 +42,8 @@ export const doDeleteCart = (boardId, listId, cartId) =>
     .ref(`boards/-${boardId}/lists/-${listId}/carts`)
     .child(`-${cartId}`)
     .remove();
+
+export const doEditCart = (boardId, listId, cartId, cart) =>
+  db.ref(`boards/-${boardId}/lists/-${listId}/carts/-${cartId}`).set({
+    ...cart
+  });

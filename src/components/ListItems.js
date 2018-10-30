@@ -10,6 +10,7 @@ class ListItems extends Component {
 
     this.addCart = this.addCart.bind(this);
     this.deleteCart = this.deleteCart.bind(this);
+    this.editCart = this.editCart.bind(this);
   }
 
   addCart(listId, cartName) {
@@ -40,6 +41,11 @@ class ListItems extends Component {
       });
   }
 
+  editCart(listId, cartId, cart) {
+    const { boardId } = this.props;
+    db.doEditCart(boardId, listId, cartId, cart);
+  }
+
   render() {
     const { lists } = this.props;
     return lists.length
@@ -50,6 +56,7 @@ class ListItems extends Component {
                 list={list}
                 index={index}
                 addCart={this.addCart}
+                editCart={this.editCart}
                 deleteCart={this.deleteCart}
                 deleteList={this.props.deleteList}
               />

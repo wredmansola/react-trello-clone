@@ -37,6 +37,11 @@
   position: relative;
   background: #fff;
   padding: 5px;
+  padding-right: 30px;
+}
+
+.cart-edit-container {
+  width: 107px;
 }
 
 .delete-cart {
@@ -44,6 +49,22 @@
   right: 5px;
   top: 5px;
   cursor: pointer;
+}
+
+.delete-cart:hover {
+  text-decoration: underline;
+}
+
+.edit-cart {
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  color: 5px;
+  cursor: pointer;
+}
+
+.edit-cart:hover {
+  text-decoration: underline;
 }
 
 .delete-list {
@@ -59,7 +80,6 @@
 .btn {
   display: block;
   cursor: pointer;
-  width: 100%;
   padding: 5px;
 }
 
@@ -87,4 +107,20 @@
 .board-list a {
   display: block;
   padding: 50px;
+}
+
+.list-add-cart {
+  display: table;
+  width: 65%;
+}
+
+.list-add-cart input {
+  display: table-cell;
+}
+
+.list-add-cart button {
+  display: table-cell;
+  height: 21px;
+  vertical-align: middle;
+  padding: 0 5px;
 }
