@@ -32,6 +32,11 @@ export const doDeleteList = (boardId, listId) =>
     .child(`-${listId}`)
     .remove();
 
+export const doEditList = (boardId, listId, list) =>
+  db.ref(`boards/-${boardId}/lists/-${listId}`).set({
+    ...list
+  });
+
 export const doAddCart = (boardId, listId, cart) =>
   db.ref(`boards/-${boardId}/lists/-${listId}/carts`).push({
     ...cart

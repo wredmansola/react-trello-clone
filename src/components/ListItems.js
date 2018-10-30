@@ -59,6 +59,7 @@ class ListItems extends Component {
                 editCart={this.editCart}
                 deleteCart={this.deleteCart}
                 deleteList={this.props.deleteList}
+                editList={this.props.editList}
               />
             </div>
           );

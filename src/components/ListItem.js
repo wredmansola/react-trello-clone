@@ -8,10 +8,14 @@ class ListItem extends Component {
     super(props);
 
     this.state = {
-      cartName: ''
+      cartName: '',
+      editMode: false,
+      listTitle: ''
     };
 
     this.addCart = this.addCart.bind(this);
+    this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.confirm = this.confirm.bind(this);
   }
 
   addCart(id, cartName) {
@@ -24,19 +28,53 @@ class ListItem extends Component {
     });
   }
 
+  toggleEditMode() {
+    const { list } = this.props;
+    this.setState({
+      editMode: !this.state.editMode,
+      listTitle: list.value.title
+    });
+  }
+
+  confirm() {
+    let updatedList = { ...this.props.list };
+    updatedList.value.title = this.state.listTitle;
+    this.props.editList(updatedList.key, updatedList.value);
+    this.setState({
+      editMode: !this.state.editMode
+    });
+  }
+
   render() {
-    const { list, index, deleteList, deleteCart, editCart } = this.props;
+    const { list, index, deleteCart, deleteList, editCart } = this.props;
     const carts = this.props.list.value.carts
       ? mergeDataWithKey(this.props.list.value.carts)
       : [];
-    const { cartName } = this.state;
+    const { cartName, editMode } = this.state;
     return (
       <div className="list-item" key={index}>
         <div className="list-title">
-          <b>{list.value.title}</b>
-          <span onClick={e => deleteList(list.key)} className="delete-list">
-            X
-          </span>
+          {editMode ? (
+            <div className="list-edit-container">
+              <input
+                value={this.state.listTitle}
+                onChange={event =>
+                  this.setState({ listTitle: event.target.value })
+                }
+              />
+              <button onClick={this.confirm}>Confirm</button>
+            </div>
+          ) : (
+            <div className="list-title-row">
+              <b>{list.value.title}</b>
+              <span onClick={this.toggleEditMode} className="edit-list">
+                E
+              </span>
+              <span onClick={e => deleteList(list.key)} className="delete-list">
+                X
+              </span>
+            </div>
+          )}
         </div>
         {carts.map((cart, index) => {
           return (

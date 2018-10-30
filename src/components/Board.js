@@ -20,6 +20,7 @@ class BoardPage extends Component {
     this.createList = this.createList.bind(this);
     this.updateList = this.updateList.bind(this);
     this.deleteList = this.deleteList.bind(this);
+    this.editList = this.editList.bind(this);
   }
 
   componentDidMount() {
@@ -85,6 +86,10 @@ class BoardPage extends Component {
       });
   }
 
+  editList(listId, list) {
+    db.doEditList(this.state.boardId, listId, list);
+  }
+
   render() {
     let { lists, boardTitle, boardId, listName } = this.state;
     return this.state.isLoading ? (
@@ -102,6 +107,7 @@ class BoardPage extends Component {
         <ListItems
           updateList={this.updateList}
           deleteList={this.deleteList}
+          editList={this.editList}
           boardId={boardId}
           lists={lists}
         />

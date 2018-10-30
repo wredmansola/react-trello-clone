@@ -21,6 +21,10 @@
   vertical-align: top;
 }
 
+.list-title-row {
+  padding-right: 30px;
+}
+
 .list {
   margin-bottom: 5px;
 }
@@ -40,8 +44,12 @@
   padding-right: 30px;
 }
 
-.cart-edit-container {
+.edit-container {
   width: 107px;
+}
+
+.list-edit-container {
+  width: 117px;
 }
 
 .delete-cart {
@@ -119,6 +127,31 @@
 }
 
 .list-add-cart button {
+  display: table-cell;
+  height: 21px;
+  vertical-align: middle;
+  padding: 0 5px;
+}
+
+.edit-list {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
+.delete-list:hover {
+  text-decoration: underline;
+}
+
+.edit-list:hover {
+  text-decoration: underline;
+}
+
+.edit-list input {
+  display: table-cell;
+}
+
+.edit-list button {
   display: table-cell;
   height: 21px;
   vertical-align: middle;

@@ -40,7 +40,7 @@ class Cart extends Component {
     return (
       <div className="cart">
         {editMode ? (
-          <div className="cart-edit-container">
+          <div className="edit-container">
             <input
               onChange={event =>
                 this.setState({ cartName: event.target.value })
