@@ -1,10 +1,15 @@
-const mergeDataWithKey = data => {
+export function mergeDataWithKey(data) {
   return Object.values(data).map((value, index) => {
     return {
-      value,
+      ...value,
       key: Object.keys(data)[index].replace('-', '')
     };
   });
-};
+}
 
-export default mergeDataWithKey;
+export function getBoardKey() {
+  return window.location.href
+    .split('/')
+    .pop()
+    .replace('-', '');
+}

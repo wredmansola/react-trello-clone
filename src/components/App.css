@@ -16,17 +16,15 @@
   width: 200px;
   background-color: #eee;
   padding: 10px;
-  margin: 10px;
   text-align: center;
   vertical-align: top;
+  margin: 10px 10px 5px;
+  min-height: 400px;
+  position: relative;
 }
 
 .list-title-row {
   padding-right: 30px;
-}
-
-.list {
-  margin-bottom: 5px;
 }
 
 .list-item > * {
@@ -40,8 +38,8 @@
 .cart {
   position: relative;
   background: #fff;
-  padding: 5px;
-  padding-right: 30px;
+  padding: 5px 30px 5px 5px;
+  margin-bottom: 5px;
 }
 
 .edit-container {
@@ -77,7 +75,7 @@
 
 .delete-list {
   position: absolute;
-  right: 5px;
+  right: 10px;
   cursor: pointer;
 }
 
@@ -120,6 +118,7 @@
 .list-add-cart {
   display: table;
   width: 65%;
+  margin-bottom: 10px;
 }
 
 .list-add-cart input {
@@ -135,7 +134,7 @@
 
 .edit-list {
   position: absolute;
-  right: 20px;
+  right: 25px;
   cursor: pointer;
 }
 

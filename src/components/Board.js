@@ -1,24 +1,23 @@
-import React, { Component } from 'react';
-import { db } from '../firebase';
-import withAuthorization from './withAuthorization';
+import React, { Component } from "react";
 
-import ListItems from './ListItems';
-import mergeDataWithKey from '../utils';
+import withAuthorization from "./withAuthorization";
+import { db } from "../firebase";
+import ListForm from "./ListForm";
+import { getBoardKey, mergeDataWithKey } from "../utils/index";
+import List from "./List";
 
 class BoardPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      boardTitle: '',
-      boardId: '',
-      listName: '',
       isLoading: false,
+      boardTitle: "",
+      boardKey: "",
       lists: []
     };
 
     this.createList = this.createList.bind(this);
-    this.updateList = this.updateList.bind(this);
     this.deleteList = this.deleteList.bind(this);
     this.editList = this.editList.bind(this);
   }
@@ -27,20 +26,24 @@ class BoardPage extends Component {
     this.setState({
       isLoading: true
     });
-    let boardId = window.location.href
-      .split('/')
-      .pop()
-      .replace('-', '');
-    db.onceGetBoard(boardId)
+    const boardKey = getBoardKey();
+    db.onceGetBoard(boardKey)
       .then(snapshot => {
-        let snapshotVal = snapshot.val();
+        const snapshotVal = snapshot.val();
+        this.setState({
+          boardKey,
+          boardTitle: snapshotVal.title
+        });
+      })
+      .then(() => db.onceGetLists(boardKey))
+      .then(snapshot => {
+        const snapshotVal = snapshot.val();
         if (!snapshotVal) {
           return;
         }
         this.setState({
-          boardId,
-          boardTitle: snapshotVal.title,
-          lists: snapshotVal.lists ? mergeDataWithKey(snapshotVal.lists) : {}
+          boardKey,
+          lists: mergeDataWithKey(snapshotVal)
         });
       })
       .finally(() =>
@@ -50,67 +53,80 @@ class BoardPage extends Component {
       );
   }
 
-  updateList(lists) {
-    this.setState({
-      lists
-    });
-  }
-
-  createList(boardId, listName) {
-    if (!listName) {
+  /**
+   * @param {string} boardKey
+   * @param {string} listTitle
+   */
+  createList(boardKey, listTitle) {
+    if (!listTitle) {
       return;
     }
-    db.doAddList(boardId, { title: listName })
-      .then(() => db.onceGetBoard(boardId))
+    db.doCreateList(boardKey, listTitle)
+      .then(() => db.onceGetLists(boardKey))
       .then(snapshot => {
         let snapshotVal = snapshot.val();
         if (!snapshotVal) {
           return;
         }
         this.setState({
-          lists: mergeDataWithKey(snapshotVal.lists),
-          listName: ''
+          lists: mergeDataWithKey(snapshotVal)
         });
       });
   }
 
-  deleteList(listId) {
-    db.doDeleteList(this.state.boardId, listId)
-      .then(() => db.onceGetBoard(this.state.boardId))
+  /**
+   * @param {string} boardKey
+   * @param {string}listKey
+   * @param {string} listTitle
+   */
+  editList(boardKey, listKey, listTitle) {
+    if (!listTitle) {
+      return;
+    }
+    db.doEditList(boardKey, listKey, listTitle)
+      .then(() => db.onceGetLists(boardKey))
       .then(snapshot => {
         let snapshotVal = snapshot.val();
-        const lists = snapshotVal.lists
-          ? mergeDataWithKey(snapshotVal.lists)
-          : [];
-        this.updateList(lists);
+        if (!snapshotVal) {
+          return;
+        }
+        this.setState({
+          lists: mergeDataWithKey(snapshotVal)
+        });
       });
   }
 
-  editList(listId, list) {
-    db.doEditList(this.state.boardId, listId, list);
+  /**
+   * @param {string} boardKey
+   * @param {string} listKey
+   */
+  deleteList(boardKey, listKey) {
+    db.doDeleteList(boardKey, listKey).then(() => {
+      const updatedLists = this.state.lists.filter(
+        list => list.key !== listKey
+      );
+      this.setState({
+        lists: updatedLists
+      });
+    });
   }
 
   render() {
-    let { lists, boardTitle, boardId, listName } = this.state;
+    let { boardKey, boardTitle, lists } = this.state;
     return this.state.isLoading ? (
       <div>Loading...</div>
     ) : (
       <div className="board">
         <h1>{boardTitle}</h1>
-        Create list:&nbsp;
-        <input
-          onChange={event => this.setState({ listName: event.target.value })}
-          value={this.state.listName}
-        />
-        <button onClick={e => this.createList(boardId, listName)}>Add</button>
-        <br />
-        <ListItems
-          updateList={this.updateList}
-          deleteList={this.deleteList}
-          editList={this.editList}
-          boardId={boardId}
-          lists={lists}
-        />
+        <ListForm boardKey={boardKey} onCreateList={this.createList} />
+        {lists.map((list, index) => (
+          <List
+            key={index}
+            list={list}
+            onEditList={this.editList}
+            onDeleteList={this.deleteList}
+          />
+        ))}
       </div>
     );
   }

@@ -6,58 +6,62 @@ class Cart extends Component {
 
     this.state = {
       editMode: false,
-      cartName: '',
-      cart: this.props.cart
+      cartTitle: '',
+      cart: {}
     };
 
     this.toggleEditMode = this.toggleEditMode.bind(this);
-    this.confirm = this.confirm.bind(this);
+    this.editCart = this.editCart.bind(this);
   }
 
   toggleEditMode() {
     const { cart } = this.props;
     this.setState({
-      cartName: cart.value.title,
+      cartTitle: cart.title,
       editMode: !this.state.editMode
     });
   }
 
-  confirm() {
-    let updatedCart = { ...this.state.cart };
-    updatedCart.value.title = this.state.cartName;
-
-    const { listId, cart } = this.props;
-    this.props.onEdit(listId, cart.key, cart.value);
+  editCart(listKey, cartKey, cart) {
+    const updatedCart = { ...cart };
+    updatedCart.title = this.state.cartTitle;
+    this.props.onEditCart(listKey, cartKey, updatedCart);
     this.setState({
-      editMode: !this.state.editMode,
-      cart: updatedCart
+      editMode: false
     });
   }
 
+  deleteCart(listKey, cartKey) {
+    this.props.onDeleteCart(listKey, cartKey);
+  }
+
   render() {
-    const { listId, onDelete } = this.props;
-    const { editMode, cart } = this.state;
+    const { listKey, cart } = this.props;
+    const { editMode } = this.state;
+
     return (
       <div className="cart">
         {editMode ? (
           <div className="edit-container">
             <input
               onChange={event =>
-                this.setState({ cartName: event.target.value })
+                this.setState({ cartTitle: event.target.value })
               }
-              value={this.state.cartName}
+              value={this.state.cartTitle}
             />
-            <button onClick={this.confirm}>Confirm</button>
+            <button onClick={() => this.editCart(listKey, cart.key, cart)}>
+              edit
+            </button>
           </div>
         ) : (
           <div>
-            <span>{cart.value.title}</span>
+            <span>{cart.title}</span>
             <span onClick={this.toggleEditMode} className="edit-cart">
               E
             </span>
             <span
+              onClick={event => this.deleteCart(listKey, cart.key)}
               className="delete-cart"
-              onClick={e => onDelete(listId, cart.key)}
             >
               X
             </span>

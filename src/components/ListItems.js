@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import { db } from '../firebase';
-import ListItem from './ListItem';
-import mergeDataWithKey from '../utils';
+import ListItem from './List';
+import { mergeDataWithKey } from '../utils/index';
 
 class ListItems extends Component {
   constructor(props) {
@@ -11,6 +11,26 @@ class ListItems extends Component {
     this.addCart = this.addCart.bind(this);
     this.deleteCart = this.deleteCart.bind(this);
     this.editCart = this.editCart.bind(this);
+
+    this.deleteList = this.deleteList.bind(this);
+    this.editList = this.editList.bind(this);
+  }
+
+
+  deleteList(listId) {
+    db.doDeleteList(this.state.boardId, listId)
+      .then(() => db.onceGetBoard(this.state.boardId))
+      .then(snapshot => {
+        let snapshotVal = snapshot.val();
+        const lists = snapshotVal.lists
+          ? mergeDataWithKey(snapshotVal.lists)
+          : [];
+        this.updateList(lists);
+      });
+  }
+
+  editList(listId, list) {
+    db.doEditList(this.state.boardId, listId, list);
   }
 
   addCart(listId, cartName) {
@@ -41,9 +61,20 @@ class ListItems extends Component {
       });
   }
 
-  editCart(listId, cartId, cart) {
+  editCart(listId, cartId, cart, oldListId) {
+    if (oldListId) {
+      this.deleteCart(oldListId, cartId);
+    }
     const { boardId } = this.props;
     db.doEditCart(boardId, listId, cartId, cart);
+    // .then(() => db.onceGetBoard(boardId))
+    // .then(snapshot => {
+    //   let snapshotVal = snapshot.val();
+    //   console.log(snapshotVal);
+    //   if (!snapshotVal) {
+    //     return;
+    //   }
+    // });
   }
 
   render() {

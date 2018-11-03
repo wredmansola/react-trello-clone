@@ -4,7 +4,7 @@ import { db } from '../firebase';
 
 import BoardList from './BoardList';
 
-import expandWithKey from '../utils';
+import { mergeDataWithKey } from '../utils/index';
 
 class HomePage extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class HomePage extends Component {
         return;
       }
       this.setState({
-        boards: expandWithKey(snapshot.val())
+        boards: mergeDataWithKey(snapshot.val())
       });
     });
   }
@@ -38,7 +38,7 @@ class HomePage extends Component {
     }).then(
       db.onceGetBoards().then(snapshot =>
         this.setState({
-          boards: expandWithKey(snapshot.val())
+          boards: mergeDataWithKey(snapshot.val())
         })
       )
     );

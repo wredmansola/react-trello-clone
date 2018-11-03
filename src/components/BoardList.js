@@ -7,7 +7,7 @@ const BoardList = ({ boards }) => (
     <br />
     {boards.map((board, index) => (
       <div className="board-list" key={index}>
-        <Link to={`b/${board.key}`}>{board.value.title}</Link>
+        <Link to={`b/${board.key}`}>{board.title}</Link>
       </div>
     ))}
   </div>

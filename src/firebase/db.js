@@ -21,34 +21,66 @@ export const onceGetBoards = () => db.ref('boards').once('value');
 
 export const onceGetBoard = id => db.ref(`boards/-${id}`).once('value');
 
-export const doAddList = (boardId, list) =>
-  db.ref(`boards/-${boardId}/lists`).push({
-    ...list
+/**
+ *
+ * @param {string} key
+ * @returns {Promise<firebase.database.DataSnapshot> | *}
+ */
+export const onceGetLists = key => db.ref(`lists/-${key}`).once('value');
+
+export const doCreateList = (boardId, listTitle) =>
+  db.ref(`lists/-${boardId}`).push({
+    title: listTitle
   });
 
-export const doDeleteList = (boardId, listId) =>
+/**
+ *
+ * @param {string} boardKey
+ * @param {string} listKey
+ */
+export const doDeleteList = (boardKey, listKey) =>
   db
-    .ref(`boards/-${boardId}/lists`)
-    .child(`-${listId}`)
+    .ref(`lists/-${boardKey}`)
+    .child(`-${listKey}`)
     .remove();
 
-export const doEditList = (boardId, listId, list) =>
-  db.ref(`boards/-${boardId}/lists/-${listId}`).set({
-    ...list
+/**
+ * @param {string} boardKey
+ * @param {string} listKey
+ * @param {string} listTitle
+ * @returns {firebase.firestore.Transaction | firebase.firestore.WriteBatch | Promise<void> | Promise<any> | IDBRequest | void}
+ */
+export const doEditList = (boardKey, listKey, listTitle) =>
+  db.ref(`lists/-${boardKey}/-${listKey}`).update({
+    title: listTitle
   });
 
-export const doAddCart = (boardId, listId, cart) =>
-  db.ref(`boards/-${boardId}/lists/-${listId}/carts`).push({
-    ...cart
+export const doAddCart = (listKey, cartTitle) =>
+  db.ref(`carts/-${listKey}`).push({
+    title: cartTitle
   });
 
-export const doDeleteCart = (boardId, listId, cartId) =>
+/**
+ * @param {string} listKey
+ */
+export const onceGetCart = listKey => db.ref(`carts/-${listKey}`).once('value');
+
+/**
+ * @param {string} listId
+ * @param {string} cartId
+ * @param {object} cart
+ */
+export const doEditCart = (listKey, cartKey, cart) =>
+  db.ref(`carts/-${listKey}/-${cartKey}`).update({
+    title: cart.title
+  });
+
+/**
+ * @param {string} listKey
+ * @param {string} cartKey
+ */
+export const doDeleteCart = (listKey, cartKey) =>
   db
-    .ref(`boards/-${boardId}/lists/-${listId}/carts`)
-    .child(`-${cartId}`)
+    .ref(`carts/-${listKey}/`)
+    .child(`-${cartKey}`)
     .remove();
-
-export const doEditCart = (boardId, listId, cartId, cart) =>
-  db.ref(`boards/-${boardId}/lists/-${listId}/carts/-${cartId}`).set({
-    ...cart
-  });
