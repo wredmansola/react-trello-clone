@@ -15,10 +15,6 @@ import AccountPage from './Account';
 import BoardPage from './Board';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Router>
