@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import withAuthorization from './withAuthorization';
-import { db } from '../firebase';
+import withAuthorization from '../../utils/withAuthorization';
+import { db } from '../../firebase';
 
-import BoardList from './BoardList';
+import BoardList from '../../components/Board/BoardList';
 
-import { mergeDataWithKey } from '../utils/index';
+import { mergeDataWithKey } from '../../utils/index';
 
 class HomePage extends Component {
   constructor(props) {

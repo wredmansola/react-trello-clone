@@ -1,7 +1,5 @@
 import { db } from './firebase';
 
-// User API
-
 /**
  * @param {string} id
  * @param {string} username

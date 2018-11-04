@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 
 import CartForm from './CartForm';
-import { db } from '../firebase';
-import Cart from './Cart';
-import { mergeDataWithKey } from '../utils/index';
+import { db } from '../../firebase';
+import Cart from './index';
+import { mergeDataWithKey } from '../../utils/index';
 
 import { findIndex } from 'lodash';
-import { ItemTypes } from '../constants/ItemTypes';
+import { ItemTypes } from '../../constants/ItemTypes';
 
 const cartTarget = {
   drop(props, monitor, component) {

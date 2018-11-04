@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import ListHeader from './ListHeader';
-import CartsContainer from './CartsContainer';
+import CartsContainer from '../Cart/CartsContainer';
 
 class List extends Component {
   constructor(props) {

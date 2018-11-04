@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import withAuthorization from './withAuthorization';
-import { db } from '../firebase';
-import ListForm from './ListForm';
-import { getBoardKey, mergeDataWithKey } from '../utils/index';
-import List from './List';
+import withAuthorization from '../../utils/withAuthorization';
+import { db } from '../../firebase';
+import ListForm from '../List/ListForm';
+import { getBoardKey, mergeDataWithKey } from '../../utils/index';
+import List from '../List';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
