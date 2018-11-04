@@ -14,7 +14,6 @@ class ListHeader extends Component {
   }
 
   toggleEditMode() {
-    const x = 1;
     this.setState({
       editMode: !this.state.editMode,
       listTitle: this.props.listTitle

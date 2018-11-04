@@ -1,4 +1,23 @@
 import React, { Component } from 'react';
+import { DragSource } from 'react-dnd';
+
+import { ItemTypes } from '../constants/ItemTypes';
+
+const cartSource = {
+  beginDrag(props) {
+    return props;
+  },
+  endDrag(props, monitor) {
+    return props;
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
 
 class Cart extends Component {
   constructor(props) {
@@ -31,15 +50,19 @@ class Cart extends Component {
     });
   }
 
+  moveCart(oldListKey, newListKey, cartKey, cart) {
+    this.props.onMoveCart(oldListKey, newListKey, cartKey, cart);
+  }
+
   deleteCart(listKey, cartKey) {
     this.props.onDeleteCart(listKey, cartKey);
   }
 
   render() {
-    const { listKey, cart } = this.props;
+    const { listKey, cart, connectDragSource, isDragging } = this.props;
     const { editMode } = this.state;
 
-    return (
+    return connectDragSource(
       <div className="cart">
         {editMode ? (
           <div className="edit-container">
@@ -72,4 +95,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+export default DragSource(ItemTypes.CART, cartSource, collect)(Cart);

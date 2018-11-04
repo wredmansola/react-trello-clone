@@ -19,8 +19,11 @@
   text-align: center;
   vertical-align: top;
   margin: 10px 10px 5px;
-  min-height: 400px;
   position: relative;
+}
+
+.carts-container {
+  min-height: 400px;
 }
 
 .list-title-row {

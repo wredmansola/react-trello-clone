@@ -2,6 +2,11 @@ import { db } from './firebase';
 
 // User API
 
+/**
+ * @param {string} id
+ * @param {string} username
+ * @param {string} email
+ */
 export const doCreateUser = (id, username, email) =>
   db.ref(`users/${id}`).set({
     username,
@@ -10,7 +15,7 @@ export const doCreateUser = (id, username, email) =>
 
 export const onceGetUsers = () => db.ref('users').once('value');
 
-// Other Entity APIs ...
+// Board API
 
 export const doAddBoard = board =>
   db.ref('boards').push({
@@ -19,17 +24,24 @@ export const doAddBoard = board =>
 
 export const onceGetBoards = () => db.ref('boards').once('value');
 
-export const onceGetBoard = id => db.ref(`boards/-${id}`).once('value');
-
 /**
  *
+ * @param {string} key
+ */
+export const onceGetBoard = key => db.ref(`boards/-${key}`).once('value');
+
+/**
  * @param {string} key
  * @returns {Promise<firebase.database.DataSnapshot> | *}
  */
 export const onceGetLists = key => db.ref(`lists/-${key}`).once('value');
 
-export const doCreateList = (boardId, listTitle) =>
-  db.ref(`lists/-${boardId}`).push({
+/**
+ * @param {string} boardKey
+ * @param {string} listTitle
+ */
+export const doCreateList = (boardKey, listTitle) =>
+  db.ref(`lists/-${boardKey}`).push({
     title: listTitle
   });
 
@@ -42,7 +54,13 @@ export const doDeleteList = (boardKey, listKey) =>
   db
     .ref(`lists/-${boardKey}`)
     .child(`-${listKey}`)
-    .remove();
+    .remove()
+    .then(() =>
+      db
+        .ref('carts/')
+        .child(`-${listKey}`)
+        .remove()
+    );
 
 /**
  * @param {string} boardKey
@@ -55,6 +73,11 @@ export const doEditList = (boardKey, listKey, listTitle) =>
     title: listTitle
   });
 
+/**
+ *
+ * @param {string} listKey
+ * @param {string} cartTitle
+ */
 export const doAddCart = (listKey, cartTitle) =>
   db.ref(`carts/-${listKey}`).push({
     title: cartTitle
@@ -74,6 +97,23 @@ export const doEditCart = (listKey, cartKey, cart) =>
   db.ref(`carts/-${listKey}/-${cartKey}`).update({
     title: cart.title
   });
+
+/**
+ * @param {string} oldListKey
+ * @param {string} newListKey
+ * @param {string} cartKey
+ * @param {string} cart
+ */
+export const doMoveCart = (oldListKey, newListKey, cartKey, cart) =>
+  db
+    .ref(`carts/-${oldListKey}`)
+    .child(`-${cartKey}`)
+    .remove()
+    .then(() =>
+      db.ref(`carts/-${newListKey}/-${cartKey}`).set({
+        ...cart
+      })
+    );
 
 /**
  * @param {string} listKey
