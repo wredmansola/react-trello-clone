@@ -11,7 +11,7 @@ import SignInPage from '../SignIn';
 import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
-import BoardPage from '../../components/Board/index';
+import Board from '../Board/index';
 import NotFound from '../../pages/NotFound';
 
 class App extends Component {
@@ -31,7 +31,7 @@ class App extends Component {
             />
             <Route exact path={routes.HOME} component={HomePage} />
             <Route exact path={routes.ACCOUNT} component={AccountPage} />
-            <Route exact path={routes.BOARD} component={BoardPage} />
+            <Route exact path={routes.BOARD} component={Board} />
             <Route component={NotFound} />
           </Switch>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const BoardList = ({ boards }) => (
+const Boards = ({ boards }) => (
   <div>
     List of boardes:
     <br />
@@ -13,4 +13,4 @@ const BoardList = ({ boards }) => (
   </div>
 );
 
-export default BoardList;
+export default Boards;

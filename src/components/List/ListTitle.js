@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ListHeader extends Component {
+class ListTitle extends Component {
   constructor(props) {
     super(props);
 
@@ -60,18 +60,18 @@ class ListHeader extends Component {
     ) : (
       <div>
         <b>{listTitle}</b>
-        <span onClick={this.toggleEditMode} className="edit-list">
+        <button onClick={this.toggleEditMode} className="edit-list">
           E
-        </span>
-        <span
+        </button>
+        <button
           onClick={event => onDeleteList(boardKey, listKey)}
           className="delete-list"
         >
           X
-        </span>
+        </button>
       </div>
     );
   }
 }
 
-export default ListHeader;
+export default ListTitle;

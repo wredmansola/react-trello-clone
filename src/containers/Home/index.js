@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
+
+import Boards from '../../components/Home';
+import CreateBoard from '../../components/Home/CreateBoard';
 import withAuthorization from '../../utils/withAuthorization';
-import { db } from '../../firebase';
-
-import BoardList from '../../components/Board/BoardList';
-
 import { mergeDataWithKey } from '../../utils/index';
+import { db } from '../../firebase';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      boardName: '',
       boards: []
     };
 
@@ -29,12 +28,12 @@ class HomePage extends Component {
     });
   }
 
-  createBoard() {
-    if (!this.state.boardName) {
+  createBoard(title) {
+    if (!title) {
       return;
     }
     db.doAddBoard({
-      title: this.state.boardName
+      title
     }).then(
       db.onceGetBoards().then(snapshot =>
         this.setState({
@@ -48,14 +47,9 @@ class HomePage extends Component {
     const { boards } = this.state;
     return (
       <div>
-        <h1>Home</h1>
-        Create board: &nbsp;
-        <input
-          onChange={event => this.setState({ boardName: event.target.value })}
-          value={this.state.boardName}
-        />
-        <button onClick={this.createBoard}>Add</button>
-        <BoardList boards={boards} />
+        <h1>My boards</h1>
+        <CreateBoard onCreateBoard={this.createBoard} />
+        <Boards boards={boards} />
       </div>
     );
   }

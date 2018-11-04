@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ListForm extends Component {
+class CreateList extends Component {
   constructor(props) {
     super(props);
 
@@ -35,4 +35,4 @@ class ListForm extends Component {
   }
 }
 
-export default ListForm;
+export default CreateList;

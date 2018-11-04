@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
 
-import CartForm from './CartForm';
 import { db } from '../../firebase';
-import Cart from './index';
+import Cart from '../../components/Cart/index';
 import { mergeDataWithKey } from '../../utils/index';
 
 import { findIndex } from 'lodash';
 import { ItemTypes } from '../../constants/ItemTypes';
+import CreateCart from '../../components/Cart/CreateCart';
 
 const cartTarget = {
   drop(props, monitor, component) {
@@ -29,7 +29,7 @@ function collect(connect, monitor) {
   };
 }
 
-class CartsContainer extends Component {
+class Carts extends Component {
   constructor(props) {
     super(props);
 
@@ -150,7 +150,7 @@ class CartsContainer extends Component {
     const listCarts = carts[list.key] ? carts[list.key] : [];
     return connectDropTarget(
       <div className="carts-container">
-        <CartForm onAddCart={this.addCart} listKey={list.key} />
+        <CreateCart onAddCart={this.addCart} listKey={list.key} />
         {listCarts.map((cart, index) => (
           <Cart
             key={index}
@@ -166,4 +166,4 @@ class CartsContainer extends Component {
   }
 }
 
-export default DropTarget(ItemTypes.CART, cartTarget, collect)(CartsContainer);
+export default DropTarget(ItemTypes.CART, cartTarget, collect)(Carts);

@@ -1,29 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import ListHeader from './ListHeader';
-import CartsContainer from '../Cart/CartsContainer';
+import ListTitle from './ListTitle';
+import Carts from '../../containers/Carts';
 
-class List extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { list, onEditList, onDeleteList, boardKey } = this.props;
-
-    return (
-      <div className="list">
-        <ListHeader
-          boardKey={boardKey}
-          listKey={list.key}
-          listTitle={list.title}
-          onEditList={onEditList}
-          onDeleteList={onDeleteList}
-        />
-        <CartsContainer list={list} />
-      </div>
-    );
-  }
-}
+const List = ({ list, onDeleteList, onEditList, boardKey }) => (
+  <div className="list">
+    <ListTitle
+      boardKey={boardKey}
+      listKey={list.key}
+      listTitle={list.title}
+      onEditList={onEditList}
+      onDeleteList={onDeleteList}
+    />
+    <Carts list={list} />
+  </div>
+);
 
 export default List;

@@ -79,15 +79,15 @@ class Cart extends Component {
         ) : (
           <div>
             <span>{cart.title}</span>
-            <span onClick={this.toggleEditMode} className="edit-cart">
+            <button onClick={this.toggleEditMode} className="edit-cart">
               E
-            </span>
-            <span
+            </button>
+            <button
               onClick={event => this.deleteCart(listKey, cart.key)}
               className="delete-cart"
             >
               X
-            </span>
+            </button>
           </div>
         )}
       </div>

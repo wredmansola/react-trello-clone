@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 
 import withAuthorization from '../../utils/withAuthorization';
 import { db } from '../../firebase';
-import ListForm from '../List/ListForm';
+import CreateList from '../../components/List/CreateList';
 import { getBoardKey, mergeDataWithKey } from '../../utils/index';
-import List from '../List';
+import List from '../../components/List';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-class BoardPage extends Component {
+class Board extends Component {
   constructor(props) {
     super(props);
 
@@ -120,7 +120,7 @@ class BoardPage extends Component {
     ) : (
       <div className="board">
         <h1>{boardTitle}</h1>
-        <ListForm boardKey={boardKey} onCreateList={this.createList} />
+        <CreateList boardKey={boardKey} onCreateList={this.createList} />
         {lists.map((list, index) => (
           <List
             boardKey={boardKey}
@@ -136,6 +136,6 @@ class BoardPage extends Component {
 }
 
 const authCondition = authUser => !!authUser;
-const boardPageContext = DragDropContext(HTML5Backend)(BoardPage);
+const boardPageContext = DragDropContext(HTML5Backend)(Board);
 
 export default withAuthorization(authCondition)(boardPageContext);
