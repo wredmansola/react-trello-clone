@@ -7,7 +7,7 @@ import withAuthentication from '../../utils/withAuthentication';
 import Navigation from '../Navigation';
 import LandingPage from '../../pages/Landing';
 import SignUpPage from '../SignUp';
-import SignInPage from '../SignIn';
+import SignInPage from '../SignInPage/index';
 import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';

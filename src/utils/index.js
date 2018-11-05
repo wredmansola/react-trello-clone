@@ -13,3 +13,9 @@ export function getBoardKey() {
     .pop()
     .replace('-', '');
 }
+
+export function byPropKey(propertyName, value) {
+  return {
+    [propertyName]: value
+  };
+}
