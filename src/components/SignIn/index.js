@@ -31,7 +31,8 @@ class SignInForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { error } = this.state;
+    const { error, email, password } = this.state;
+    const isInvalid = !email || !password;
 
     return (
       <div className="sign-in">
@@ -75,6 +76,7 @@ class SignInForm extends React.Component {
               type="primary"
               htmlType="submit"
               className="login-form-button"
+              disabled={isInvalid}
             >
               Log in
             </Button>

@@ -30,6 +30,7 @@ class PasswordForgetForm extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { error } = this.state;
+    const isInvalid = !error;
 
     return (
       <div className="sign-in">
@@ -55,6 +56,7 @@ class PasswordForgetForm extends Component {
               type="primary"
               htmlType="submit"
               className="login-form-button"
+              disabled={isInvalid}
             >
               Restore
             </Button>
