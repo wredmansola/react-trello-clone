@@ -18,7 +18,7 @@ class SignUpPage extends Component {
       .doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         db.doCreateUser(authUser.user.uid, username, email);
-        history.push(routes.HOME);
+        history.push(routes.BOARDS);
       });
   }
 

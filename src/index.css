@@ -109,32 +109,6 @@ code {
   padding: 5px;
 }
 
-.nav > div {
-  display: inline-block;
-}
-
-.nav > div a {
-  display: block;
-  padding: 10px;
-}
-
-.board-list {
-  display: inline-block;
-  width: 200px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  text-align: center;
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #eee;
-}
-
-.board-list a {
-  display: block;
-  padding: 50px;
-}
-
 .list-add-cart {
   display: table;
   width: 65%;

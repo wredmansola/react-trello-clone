@@ -1,0 +1,24 @@
+.nav {
+  display: flex;
+  position: relative;
+  padding-bottom: 50px;
+}
+.userSettings {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+}
+
+.userSettings svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.account {
+  padding-left: 8px;
+}
+
+.userSettings i:hover {
+  color: #1890ff;
+}

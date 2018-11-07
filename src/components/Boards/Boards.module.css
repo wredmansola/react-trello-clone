@@ -1,0 +1,12 @@
+.boards {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.boardItem {
+  display: inline-block;
+}

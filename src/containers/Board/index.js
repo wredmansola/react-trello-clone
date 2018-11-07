@@ -32,6 +32,9 @@ class Board extends Component {
     db.onceGetBoard(boardKey)
       .then(snapshot => {
         const snapshotVal = snapshot.val();
+        if (!snapshotVal) {
+          return;
+        }
         this.setState({
           boardKey,
           boardTitle: snapshotVal.title

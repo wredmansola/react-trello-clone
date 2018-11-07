@@ -18,7 +18,7 @@ class SignInForm extends Component {
   async onSubmit(email, password) {
     const { history } = this.props;
     return auth.doSignInWithEmailAndPassword(email, password).then(() => {
-      history.push(routes.HOME);
+      history.push(routes.BOARDS);
     });
   }
 

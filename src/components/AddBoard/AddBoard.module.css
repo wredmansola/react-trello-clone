@@ -1,0 +1,13 @@
+.addBoard {
+  text-align: center;
+}
+
+.addBoard svg {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.addBoard i:hover {
+  color: #1890ff;
+}

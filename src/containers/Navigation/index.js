@@ -4,6 +4,27 @@ import { Link } from 'react-router-dom';
 import AuthUserContext from '../../utils/AuthUserContext';
 import SignOutButton from '../SignOut';
 import * as routes from '../../constants/routes';
+import { db } from '../../firebase';
+import { Menu, Dropdown, Icon } from 'antd';
+import styles from './Nav.module.css';
+import AddBoard from '../../components/AddBoard';
+import { mergeDataWithKey } from '../../utils/index';
+
+const menu = (
+  <Menu>
+    <Menu.Item key="0">
+      <Link to={routes.ACCOUNT}>
+        <Icon type="user" theme="outlined" />
+        <span className={styles.account}>Account</span>
+      </Link>
+    </Menu.Item>
+    <Menu.Divider />
+    <Menu.Item key="1">
+      <Icon type="logout" theme="outlined" />
+      <SignOutButton />
+    </Menu.Item>
+  </Menu>
+);
 
 const Navigation = () => (
   <AuthUserContext.Consumer>
@@ -12,18 +33,11 @@ const Navigation = () => (
 );
 
 const NavigationAuth = () => (
-  <div className="nav">
-    <div>
-      <Link to={routes.LANDING}>Landing</Link>
-    </div>
-    <div>
-      <Link to={routes.HOME}>Home</Link>
-    </div>
-    <div>
-      <Link to={routes.ACCOUNT}>Account</Link>
-    </div>
-    <div>
-      <SignOutButton />
+  <div className={styles.nav}>
+    <div className={styles.userSettings}>
+      <Dropdown overlay={menu} trigger={['click']}>
+        <Icon type="setting" theme="outlined" />
+      </Dropdown>
     </div>
   </div>
 );
@@ -38,5 +52,4 @@ const NavigationNonAuth = () => (
     </div>
   </div>
 );
-
 export default Navigation;
