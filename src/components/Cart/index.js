@@ -3,6 +3,9 @@ import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../../constants/ItemTypes';
 
+import styles from './Cart.css';
+import { Card } from 'antd';
+
 const cartSource = {
   beginDrag(props) {
     return props;
@@ -63,33 +66,10 @@ class Cart extends Component {
     const { editMode } = this.state;
 
     return connectDragSource(
-      <div className="cart">
-        {editMode ? (
-          <div className="edit-container">
-            <input
-              onChange={event =>
-                this.setState({ cartTitle: event.target.value })
-              }
-              value={this.state.cartTitle}
-            />
-            <button onClick={() => this.editCart(listKey, cart.key, cart)}>
-              edit
-            </button>
-          </div>
-        ) : (
-          <div>
-            <span>{cart.title}</span>
-            <button onClick={this.toggleEditMode} className="edit-cart">
-              E
-            </button>
-            <button
-              onClick={event => this.deleteCart(listKey, cart.key)}
-              className="delete-cart"
-            >
-              X
-            </button>
-          </div>
-        )}
+      <div className={styles.cart}>
+        <Card style={{ width: 250 }}>
+          <p>{cart.title}</p>
+        </Card>
       </div>
     );
   }

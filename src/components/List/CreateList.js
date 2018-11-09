@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Input, Icon } from 'antd';
+import styles from './CreateList.module.css';
 
 class CreateList extends Component {
   constructor(props) {
@@ -11,7 +13,9 @@ class CreateList extends Component {
     this.createList = this.createList.bind(this);
   }
 
-  createList(boardKey, listTitle) {
+  createList(event, boardKey, listTitle) {
+    event.preventDefault();
+
     this.props.onCreateList(boardKey, listTitle);
     this.setState({ listTitle: '' });
   }
@@ -21,15 +25,24 @@ class CreateList extends Component {
     const { listTitle } = this.state;
 
     return (
-      <div>
-        Create list&nbsp;
-        <input
-          onChange={event => this.setState({ listTitle: event.target.value })}
-          value={this.state.listTitle}
-        />
-        <button onClick={event => this.createList(boardKey, listTitle)}>
-          Add
-        </button>
+      <div className={styles.listItem}>
+        <div className={styles.createList}>
+          <form onSubmit={event => this.createList(event, boardKey, listTitle)}>
+            <Input
+              onChange={event =>
+                this.setState({ listTitle: event.target.value })
+              }
+              value={this.state.listTitle}
+              addonBefore={
+                <Icon
+                  onClick={event => this.createList(event, boardKey, listTitle)}
+                  type="plus"
+                />
+              }
+              placeholder="Add list"
+            />
+          </form>
+        </div>
       </div>
     );
   }

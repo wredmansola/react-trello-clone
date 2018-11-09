@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import styles from './List.module.css';
+import { Menu, Dropdown, Icon } from 'antd';
 
 class ListTitle extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      editMode: false,
       listTitle: ''
     };
 
@@ -34,7 +35,6 @@ class ListTitle extends Component {
   }
 
   render() {
-    const { editMode } = this.state;
     const {
       listTitle,
       onEditList,
@@ -43,35 +43,23 @@ class ListTitle extends Component {
       listKey
     } = this.props;
 
-    return editMode ? (
-      <div>
-        <div className="list-edit-container">
-          <input
-            value={this.state.listTitle}
-            onChange={event => this.setState({ listTitle: event.target.value })}
-          />
-          <button
-            onClick={event => this.editList(onEditList, boardKey, listKey)}
-          >
-            Apply
-          </button>
-        </div>
-      </div>
-    ) : (
-      <div>
-        <b>{listTitle}</b>
-        <button onClick={this.toggleEditMode} className="edit-list">
-          E
-        </button>
-        <button
-          onClick={event => onDeleteList(boardKey, listKey)}
-          className="delete-list"
-        >
-          X
-        </button>
-      </div>
+    return (
+      <Dropdown overlay={menu} trigger={['click']}>
+        <h2 className={styles.listTitle}>{listTitle}</h2>
+      </Dropdown>
     );
   }
 }
+
+const menu = (
+  <Menu>
+    <Menu.Item key="0">
+      <span>Edit list</span>
+    </Menu.Item>
+    <Menu.Item key="1">
+      <span>Delete list</span>
+    </Menu.Item>
+  </Menu>
+);
 
 export default ListTitle;

@@ -1,10 +1,12 @@
 import React from 'react';
 
+import styles from './List.module.css';
+
 import ListTitle from './ListTitle';
 import Carts from '../../containers/Carts';
 
 const List = ({ list, onDeleteList, onEditList, boardKey }) => (
-  <div className="list">
+  <div className={styles.list}>
     <ListTitle
       boardKey={boardKey}
       listKey={list.key}

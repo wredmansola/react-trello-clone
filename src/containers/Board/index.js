@@ -7,6 +7,8 @@ import { getBoardKey, mergeDataWithKey } from '../../utils/index';
 import List from '../../components/List';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { Button } from 'antd';
+import styles from './Board.module.css';
 
 class Board extends Component {
   constructor(props) {
@@ -119,11 +121,12 @@ class Board extends Component {
   render() {
     let { boardKey, boardTitle, lists } = this.state;
     return this.state.isLoading ? (
-      <div>Loading...</div>
+      <div className={styles.loader}>
+        <Button shape="circle" loading />
+      </div>
     ) : (
-      <div className="board">
+      <div className={styles.board}>
         <h1>{boardTitle}</h1>
-        <CreateList boardKey={boardKey} onCreateList={this.createList} />
         {lists.map((list, index) => (
           <List
             boardKey={boardKey}
@@ -133,6 +136,7 @@ class Board extends Component {
             onDeleteList={this.deleteList}
           />
         ))}
+        <CreateList boardKey={boardKey} onCreateList={this.createList} />
       </div>
     );
   }
