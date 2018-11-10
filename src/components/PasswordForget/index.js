@@ -1,73 +1,33 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Link } from 'react-router-dom';
 
-import { byPropKey } from '../../utils/index';
+import WrappedPasswordForgetForm from './PasswordForgetForm';
 
-const FormItem = Form.Item;
+import { auth } from '../../firebase';
+import * as routes from '../../constants/routes';
 
-const INITIAL_STATE = {
-  email: '',
-  error: null
-};
+class PasswordForgetPage extends Component {
+  constructor() {
+    super();
 
-class PasswordForgetForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { ...INITIAL_STATE };
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(event) {
-    const { email } = this.state;
-
-    this.props.onSubmit(email).catch(error => {
-      this.setState(byPropKey('error', error.message));
-    });
-
-    event.preventDefault();
+  async onSubmit(email) {
+    return auth.doPasswordReset(email);
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
-    const { error } = this.state;
-    const isInvalid = !error;
-
-    return (
-      <div className="sign-in">
-        <h1 className="title">Password Forget</h1>
-        <Form onSubmit={event => this.onSubmit(event)} className="login-form">
-          <FormItem>
-            {getFieldDecorator('email', {
-              rules: [{ required: true, message: 'Please input your email!' }]
-            })(
-              <Input
-                prefix={
-                  <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
-                }
-                placeholder="Email"
-                onChange={event =>
-                  this.setState(byPropKey('email', event.target.value))
-                }
-              />
-            )}
-          </FormItem>
-          <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              disabled={isInvalid}
-            >
-              Restore
-            </Button>
-          </FormItem>
-          <div className="errors">{error}</div>
-        </Form>
-      </div>
-    );
+    return <WrappedPasswordForgetForm onSubmit={this.onSubmit} />;
   }
 }
 
-const WrappedPasswordForgetForm = Form.create()(PasswordForgetForm);
+const PasswordForgetLink = () => (
+  <p>
+    <Link to={routes.PASSWORD_FORGET}>Forgot Password?</Link>
+  </p>
+);
 
-export default WrappedPasswordForgetForm;
+export default PasswordForgetPage;
+
+export { PasswordForgetLink };

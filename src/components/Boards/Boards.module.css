@@ -1,11 +1,49 @@
 .boards {
-  margin-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .boardItem {
   display: inline-block;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 .loader {
   text-align: center;
+}
+
+.loader {
+  text-align: center;
+}
+
+.board {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.board:hover {
+  color: #1890ff;
+}
+
+.board a {
+  border-radius: 50%;
+  font-size: 30px;
+  line-height: 30px;
+  padding: 18px 15px;
+  display: block;
+  border: 1px solid darkgray;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.board a:hover {
+  color: #1890ff;
+  border-color: #1890ff;
+}
+
+.board {
+  overflow: auto;
+  white-space: nowrap;
 }
