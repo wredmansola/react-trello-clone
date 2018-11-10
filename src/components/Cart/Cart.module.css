@@ -1,0 +1,32 @@
+.cart i {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  transform: rotate(90deg);
+  cursor: pointer;
+}
+
+.cart i:hover {
+  color: #1890ff;
+}
+
+.cartTitleForm,
+.cartTitleForm:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  position: relative;
+}
+
+.cartOperations {
+  cursor: pointer;
+}
+
+.cartOperations:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.cartOperations:hover {
+  color: #1890ff;
+}

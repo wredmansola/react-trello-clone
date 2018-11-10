@@ -1,12 +1,28 @@
 .nav {
   display: flex;
   position: relative;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
 }
+
+.navLinks {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.navLinks a {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.navLinks a:hover {
+  color: #1890ff;
+}
+
 .userSettings {
   position: absolute;
   right: 20px;
-  top: 15px;
+  top: 10px;
   cursor: pointer;
 }
 

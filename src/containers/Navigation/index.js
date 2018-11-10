@@ -4,11 +4,8 @@ import { Link } from 'react-router-dom';
 import AuthUserContext from '../../utils/AuthUserContext';
 import SignOutButton from '../SignOut';
 import * as routes from '../../constants/routes';
-import { db } from '../../firebase';
 import { Menu, Dropdown, Icon } from 'antd';
 import styles from './Nav.module.css';
-import AddBoard from '../../components/AddBoard';
-import { mergeDataWithKey } from '../../utils/index';
 
 const menu = (
   <Menu>
@@ -34,22 +31,20 @@ const Navigation = () => (
 
 const NavigationAuth = () => (
   <div className={styles.nav}>
-    <div className={styles.userSettings}>
-      <Dropdown overlay={menu} trigger={['click']}>
-        <Icon type="setting" theme="outlined" />
-      </Dropdown>
+    <div>
+      <div className={styles.navLinks}>
+        <Link to={routes.BOARDS}>
+          <Icon type="folder" /> Boards
+        </Link>
+      </div>
+      <div className={styles.userSettings}>
+        <Dropdown overlay={menu} trigger={['click']}>
+          <Icon type="setting" theme="outlined" />
+        </Dropdown>
+      </div>
     </div>
   </div>
 );
 
-const NavigationNonAuth = () => (
-  <div>
-    <div>
-      <Link to={routes.LANDING}>Landing</Link>
-    </div>
-    <div>
-      <Link to={routes.SIGN_IN}>Sign In</Link>
-    </div>
-  </div>
-);
+const NavigationNonAuth = () => <div />;
 export default Navigation;

@@ -9,6 +9,8 @@ import { findIndex } from 'lodash';
 import { ItemTypes } from '../../constants/ItemTypes';
 import CreateCart from '../../components/Cart/CreateCart';
 
+import styles from './Carts.module.css';
+
 const cartTarget = {
   drop(props, monitor, component) {
     const item = monitor.getItem();
@@ -34,10 +36,12 @@ class Carts extends Component {
     super(props);
 
     this.state = {
-      carts: {}
+      carts: {},
+      showCreateCartForm: false,
+      cartEditing: false
     };
 
-    this.addCart = this.addCart.bind(this);
+    this.createCart = this.createCart.bind(this);
     this.editCart = this.editCart.bind(this);
     this.moveCart = this.moveCart.bind(this);
     this.deleteCart = this.deleteCart.bind(this);
@@ -61,7 +65,7 @@ class Carts extends Component {
    * @param {string} listKey
    * @param {string} cartTitle
    */
-  addCart(listKey, cartTitle) {
+  createCart(listKey, cartTitle) {
     if (!cartTitle) {
       return;
     }
@@ -143,14 +147,41 @@ class Carts extends Component {
     });
   }
 
+  handleShowCreateCart = () => {
+    this.setState({
+      showCreateCartForm: true
+    });
+  };
+
+  handleHideCreateCart = () => {
+    this.setState({
+      showCreateCartForm: false
+    });
+  };
+
+  handleCartEditing = () => {
+    this.setState({
+      cartEditing: true
+    });
+  };
+
+  handleCartStopEditing = () => {
+    this.setState({
+      cartEditing: false
+    });
+  };
+
   render() {
     const { list, connectDropTarget, isOver } = this.props;
-    const { carts } = this.state;
+    const { carts, showCreateCartForm, cartEditing } = this.state;
 
     const listCarts = carts[list.key] ? carts[list.key] : [];
     return connectDropTarget(
-      <div className="carts-container">
-        <CreateCart onAddCart={this.addCart} listKey={list.key} />
+      <div
+        className={styles.carts}
+        onMouseEnter={this.handleShowCreateCart}
+        onMouseLeave={this.handleHideCreateCart}
+      >
         {listCarts.map((cart, index) => (
           <Cart
             key={index}
@@ -161,6 +192,14 @@ class Carts extends Component {
             onDeleteCart={this.deleteCart}
           />
         ))}
+        {(showCreateCartForm || cartEditing) && (
+          <CreateCart
+            onCreateCart={this.createCart}
+            onCartEditing={this.handleCartEditing}
+            onCartStopEditing={this.handleCartStopEditing}
+            listKey={list.key}
+          />
+        )}
       </div>
     );
   }

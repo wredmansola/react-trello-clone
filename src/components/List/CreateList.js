@@ -33,12 +33,6 @@ class CreateList extends Component {
                 this.setState({ listTitle: event.target.value })
               }
               value={this.state.listTitle}
-              addonBefore={
-                <Icon
-                  onClick={event => this.createList(event, boardKey, listTitle)}
-                  type="plus"
-                />
-              }
               placeholder="Add list"
             />
           </form>

@@ -1,12 +1,11 @@
 .boards {
-  margin-top: 10px;
-  text-align: center;
-}
-
-.title {
-  text-align: center;
+  margin-top: 20px;
 }
 
 .boardItem {
   display: inline-block;
+}
+
+.loader {
+  text-align: center;
 }

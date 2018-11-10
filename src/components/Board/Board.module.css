@@ -1,7 +1,8 @@
 .board {
   display: inline-block;
-  margin: 15px;
   cursor: pointer;
+  margin-right: 20px;
+  margin-bottom: 10px;
   text-align: center;
 }
 

@@ -126,7 +126,9 @@ class Board extends Component {
       </div>
     ) : (
       <div className={styles.board}>
-        <h1>{boardTitle}</h1>
+        <h2 className={styles.title}>{boardTitle}</h2>
+        <CreateList boardKey={boardKey} onCreateList={this.createList} />
+
         {lists.map((list, index) => (
           <List
             boardKey={boardKey}
@@ -136,7 +138,6 @@ class Board extends Component {
             onDeleteList={this.deleteList}
           />
         ))}
-        <CreateList boardKey={boardKey} onCreateList={this.createList} />
       </div>
     );
   }

@@ -3,8 +3,8 @@ import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../../constants/ItemTypes';
 
-import styles from './Cart.css';
-import { Card } from 'antd';
+import styles from './Cart.module.css';
+import { Card, Icon, Input, Popover } from 'antd';
 
 const cartSource = {
   beginDrag(props) {
@@ -32,25 +32,31 @@ class Cart extends Component {
       cart: {}
     };
 
-    this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.handleEnableEditMode = this.handleEnableEditMode.bind(this);
+    this.handleDisableEditMode = this.handleDisableEditMode.bind(this);
     this.editCart = this.editCart.bind(this);
   }
 
-  toggleEditMode() {
-    const { cart } = this.props;
+  handleEnableEditMode() {
     this.setState({
-      cartTitle: cart.title,
-      editMode: !this.state.editMode
+      cartTitle: this.props.cart.title,
+      editMode: true
     });
   }
 
-  editCart(listKey, cartKey, cart) {
-    const updatedCart = { ...cart };
-    updatedCart.title = this.state.cartTitle;
-    this.props.onEditCart(listKey, cartKey, updatedCart);
+  handleDisableEditMode() {
     this.setState({
       editMode: false
     });
+  }
+
+  editCart(event, listKey, cartKey, cart) {
+    event.preventDefaut();
+
+    const updatedCart = { ...cart };
+    updatedCart.title = this.state.cartTitle;
+    this.props.onEditCart(listKey, cartKey, updatedCart);
+    this.handleDisableEditMode();
   }
 
   moveCart(oldListKey, newListKey, cartKey, cart) {
@@ -63,12 +69,47 @@ class Cart extends Component {
 
   render() {
     const { listKey, cart, connectDragSource, isDragging } = this.props;
-    const { editMode } = this.state;
+    const { editMode, cartTitle } = this.state;
 
     return connectDragSource(
       <div className={styles.cart}>
-        <Card style={{ width: 250 }}>
-          <p>{cart.title}</p>
+        <Card style={{ width: 250 }} onBlur={this.handleDisableEditMode}>
+          {editMode ? (
+            <form onSubmit={e => this.editCart(e, listKey, cart.key, cart)}>
+              <Input
+                className={styles.cartTitleForm}
+                value={cartTitle}
+                onChange={e => this.setState({ cartTitle: e.target.value })}
+                autoFocus
+              />
+            </form>
+          ) : (
+            <p>{cart.title}</p>
+          )}
+          {!editMode && (
+            <Popover
+              placement="rightTop"
+              content={
+                <div>
+                  <div
+                    className={styles.cartOperations}
+                    onClick={this.handleEnableEditMode}
+                  >
+                    <Icon type="edit" /> Edit cart
+                  </div>
+                  <div
+                    className={styles.cartOperations}
+                    onClick={e => this.deleteCart(listKey, cart.key)}
+                  >
+                    <Icon type="delete" trigger="click" /> Delete cart
+                  </div>
+                </div>
+              }
+              trigger="click"
+            >
+              <Icon type="ellipsis" />
+            </Popover>
+          )}
         </Card>
       </div>
     );

@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 
 import Boards from '../../components/Boards';
-import AddBoard from '../../components/AddBoard';
 import withAuthorization from '../../utils/withAuthorization';
 import { mergeDataWithKey } from '../../utils/index';
 import { db } from '../../firebase';
 import BoardTitle from '../../components/Boards/BoardTitle';
-import { Divider } from 'antd';
+import WrappedAddBoardInput from '../../components/AddBoard';
+import styles from './Boards.module.css';
+import { Button } from 'antd';
 
 class BoardsPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      boards: []
+      boards: [],
+      isLoading: false
     };
   }
 
@@ -33,22 +35,32 @@ class BoardsPage extends Component {
   };
 
   componentDidMount() {
+    this.setState({
+      isLoading: true
+    });
     db.onceGetBoards().then(snapshot => {
       if (!snapshot.val()) {
         return;
       }
       this.setState({
-        boards: mergeDataWithKey(snapshot.val())
+        boards: mergeDataWithKey(snapshot.val()),
+        isLoading: false
       });
     });
   }
 
   render() {
+    const { isLoading } = this.state;
     const { boards } = this.state;
-    return (
-      <div>
+
+    return isLoading ? (
+      <div className={styles.loader}>
+        <Button shape="circle" loading />
+      </div>
+    ) : (
+      <div className={styles.boards}>
         <BoardTitle />
-        <AddBoard onCreateBoard={this.createBoard} />
+        <WrappedAddBoardInput onCreateBoard={this.createBoard} />
         <Boards boards={boards} onCreateBoard={this.createBoard} />
       </div>
     );

@@ -1,0 +1,15 @@
+.listTitle {
+  margin-bottom: 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.listTitle:hover {
+  color: #1890ff;
+}
+
+.listTitleEdit {
+  border: none;
+  outline: none;
+  font-size: 1.5em;
+}

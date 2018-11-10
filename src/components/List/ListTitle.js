@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
-import styles from './List.module.css';
-import { Menu, Dropdown, Icon } from 'antd';
+import styles from './ListTitle.module.css';
+import { Menu, Dropdown, Modal, Icon } from 'antd';
 
 class ListTitle extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    listTitle: '',
+    editMode: false,
+    visible: false
+  };
 
-    this.state = {
-      listTitle: ''
-    };
-
-    this.toggleEditMode = this.toggleEditMode.bind(this);
-    this.editList = this.editList.bind(this);
+  handleOk() {
+    this.setState({
+      visible: false
+    });
+    this.props.onDeleteList(this.props.boardKey, this.props.listKey);
   }
 
-  toggleEditMode() {
+  handleCancel() {
+    this.setState({
+      visible: false
+    });
+  }
+
+  showModal() {
+    this.setState({
+      visible: true
+    });
+  }
+
+  handleToggleEditMode() {
     this.setState({
       editMode: !this.state.editMode,
       listTitle: this.props.listTitle
@@ -26,40 +40,83 @@ class ListTitle extends Component {
    * @param {string} boardKey
    * @param {string} listKey
    */
-  editList(onEditList, boardKey, listKey) {
+  handleEditList(callback, boardKey, listKey) {
     const { listTitle } = this.state;
-    onEditList(boardKey, listKey, listTitle);
+    callback(boardKey, listKey, listTitle);
     this.setState({
       editMode: !this.state.editMode
     });
   }
 
+  handleDeleteList(callback, boardKey, listKey) {
+    callback(boardKey, listKey);
+  }
+
   render() {
     const {
       listTitle,
-      onEditList,
       onDeleteList,
+      onEditList,
       boardKey,
       listKey
     } = this.props;
 
-    return (
-      <Dropdown overlay={menu} trigger={['click']}>
-        <h2 className={styles.listTitle}>{listTitle}</h2>
-      </Dropdown>
+    const { editMode } = this.state;
+
+    return editMode ? (
+      <div>
+        <form
+          onBlur={this.handleToggleEditMode}
+          onSubmit={e => this.handleEditList(onEditList, boardKey, listKey)}
+        >
+          <input
+            className={styles.listTitleEdit}
+            onChange={e => this.setState({ listTitle: e.target.value })}
+            value={this.state.listTitle}
+            autoFocus
+          />
+        </form>
+      </div>
+    ) : (
+      <div>
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item key="0">
+                <div
+                  role="button"
+                  tabIndex="0"
+                  onClick={e => this.handleToggleEditMode()}
+                >
+                  <Icon type="edit" /> Edit list
+                </div>
+              </Menu.Item>
+              <Menu.Item>
+                <div role="button" tabIndex="0" onClick={e => this.showModal()}>
+                  <Icon type="delete" /> Delete list
+                </div>
+              </Menu.Item>
+            </Menu>
+          }
+          trigger={['click']}
+        >
+          <h2 className={styles.listTitle}>{listTitle}</h2>
+        </Dropdown>
+
+        <Modal
+          title="Confirm deleting"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          onDeleteList={onDeleteList}
+          boardKey={boardKey}
+          listKey={listKey}
+        >
+          <p>Delete list?</p>
+        </Modal>
+      </div>
     );
   }
 }
-
-const menu = (
-  <Menu>
-    <Menu.Item key="0">
-      <span>Edit list</span>
-    </Menu.Item>
-    <Menu.Item key="1">
-      <span>Delete list</span>
-    </Menu.Item>
-  </Menu>
-);
 
 export default ListTitle;

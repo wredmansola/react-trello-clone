@@ -1,49 +1,34 @@
-import React, { Component } from 'react';
-import { Modal, Icon } from 'antd';
+import React from 'react';
+import { Form, Icon, Input, Button } from 'antd';
 
 import styles from './AddBoard.module.css';
 
-import WrappedAddBoardForm from '../AddBoardForm';
-
-export default class AddBoard extends Component {
+class AddBoardForm extends React.Component {
   state = {
-    modalVisible: false
+    boardTitle: ''
   };
 
-  setModalVisible = modalVisible => {
-    this.setState({ modalVisible });
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onCreateBoard(this.state.boardTitle);
+    this.setState({
+      boardTitle: ''
+    });
   };
 
   render() {
-    const { onCreateBoard } = this.props;
     return (
-      <div className={styles.addBoardWrapper}>
-        <div className={styles.addBoard}>
-          <Icon
-            type="plus"
-            theme="outlined"
-            onClick={() => this.setModalVisible(true)}
-          />
-        </div>
-        <div>
-          <Modal
-            footer={null}
-            title="Add board"
-            style={{ top: 20 }}
-            visible={this.state.modalVisible}
-            onCancel={() =>
-              this.setState({ modalVisible: !this.state.modalVisible })
-            }
-          >
-            <WrappedAddBoardForm
-              onCreateBoard={onCreateBoard}
-              onPopupClose={() =>
-                this.setState({ modalVisible: !this.state.modalVisible })
-              }
-            />
-          </Modal>
-        </div>
-      </div>
+      <form onSubmit={this.handleSubmit}>
+        <Input
+          className={styles.addBoardForm}
+          placeholder="Add board"
+          value={this.state.boardTitle}
+          onChange={event => this.setState({ boardTitle: event.target.value })}
+        />
+      </form>
     );
   }
 }
+
+export default AddBoardForm;
