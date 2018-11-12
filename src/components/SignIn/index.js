@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import styles from './SignIn.module.css';
-
-import SignInForm from './SignInForm';
+import SignInForm from './Form';
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
+
+import styles from './SignIn.module.css';
 
 const SignInPage = ({ history }) => (
   <div className={styles.signIn}>

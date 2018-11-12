@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 
-import { byPropKey } from '../../utils/index';
+import { byPropKey } from '../../../utils/index';
+
+import styles from './PasswordForgetForm.module.css';
 
 const FormItem = Form.Item;
 
@@ -33,7 +35,7 @@ class PasswordForgetForm extends Component {
     const isInvalid = !error;
 
     return (
-      <div className="sign-in">
+      <div className={styles.form}>
         <h1 className="title">Password Forget</h1>
         <Form onSubmit={event => this.onSubmit(event)} className="login-form">
           <FormItem>

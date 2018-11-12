@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import WrappedPasswordForgetForm from './PasswordForgetForm';
+import WrappedPasswordForgetForm from './Form/index';
 
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';

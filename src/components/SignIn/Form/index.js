@@ -1,9 +1,10 @@
 import React from 'react';
-import { byPropKey } from '../../utils';
+import { byPropKey } from '../../../utils';
 import { Form, Icon, Input, Button } from 'antd';
+import { auth } from '../../../firebase';
+import * as routes from '../../../constants/routes';
+
 import styles from './SignIn.module.css';
-import { auth } from '../../firebase';
-import * as routes from '../../constants/routes';
 
 const FormItem = Form.Item;
 
@@ -43,7 +44,7 @@ class SignInForm extends React.Component {
     const isInvalid = !email || !password;
 
     return (
-      <div className={styles.signIn}>
+      <div className={styles.form}>
         <h1 className={styles.title}>Sign In</h1>
         <Form
           onSubmit={event => this.onSubmit(event)}

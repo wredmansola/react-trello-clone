@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { auth, db } from '../../firebase';
 import * as routes from '../../constants/routes';
-import WrappedSignUpForm from './SignUpForm';
+import WrappedSignUpForm from './Form';
 
 class SignUpPage extends Component {
   constructor(props) {

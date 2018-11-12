@@ -12,7 +12,7 @@ import withAuthentication from '../utils/withAuthentication';
 import Navigation from './Navigation';
 import SignUpPage from './SignUp';
 import SignInPage from './SignIn';
-import PasswordForgetPage from './PasswordForget/PasswordForgetForm';
+import PasswordForgetPage from './PasswordForget';
 import BoardsPage from './Boards';
 import BoardPage from './Board';
 import AccountPage from './Account';

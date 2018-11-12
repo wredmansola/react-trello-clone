@@ -1,0 +1,17 @@
+.form {
+  padding-top: 20px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.form h1 {
+  text-align: center;
+}
+
+.loginFormButton {
+  width: 100%;
+}
+
+.errors {
+  color: #f5222d;
+}

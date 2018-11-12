@@ -1,18 +1,4 @@
-.loginForm {
-  max-width: 300px;
-  margin: 0 auto;
-}
-.loginFormForgot {
-  float: right;
-}
-.loginFormButton {
-  width: 100%;
-}
-.errors {
-  color: #f5222d;
-}
-
 .signIn {
   max-width: 300px;
-  margin: 0 auto;
+  margin: auto;
 }

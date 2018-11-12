@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 
-import { byPropKey } from '../../utils/index';
+import { byPropKey } from '../../../utils/index';
+
+import styles from './SignUpForm.module.css';
 
 const FormItem = Form.Item;
 
@@ -41,7 +43,7 @@ class SignUpForm extends Component {
       username === '';
 
     return (
-      <div className="sign-in">
+      <div className={styles.form}>
         <h1 className="title">Sign Up</h1>
         <Form onSubmit={event => this.onSubmit(event)} className="login-form">
           <FormItem>
