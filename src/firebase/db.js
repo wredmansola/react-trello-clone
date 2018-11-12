@@ -93,7 +93,7 @@ export const onceGetCart = listKey => db.ref(`carts/-${listKey}`).once('value');
  */
 export const doEditCart = (listKey, cartKey, cart) =>
   db.ref(`carts/-${listKey}/-${cartKey}`).update({
-    title: cart.title
+    ...cart
   });
 
 /**

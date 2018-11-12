@@ -124,15 +124,17 @@ class BoardPage extends Component {
         <h2 className={styles.title}>{boardTitle}</h2>
         <CreateList boardKey={boardKey} onCreateList={this.createList} />
 
-        {lists.map((list, index) => (
-          <List
-            boardKey={boardKey}
-            key={index}
-            list={list}
-            onEditList={this.editList}
-            onDeleteList={this.deleteList}
-          />
-        ))}
+        <div className={styles.lists}>
+          {lists.map((list, index) => (
+            <List
+              boardKey={boardKey}
+              key={index}
+              list={list}
+              onEditList={this.editList}
+              onDeleteList={this.deleteList}
+            />
+          ))}
+        </div>
       </div>
     );
   }
