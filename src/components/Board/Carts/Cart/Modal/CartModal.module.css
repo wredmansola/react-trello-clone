@@ -1,0 +1,30 @@
+.descriptionTitle {
+  position: relative;
+}
+
+.descriptionEditIcon {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  cursor: pointer;
+}
+
+.descriptionText {
+}
+
+.descriptionForm {
+}
+
+.descriptionArea {
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  height: 54px;
+}
+
+.descriptionBtn {
+  margin-top: 5px;
+  margin-right: 5px;
+}
