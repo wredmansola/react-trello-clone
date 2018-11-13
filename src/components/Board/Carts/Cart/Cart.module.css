@@ -35,3 +35,12 @@
   cursor: pointer;
 }
 
+.cartTitle:hover {
+  color: #1890ff;
+}
+
+.cartDescriptionIcon {
+  margin-right: 5px;
+  position: relative;
+  top: 1px;
+}

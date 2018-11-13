@@ -3,9 +3,10 @@ import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../../../../constants/ItemTypes';
 import CartModal from './Modal';
+import { getBadgeColor } from '../../../../utils/index';
 
 import styles from './Cart.module.css';
-import { Card, Icon, Input, Popover } from 'antd';
+import { Card, Icon, Input, Popover, Badge } from 'antd';
 
 const cartSource = {
   beginDrag(props) {
@@ -128,7 +129,20 @@ class Cart extends Component {
               >
                 <Icon className={styles.cartControls} type="ellipsis" />
               </Popover>
-              {cart.description && <Icon type="align-left" />}
+              {cart.description && (
+                <Icon
+                  onClick={this.showModal}
+                  className={styles.cartDescriptionIcon}
+                  type="align-left"
+                />
+              )}
+              {cart.importance && (
+                <Badge
+                  onClick={this.showModal}
+                  count={cart.importance}
+                  style={{ backgroundColor: getBadgeColor(cart.importance) }}
+                />
+              )}
             </div>
           )}
         </Card>

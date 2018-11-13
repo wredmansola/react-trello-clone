@@ -9,10 +9,8 @@
   cursor: pointer;
 }
 
-.descriptionText {
-}
-
-.descriptionForm {
+.description {
+  margin-bottom: 10px;
 }
 
 .descriptionArea {
@@ -26,5 +24,16 @@
 
 .descriptionBtn {
   margin-top: 5px;
+  margin-right: 5px;
+}
+
+.importanceChoose,
+.descriptionEmptyText {
+  font-style: italic;
+  cursor: pointer;
+}
+
+.importanceTag {
+  cursor: pointer;
   margin-right: 5px;
 }
