@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import withAuthorization from '../../utils/withAuthorization';
 import { mergeDataWithKey } from '../../utils/index';
 import { db } from '../../firebase';
-import AddBoardForm from './Form';
+import AddBoardForm from './AddBoardForm';
 
 import { Button } from 'antd';
 import styles from './Boards.module.css';

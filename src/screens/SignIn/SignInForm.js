@@ -1,10 +1,10 @@
 import React from 'react';
-import { byPropKey } from '../../../utils';
+import { byPropKey } from '../../utils';
 import { Form, Icon, Input, Button } from 'antd';
-import { auth } from '../../../firebase';
-import * as routes from '../../../constants/routes';
+import { auth } from '../../firebase';
+import * as routes from '../../constants/routes';
 
-import styles from './SignIn.module.css';
+import styles from './SignInForm.module.css';
 
 const FormItem = Form.Item;
 

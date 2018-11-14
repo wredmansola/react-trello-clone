@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 
-import { byPropKey } from '../../../utils/index';
+import { byPropKey } from '../../utils/index';
 
 import styles from './SignUpForm.module.css';
 
