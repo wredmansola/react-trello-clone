@@ -10,13 +10,13 @@ import * as routes from '../constants/routes';
 import withAuthentication from '../utils/withAuthentication';
 
 import Navigation from './Navigation';
-import SignUpPage from './SignUp';
-import SignInPage from './SignIn';
-import PasswordForgetPage from './PasswordForget';
-import BoardsPage from './Boards';
-import BoardPage from './Board';
-import AccountPage from './Account';
-import NotFoundPage from './NotFound';
+import SignUpScreen from './SignUp';
+import SignInScreen from './SignIn';
+import PasswordForgetScreen from './PasswordForget';
+import BoardsScreen from './Boards';
+import BoardScreen from './Board';
+import AccountScreen from './Account';
+import NotFoundScreen from './NotFound';
 
 class App extends Component {
   render() {
@@ -32,17 +32,17 @@ class App extends Component {
                 render={() => <Redirect to={routes.BOARDS} />}
               />
             }
-            <Route exact path={routes.SIGN_UP} component={SignUpPage} />
-            <Route exact path={routes.SIGN_IN} component={SignInPage} />
+            <Route exact path={routes.SIGN_UP} component={SignUpScreen} />
+            <Route exact path={routes.SIGN_IN} component={SignInScreen} />
             <Route
               exact
               path={routes.PASSWORD_FORGET}
-              component={PasswordForgetPage}
+              component={PasswordForgetScreen}
             />
-            {<Route exact path={routes.BOARDS} component={BoardsPage} />}
-            <Route exact path={routes.ACCOUNT} component={AccountPage} />
-            <Route exact path={routes.BOARD} component={BoardPage} />
-            <Route component={NotFoundPage} />
+            {<Route exact path={routes.BOARDS} component={BoardsScreen} />}
+            <Route exact path={routes.ACCOUNT} component={AccountScreen} />
+            <Route exact path={routes.BOARD} component={BoardScreen} />
+            <Route component={NotFoundScreen} />
           </Switch>
         </div>
       </Router>

@@ -9,7 +9,7 @@ import AddBoardForm from './AddBoardForm';
 import { Button } from 'antd';
 import styles from './Boards.module.css';
 
-class BoardsPage extends Component {
+class BoardsScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -86,4 +86,4 @@ class BoardsPage extends Component {
 
 const authCondition = authUser => !!authUser;
 
-export default withAuthorization(authCondition)(BoardsPage);
+export default withAuthorization(authCondition)(BoardsScreen);

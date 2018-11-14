@@ -12,7 +12,7 @@ import CreateListForm from './List/CreateListForm';
 
 import styles from './Board.module.css';
 
-class BoardPage extends Component {
+class BoardScreen extends Component {
   state = {
     isLoading: false,
     boardTitle: '',
@@ -143,5 +143,5 @@ class BoardPage extends Component {
 const authCondition = authUser => !!authUser;
 
 export default withAuthorization(authCondition)(
-  DragDropContext(HTML5Backend)(BoardPage)
+  DragDropContext(HTML5Backend)(BoardScreen)
 );

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { auth } from '../../firebase';
 import WrappedAccountForm from '../Account';
 
-class PasswordChangePage extends Component {
+class PasswordChangeScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -19,4 +19,4 @@ class PasswordChangePage extends Component {
   }
 }
 
-export default PasswordChangePage;
+export default PasswordChangeScreen;

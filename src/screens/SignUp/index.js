@@ -5,7 +5,7 @@ import { auth, db } from '../../firebase';
 import * as routes from '../../constants/routes';
 import WrappedSignUpForm from './SignUpForm';
 
-class SignUpPage extends Component {
+class SignUpScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -33,6 +33,6 @@ const SignUpLink = () => (
   </p>
 );
 
-export default withRouter(SignUpPage);
+export default withRouter(SignUpScreen);
 
 export { SignUpLink };

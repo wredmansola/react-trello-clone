@@ -7,7 +7,7 @@ import { doPasswordUpdate } from '../../firebase/auth';
 import styles from './Account.module.css';
 import WrappedAccountForm from './AccountForm';
 
-class AccountPage extends Component {
+class AccountScreen extends Component {
   handleSubmit = password => {
     return doPasswordUpdate(password);
   };
@@ -28,4 +28,4 @@ class AccountPage extends Component {
 
 const authCondition = authUser => !!authUser;
 
-export default withAuthorization(authCondition)(AccountPage);
+export default withAuthorization(authCondition)(AccountScreen);

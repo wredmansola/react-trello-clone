@@ -7,7 +7,7 @@ import PasswordForgetLink from '../PasswordForget/PasswordForgetLink';
 
 import styles from './SignIn.module.css';
 
-const SignInPage = ({ history }) => (
+const SignInScreen = ({ history }) => (
   <div className={styles.signIn}>
     <SignInForm history={history} />
     <PasswordForgetLink />
@@ -15,4 +15,4 @@ const SignInPage = ({ history }) => (
   </div>
 );
 
-export default withRouter(SignInPage);
+export default withRouter(SignInScreen);
