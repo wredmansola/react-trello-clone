@@ -1,4 +1,4 @@
-.cartControls {
+.cardControls {
   position: absolute;
   top: 5px;
   right: 0;
@@ -6,12 +6,12 @@
   cursor: pointer;
 }
 
-.cart i:hover {
+.card i:hover {
   color: #1890ff;
 }
 
-.cartTitleForm,
-.cartTitleForm:focus {
+.cardTitleForm,
+.cardTitleForm:focus {
   border: none;
   outline: none;
   box-shadow: none;
@@ -19,27 +19,27 @@
   position: relative;
 }
 
-.cartOperations {
+.cardOperations {
   cursor: pointer;
 }
 
-.cartOperations:not(:last-child) {
+.cardOperations:not(:last-child) {
   margin-bottom: 5px;
 }
 
-.cartOperations:hover {
+.cardOperations:hover {
   color: #1890ff;
 }
 
-.cartTitle {
+.cardTitle {
   cursor: pointer;
 }
 
-.cartTitle:hover {
+.cardTitle:hover {
   color: #1890ff;
 }
 
-.cartDescriptionIcon {
+.cardDescriptionIcon {
   margin-right: 5px;
   position: relative;
   top: 1px;

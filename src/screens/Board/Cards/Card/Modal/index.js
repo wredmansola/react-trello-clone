@@ -3,16 +3,16 @@ import { Input, Icon, Modal, Button, Badge } from 'antd';
 
 import { getBadgeColor } from '.././../../../../utils/index';
 
-import styles from './CartModal.module.css';
+import styles from './CardModal.module.css';
 
 const { TextArea } = Input;
 
 const ImportanceTags = ['Low', 'Medium', 'High'];
 
-class CartModal extends Component {
+class CardModal extends Component {
   state = {
     modalIsVisible: false,
-    cartDescription: '',
+    cardDescription: '',
     descriptionEditMode: false,
     importance: '',
     showImportanceChoose: false
@@ -20,7 +20,7 @@ class CartModal extends Component {
 
   handleEnableEditDescription = () => {
     this.setState({
-      cartDescription: this.props.cart.description,
+      cardDescription: this.props.card.description,
       descriptionEditMode: true
     });
   };
@@ -31,12 +31,12 @@ class CartModal extends Component {
     });
   };
 
-  handleEditCartDescription = (event, listKey, cartKey, cart) => {
+  handleEditCardDescription = (event, listKey, cardKey, card) => {
     event.preventDefault();
 
-    const updatedCart = { ...cart };
-    updatedCart.description = this.state.cartDescription;
-    this.props.onEditCart(listKey, cartKey, updatedCart);
+    const updatedCard = { ...card };
+    updatedCard.description = this.state.cardDescription;
+    this.props.onEditCard(listKey, cardKey, updatedCard);
     this.handleDisableEditDescription();
   };
 
@@ -52,22 +52,22 @@ class CartModal extends Component {
     });
   };
 
-  handleSelectImportance = (event, listKey, cartKey, cart, importance) => {
+  handleSelectImportance = (event, listKey, cardKey, card, importance) => {
     event.preventDefault();
 
-    const updatedCart = { ...cart };
-    updatedCart.importance = importance;
-    this.props.onEditCart(listKey, cartKey, updatedCart);
+    const updatedCard = { ...card };
+    updatedCard.importance = importance;
+    this.props.onEditCard(listKey, cardKey, updatedCard);
     this.handleDisableImportanceChoose();
   };
 
   render() {
-    const { listKey, cart, visible, onOk, onCancel } = this.props;
+    const { listKey, card, visible, onOk, onCancel } = this.props;
     const { descriptionEditMode, showImportanceChoose } = this.state;
 
     return (
       <Modal
-        title={cart.title}
+        title={card.title}
         visible={visible}
         onOk={onOk}
         onCancel={onCancel}
@@ -81,16 +81,16 @@ class CartModal extends Component {
               <TextArea
                 className={styles.descriptionArea}
                 onChange={event =>
-                  this.setState({ cartDescription: event.target.value })
+                  this.setState({ cardDescription: event.target.value })
                 }
-                value={this.state.cartDescription}
+                value={this.state.cardDescription}
                 autosize
                 autoFocus
               />
               <Button
                 className={styles.descriptionBtn}
                 onClick={event =>
-                  this.handleEditCartDescription(event, listKey, cart.key, cart)
+                  this.handleEditCardDescription(event, listKey, card.key, card)
                 }
               >
                 <Icon type="save" />
@@ -98,12 +98,12 @@ class CartModal extends Component {
               </Button>
               <Icon type="close" onClick={this.handleDisableEditDescription} />
             </form>
-          ) : cart.description ? (
+          ) : card.description ? (
             <p
               onClick={this.handleEnableEditDescription}
               className={styles.descriptionText}
             >
-              {cart.description}
+              {card.description}
             </p>
           ) : (
             <div
@@ -131,20 +131,20 @@ class CartModal extends Component {
                     this.handleSelectImportance(
                       event,
                       listKey,
-                      cart.key,
-                      cart,
+                      card.key,
+                      card,
                       tag
                     )
                   }
                 />
               ))}
             </div>
-          ) : cart.importance ? (
+          ) : card.importance ? (
             <div>
               <Badge
                 onClick={this.handleEnableImportanceChoose}
-                count={cart.importance}
-                style={{ backgroundColor: getBadgeColor(cart.importance) }}
+                count={card.importance}
+                style={{ backgroundColor: getBadgeColor(card.importance) }}
               />
             </div>
           ) : (
@@ -161,4 +161,4 @@ class CartModal extends Component {
   }
 }
 
-export default CartModal;
+export default CardModal;

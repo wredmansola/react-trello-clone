@@ -55,7 +55,7 @@ export const doDeleteList = (boardKey, listKey) =>
     .remove()
     .then(() =>
       db
-        .ref('carts/')
+        .ref('cards/')
         .child(`-${listKey}`)
         .remove()
     );
@@ -74,51 +74,51 @@ export const doEditList = (boardKey, listKey, listTitle) =>
 /**
  *
  * @param {string} listKey
- * @param {string} cartTitle
+ * @param {string} cardTitle
  */
-export const doAddCart = (listKey, cartTitle) =>
-  db.ref(`carts/-${listKey}`).push({
-    title: cartTitle
+export const doAddCard = (listKey, cardTitle) =>
+  db.ref(`cards/-${listKey}`).push({
+    title: cardTitle
   });
 
 /**
  * @param {string} listKey
  */
-export const onceGetCart = listKey => db.ref(`carts/-${listKey}`).once('value');
+export const onceGetCard = listKey => db.ref(`cards/-${listKey}`).once('value');
 
 /**
  * @param {string} listId
- * @param {string} cartId
- * @param {object} cart
+ * @param {string} cardId
+ * @param {object} card
  */
-export const doEditCart = (listKey, cartKey, cart) =>
-  db.ref(`carts/-${listKey}/-${cartKey}`).update({
-    ...cart
+export const doEditCard = (listKey, cardKey, card) =>
+  db.ref(`cards/-${listKey}/-${cardKey}`).update({
+    ...card
   });
 
 /**
  * @param {string} oldListKey
  * @param {string} newListKey
- * @param {string} cartKey
- * @param {string} cart
+ * @param {string} cardKey
+ * @param {string} card
  */
-export const doMoveCart = (oldListKey, newListKey, cartKey, cart) =>
+export const doMoveCard = (oldListKey, newListKey, cardKey, card) =>
   db
-    .ref(`carts/-${oldListKey}`)
-    .child(`-${cartKey}`)
+    .ref(`cards/-${oldListKey}`)
+    .child(`-${cardKey}`)
     .remove()
     .then(() =>
-      db.ref(`carts/-${newListKey}/-${cartKey}`).set({
-        ...cart
+      db.ref(`cards/-${newListKey}/-${cardKey}`).set({
+        ...card
       })
     );
 
 /**
  * @param {string} listKey
- * @param {string} cartKey
+ * @param {string} cardKey
  */
-export const doDeleteCart = (listKey, cartKey) =>
+export const doDeleteCard = (listKey, cardKey) =>
   db
-    .ref(`carts/-${listKey}/`)
-    .child(`-${cartKey}`)
+    .ref(`cards/-${listKey}/`)
+    .child(`-${cardKey}`)
     .remove();

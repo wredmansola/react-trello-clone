@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../../../../constants/ItemTypes';
-import CartModal from './Modal';
+import CardModal from './Modal';
 import { getBadgeColor } from '../../../../utils/index';
 
-import styles from './Cart.module.css';
+import styles from './Card.module.css';
 import { Card, Icon, Input, Popover, Badge } from 'antd';
 
-const cartSource = {
+const cardSource = {
   beginDrag(props) {
     return props;
   },
@@ -24,17 +24,17 @@ function collect(connect, monitor) {
   };
 }
 
-class Cart extends Component {
+class ItemCard extends Component {
   state = {
-    cart: {},
-    cartTitle: '',
+    card: {},
+    cardTitle: '',
     editMode: false,
     modalIsVisible: false
   };
 
   handleEnableEditMode = () => {
     this.setState({
-      cartTitle: this.props.cart.title,
+      cardTitle: this.props.card.title,
       editMode: true
     });
   };
@@ -45,21 +45,21 @@ class Cart extends Component {
     });
   };
 
-  handleEditCart = (event, listKey, cartKey, cart) => {
+  handleEditCard = (event, listKey, cardKey, card) => {
     event.preventDefault();
 
-    const updatedCart = { ...cart };
-    updatedCart.title = this.state.cartTitle;
-    this.props.onEditCart(listKey, cartKey, updatedCart);
+    const updatedCard = { ...card };
+    updatedCard.title = this.state.cardTitle;
+    this.props.onEditCard(listKey, cardKey, updatedCard);
     this.handleDisableEditMode();
   };
 
-  moveCart = (oldListKey, newListKey, cartKey, cart) => {
-    this.props.onMoveCart(oldListKey, newListKey, cartKey, cart);
+  moveCard = (oldListKey, newListKey, cardKey, card) => {
+    this.props.onMoveCard(oldListKey, newListKey, cardKey, card);
   };
 
-  deleteCart = (listKey, cartKey) => {
-    this.props.onDeleteCart(listKey, cartKey);
+  deleteCard = (listKey, cardKey) => {
+    this.props.onDeleteCard(listKey, cardKey);
   };
 
   showModal = () => {
@@ -81,28 +81,28 @@ class Cart extends Component {
   };
 
   render() {
-    const { listKey, cart, connectDragSource, onEditCart } = this.props;
-    const { editMode, cartTitle, modalIsVisible } = this.state;
+    const { listKey, card, connectDragSource, onEditCard } = this.props;
+    const { editMode, cardTitle, modalIsVisible } = this.state;
 
     return connectDragSource(
-      <div className={styles.cart}>
+      <div className={styles.card}>
         <Card style={{ width: 250 }} onBlur={this.handleDisableEditMode}>
           {editMode ? (
             <form
               onSubmit={event =>
-                this.handleEditCart(event, listKey, cart.key, cart)
+                this.handleEditCard(event, listKey, card.key, card)
               }
             >
               <Input
-                className={styles.cartTitleForm}
-                value={cartTitle}
-                onChange={e => this.setState({ cartTitle: e.target.value })}
+                className={styles.cardTitleForm}
+                value={cardTitle}
+                onChange={e => this.setState({ cardTitle: e.target.value })}
                 autoFocus
               />
             </form>
           ) : (
-            <p className={styles.cartTitle} onClick={this.showModal}>
-              {cart.title}
+            <p className={styles.cardTitle} onClick={this.showModal}>
+              {card.title}
             </p>
           )}
           {!editMode && (
@@ -112,52 +112,52 @@ class Cart extends Component {
                 content={
                   <div>
                     <div
-                      className={styles.cartOperations}
+                      className={styles.cardOperations}
                       onClick={this.handleEnableEditMode}
                     >
-                      <Icon type="edit" /> Edit cart
+                      <Icon type="edit" /> Edit card
                     </div>
                     <div
-                      className={styles.cartOperations}
-                      onClick={e => this.deleteCart(listKey, cart.key)}
+                      className={styles.cardOperations}
+                      onClick={e => this.deleteCard(listKey, card.key)}
                     >
-                      <Icon type="delete" trigger="click" /> Delete cart
+                      <Icon type="delete" trigger="click" /> Delete card
                     </div>
                   </div>
                 }
                 trigger="click"
               >
-                <Icon className={styles.cartControls} type="ellipsis" />
+                <Icon className={styles.cardControls} type="ellipsis" />
               </Popover>
-              {cart.description && (
+              {card.description && (
                 <Icon
                   onClick={this.showModal}
-                  className={styles.cartDescriptionIcon}
+                  className={styles.cardDescriptionIcon}
                   type="align-left"
                 />
               )}
-              {cart.importance && (
+              {card.importance && (
                 <Badge
                   onClick={this.showModal}
-                  count={cart.importance}
-                  style={{ backgroundColor: getBadgeColor(cart.importance) }}
+                  count={card.importance}
+                  style={{ backgroundColor: getBadgeColor(card.importance) }}
                 />
               )}
             </div>
           )}
         </Card>
 
-        <CartModal
+        <CardModal
           listKey={listKey}
-          cart={cart}
+          card={card}
           visible={modalIsVisible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          onEditCart={onEditCart}
+          onEditCard={onEditCard}
         />
       </div>
     );
   }
 }
 
-export default DragSource(ItemTypes.CART, cartSource, collect)(Cart);
+export default DragSource(ItemTypes.CARD, cardSource, collect)(ItemCard);

@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './List.module.css';
 
 import ListTitle from './Title';
-import Carts from '../Carts';
+import Cards from '../Cards';
 
 const ListItem = ({ list, onDeleteList, onEditList, boardKey }) => (
   <div className={styles.list}>
@@ -14,7 +14,7 @@ const ListItem = ({ list, onDeleteList, onEditList, boardKey }) => (
       onEditList={onEditList}
       onDeleteList={onDeleteList}
     />
-    <Carts list={list} />
+    <Cards list={list} />
   </div>
 );
 
