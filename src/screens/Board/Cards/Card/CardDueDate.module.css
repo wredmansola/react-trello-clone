@@ -1,0 +1,16 @@
+.menu > div {
+  margin-bottom: 5px;
+}
+
+.menu > div > span {
+  width: 100%;
+}
+
+.menu > span {
+  width: 100%;
+}
+
+.controls button {
+  margin-top: 5px;
+  margin-right: 5px;
+}

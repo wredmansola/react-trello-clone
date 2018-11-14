@@ -38,3 +38,7 @@ code {
 .ant-card p {
   margin-bottom: 0;
 }
+
+.ant-modal-body {
+  display: flex;
+}

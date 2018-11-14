@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Modal } from 'antd';
 
-import CartDescription from './CartDescription';
-import CartImportance from './CartImportance';
+import CardDescription from './CardDescription';
+import CardImportance from './CardImportance';
+import CardDueDate from './CardDueDate';
+
+import styles from './CardModal.module.css';
 
 class CardModal extends Component {
   state = {
@@ -19,13 +22,21 @@ class CardModal extends Component {
         onOk={onOk}
         onCancel={onCancel}
       >
-        <CartDescription
-          listKey={listKey}
-          card={card}
-          onEditCard={onEditCard}
-        />
-
-        <CartImportance listKey={listKey} card={card} onEditCard={onEditCard} />
+        <div className={styles.cardContent}>
+          <CardDescription
+            listKey={listKey}
+            card={card}
+            onEditCard={onEditCard}
+          />
+          <CardImportance
+            listKey={listKey}
+            card={card}
+            onEditCard={onEditCard}
+          />
+        </div>
+        <div className={styleMedia.cardPanel}>
+          <CardDueDate listKey={listKey} card={card} onEditCard={onEditCard} />
+        </div>
       </Modal>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Icon, Button } from 'antd';
 
-import styles from './CartDescription.module.css';
+import styles from './CardDescription.module.css';
 
 const { TextArea } = Input;
 

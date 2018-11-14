@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon, Badge } from 'antd';
 
-import styles from './CartImportance.module.css';
+import styles from './CardImportance.module.css';
 import { getBadgeColor } from '../../../../utils/index';
 
 const ImportanceTags = ['Low', 'Medium', 'High'];
