@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../../../../constants/ItemTypes';
-import CardModal from './Modal';
+import CardModal from './CardModal';
 import { getBadgeColor } from '../../../../utils/index';
 
 import styles from './Card.module.css';

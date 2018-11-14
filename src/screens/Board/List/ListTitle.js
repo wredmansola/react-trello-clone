@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Menu, Dropdown, Modal, Icon } from 'antd';
 
 import styles from './ListTitle.module.css';
-import { Menu, Dropdown, Modal, Icon } from 'antd';
 
 class ListTitle extends Component {
   state = {

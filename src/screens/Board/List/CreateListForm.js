@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
-import styles from './ListForm.module.css';
+
+import styles from './CreateListForm.module.css';
 
 class CreateListForm extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    listTitle: ''
+  };
 
-    this.state = {
-      listTitle: ''
-    };
-
-    this.createList = this.createList.bind(this);
-  }
-
-  createList(event, boardKey, listTitle) {
+  createList = (event, boardKey, listTitle) => {
     event.preventDefault();
 
     this.props.onCreateList(boardKey, listTitle);
     this.setState({ listTitle: '' });
-  }
+  };
 
   render() {
     const { boardKey } = this.props;

@@ -5,7 +5,7 @@ import withAuthorization from '../../utils/withAuthorization';
 import { doPasswordUpdate } from '../../firebase/auth';
 
 import styles from './Account.module.css';
-import WrappedAccountForm from './Form';
+import WrappedAccountForm from './AccountForm';
 
 class AccountPage extends Component {
   handleSubmit = password => {

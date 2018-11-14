@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
+import { Button } from 'antd';
 
+import { db } from '../../firebase';
 import withAuthorization from '../../utils/withAuthorization';
 import { getBoardKey, mergeDataWithKey } from '../../utils/index';
-import { db } from '../../firebase';
 
 import List from './List';
-import CreateList from './List/Form';
+import CreateListForm from './List/CreateListForm';
 
-import { Button } from 'antd';
 import styles from './Board.module.css';
 
 class BoardPage extends Component {
@@ -122,7 +122,7 @@ class BoardPage extends Component {
     ) : (
       <div className={styles.board}>
         <h2 className={styles.title}>{boardTitle}</h2>
-        <CreateList boardKey={boardKey} onCreateList={this.createList} />
+        <CreateListForm boardKey={boardKey} onCreateList={this.createList} />
 
         <div className={styles.lists}>
           {lists.map((list, index) => (

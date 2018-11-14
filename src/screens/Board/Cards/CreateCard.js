@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Input } from 'antd';
-import styles from './CardForm.module.css';
+import styles from './CreateCard.module.css';
 
 class CreateCard extends Component {
   constructor(props) {

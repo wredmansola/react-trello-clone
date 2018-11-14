@@ -8,7 +8,7 @@ import { findIndex } from 'lodash';
 import { ItemTypes } from '../../../constants/ItemTypes';
 
 import ItemCard from './Card';
-import CreateCard from './Form';
+import CreateCard from './CreateCard';
 
 import styles from './Cards.module.css';
 

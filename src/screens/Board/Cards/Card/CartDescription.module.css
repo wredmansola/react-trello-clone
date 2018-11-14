@@ -27,13 +27,7 @@
   margin-right: 5px;
 }
 
-.importanceChoose,
 .descriptionEmptyText {
   font-style: italic;
   cursor: pointer;
-}
-
-.importanceTag {
-  cursor: pointer;
-  margin-right: 5px;
 }

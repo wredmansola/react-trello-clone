@@ -1,5 +1,5 @@
 import React from 'react';
-import { byPropKey } from '../../../utils';
+import { byPropKey } from '../../utils';
 
 import styles from './AccountForm.module.css';
 import { Form, Icon, Input, Button } from 'antd';

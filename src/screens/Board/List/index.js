@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './List.module.css';
 
-import ListTitle from './Title';
+import ListTitle from './ListTitle';
 import Cards from '../Cards';
 
 const ListItem = ({ list, onDeleteList, onEditList, boardKey }) => (
