@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { Button } from 'antd';
+import { Button, Icon } from 'antd';
+import { isEmpty } from 'lodash';
 
 import { db } from '../../firebase';
 import withAuthorization from '../../utils/withAuthorization';
@@ -15,7 +16,7 @@ import styles from './Board.module.css';
 class BoardScreen extends Component {
   state = {
     isLoading: false,
-    boardTitle: '',
+    board: {},
     boardKey: '',
     lists: []
   };
@@ -25,16 +26,14 @@ class BoardScreen extends Component {
       isLoading: true
     });
     const boardKey = getBoardKey();
-
     db.onceGetBoard(boardKey)
       .then(snapshot => {
-        const snapshotVal = snapshot.val();
-        if (!snapshotVal) {
+        if (!snapshot.val()) {
           return;
         }
         this.setState({
           boardKey,
-          boardTitle: snapshotVal.title
+          board: snapshot.val()
         });
       })
       .then(() => db.onceGetLists(boardKey))
@@ -48,6 +47,7 @@ class BoardScreen extends Component {
           lists: mergeDataWithKey(snapshotVal)
         });
       })
+      .catch(reason => console.error(reason))
       .finally(() =>
         this.setState({
           isLoading: false
@@ -55,10 +55,6 @@ class BoardScreen extends Component {
       );
   };
 
-  /**
-   * @param {string} boardKey
-   * @param {string} listTitle
-   */
   createList = (boardKey, listTitle) => {
     if (!listTitle) {
       return;
@@ -76,11 +72,6 @@ class BoardScreen extends Component {
       });
   };
 
-  /**
-   * @param {string} boardKey
-   * @param {string}listKey
-   * @param {string} listTitle
-   */
   editList = (boardKey, listKey, listTitle) => {
     if (!listTitle) {
       return;
@@ -98,10 +89,6 @@ class BoardScreen extends Component {
       });
   };
 
-  /**
-   * @param {string} boardKey
-   * @param {string} listKey
-   */
   deleteList = (boardKey, listKey) => {
     db.doDeleteList(boardKey, listKey).then(() => {
       const updatedLists = this.state.lists.filter(
@@ -113,29 +100,49 @@ class BoardScreen extends Component {
     });
   };
 
+  handleAddToFavorites = (boardKey, board) => {
+    let updatedBoard = { ...board };
+    updatedBoard.favorite = !board.favorite;
+    db.doEditBoard(boardKey, updatedBoard);
+    this.setState({
+      board: updatedBoard
+    });
+  };
+
   render() {
-    let { boardKey, boardTitle, lists } = this.state;
+    let { boardKey, board, lists } = this.state;
     return this.state.isLoading ? (
       <div className={styles.loader}>
         <Button shape="circle" loading />
       </div>
     ) : (
-      <div className={styles.board}>
-        <h2 className={styles.title}>{boardTitle}</h2>
-        <CreateListForm boardKey={boardKey} onCreateList={this.createList} />
+      !isEmpty(board) && (
+        <div className={styles.board}>
+          <div className={styles.title}>
+            <h2 className={styles.title}>{board.title}</h2>
+            <div>
+              <Icon
+                type="star"
+                className={board.favorite && styles.active}
+                onClick={event => this.handleAddToFavorites(boardKey, board)}
+              />
+            </div>
+          </div>
+          <CreateListForm boardKey={boardKey} onCreateList={this.createList} />
 
-        <div className={styles.lists}>
-          {lists.map((list, index) => (
-            <List
-              boardKey={boardKey}
-              key={index}
-              list={list}
-              onEditList={this.editList}
-              onDeleteList={this.deleteList}
-            />
-          ))}
+          <div className={styles.lists}>
+            {lists.map((list, index) => (
+              <List
+                boardKey={boardKey}
+                key={index}
+                list={list}
+                onEditList={this.editList}
+                onDeleteList={this.deleteList}
+              />
+            ))}
+          </div>
         </div>
-      </div>
+      )
     );
   }
 }

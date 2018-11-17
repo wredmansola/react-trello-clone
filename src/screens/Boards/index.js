@@ -3,35 +3,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import withAuthorization from '../../utils/withAuthorization';
 import { mergeDataWithKey } from '../../utils/index';
-import { db } from '../../firebase';
+import { db, user } from '../../firebase';
 import AddBoardForm from './AddBoardForm';
 
 import { Button } from 'antd';
 import styles from './Boards.module.css';
 
 class BoardsScreen extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      boards: [],
-      isLoading: false
-    };
-  }
-
-  createBoard = title => {
-    if (!title) {
-      return;
-    }
-    db.doAddBoard({
-      title
-    }).then(
-      db.onceGetBoards().then(snapshot =>
-        this.setState({
-          boards: mergeDataWithKey(snapshot.val())
-        })
-      )
-    );
+  state = {
+    boards: [],
+    isLoading: false
   };
 
   componentDidMount() {
@@ -54,9 +35,21 @@ class BoardsScreen extends Component {
       });
   }
 
+  handleCreateBoard = board => {
+    db.doCreateBoard(board).then(response => {
+      let updatedBoards = this.state.boards;
+      console.log(response);
+      updatedBoards.push(response);
+      this.setState({
+        boards: updatedBoards
+      });
+    });
+  };
+
   render() {
     const { isLoading } = this.state;
     const { boards } = this.state;
+    let userUid = user.getUser().uid;
 
     return isLoading ? (
       <div className={styles.loader}>
@@ -66,7 +59,10 @@ class BoardsScreen extends Component {
       <div className={styles.boards}>
         <h1 className="title">My boards</h1>
 
-        <AddBoardForm onCreateBoard={this.createBoard} />
+        <AddBoardForm
+          userUid={userUid}
+          onCreateBoard={this.handleCreateBoard}
+        />
 
         {boards.map((board, index) => {
           const shortTitle = board.title.substring(0, 2);

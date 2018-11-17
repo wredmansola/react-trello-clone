@@ -3,6 +3,7 @@ import { DragSource } from 'react-dnd';
 
 import { ItemTypes } from '../../../../constants/ItemTypes';
 import CardModal from './CardModal';
+import Date from './Date';
 import { getBadgeColor } from '../../../../utils/index';
 
 import styles from './Card.module.css';
@@ -129,6 +130,7 @@ class ItemCard extends Component {
               >
                 <Icon className={styles.cardControls} type="ellipsis" />
               </Popover>
+              {card.date && <Date date={card.date} />}
               {card.description && (
                 <Icon
                   onClick={this.showModal}

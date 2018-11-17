@@ -4,6 +4,7 @@ import { Modal } from 'antd';
 import CardDescription from './CardDescription';
 import CardImportance from './CardImportance';
 import CardDueDate from './CardDueDate';
+import CardDueDateDisplay from './CardDueDateDisplay';
 
 import styles from './CardModal.module.css';
 
@@ -23,6 +24,10 @@ class CardModal extends Component {
         onCancel={onCancel}
       >
         <div className={styles.cardContent}>
+          {card.date &&
+            card.time && (
+              <CardDueDateDisplay date={card.date} time={card.time} />
+            )}
           <CardDescription
             listKey={listKey}
             card={card}

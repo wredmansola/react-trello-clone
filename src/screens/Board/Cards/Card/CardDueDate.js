@@ -4,16 +4,36 @@ import moment from 'moment';
 
 import styles from './CardDueDate.module.css';
 
-function onDateChange(date, dateString) {
-  console.log(date, dateString);
-}
-
-function onTimeChange(time, timeString) {
-  console.log(time, timeString);
-}
-
 export default class CardDueDate extends Component {
+  state = {
+    date: '',
+    time: ''
+  };
+  onDateChange = (date, dateString) => {
+    this.setState({
+      date: dateString
+    });
+  };
+
+  onTimeChange = (time, timeString) => {
+    this.setState({
+      time: timeString
+    });
+  };
+
+  handleEditCard = (event, callback, listKey, cardKey, card) => {
+    event.preventDefault();
+
+    const updatedCard = { ...card };
+    updatedCard.date = this.state.date;
+    updatedCard.time = this.state.time;
+    callback(listKey, cardKey, updatedCard);
+  };
+
   render() {
+    const { card, listKey, onEditCard } = this.props;
+    let isValid = this.state.date && this.state.time;
+
     return (
       <div>
         <Popover
@@ -22,16 +42,26 @@ export default class CardDueDate extends Component {
           content={
             <div className={styles.menu}>
               <div>
-                <DatePicker onChange={onDateChange} />
+                <DatePicker onChange={this.onDateChange} />
               </div>
               <div>
-                <TimePicker
-                  onChange={onTimeChange}
-                  defaultOpenValue={moment('12:00:00', 'HH:mm:ss')}
-                />
+                <TimePicker onChange={this.onTimeChange} />
               </div>
               <div className={styles.controls}>
-                <Button>Ok</Button>
+                <Button
+                  onClick={event =>
+                    this.handleEditCard(
+                      event,
+                      onEditCard,
+                      listKey,
+                      card.key,
+                      card
+                    )
+                  }
+                  disabled={!isValid}
+                >
+                  Ok
+                </Button>
                 <Button>Cancel</Button>
               </div>
             </div>

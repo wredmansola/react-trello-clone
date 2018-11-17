@@ -10,44 +10,39 @@ class ListTitle extends Component {
     visible: false
   };
 
-  handleOk() {
+  handleOk = () => {
     this.setState({
       visible: false
     });
     this.props.onDeleteList(this.props.boardKey, this.props.listKey);
-  }
+  };
 
-  handleCancel() {
+  handleCancel = () => {
     this.setState({
       visible: false
     });
-  }
+  };
 
-  showModal() {
+  showModal = () => {
     this.setState({
       visible: true
     });
-  }
+  };
 
-  handleToggleEditMode() {
+  handleToggleEditMode = () => {
     this.setState({
       editMode: !this.state.editMode,
       listTitle: this.props.listTitle
     });
-  }
+  };
 
-  /**
-   * @param {function} onEditList
-   * @param {string} boardKey
-   * @param {string} listKey
-   */
-  handleEditList(callback, boardKey, listKey) {
+  handleEditList = (callback, boardKey, listKey) => {
     const { listTitle } = this.state;
     callback(boardKey, listKey, listTitle);
     this.setState({
       editMode: !this.state.editMode
     });
-  }
+  };
 
   handleDeleteList(callback, boardKey, listKey) {
     callback(boardKey, listKey);

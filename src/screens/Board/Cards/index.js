@@ -53,10 +53,6 @@ class Cards extends Component {
     });
   };
 
-  /**
-   * @param {string} listKey
-   * @param {string} cardTitle
-   */
   createCard = (listKey, cardTitle) => {
     if (!cardTitle) {
       return;
@@ -77,11 +73,6 @@ class Cards extends Component {
       });
   };
 
-  /**
-   * @param {string} listKey
-   * @param {string} cardKey
-   * @param {string} card
-   */
   editCard = (listKey, cardKey, card) => {
     db.doEditCard(listKey, cardKey, card).then(() => {
       const updatedCards = { ...this.state.cards };
@@ -95,12 +86,6 @@ class Cards extends Component {
     });
   };
 
-  /**
-   * @param {string} oldListKey
-   * @param {string} newListKey
-   * @param {string} cardKey
-   * @param {string} card
-   */
   moveCard = (component, oldListKey, newListKey, cardKey, card) => {
     db.doMoveCard(oldListKey, newListKey, cardKey, card).then(() => {
       const cardItems = this.state.cards[oldListKey].filter(
@@ -122,10 +107,6 @@ class Cards extends Component {
     });
   };
 
-  /**
-   * @param {string} listKey
-   * @param {string} cardKey
-   */
   deleteCard = (listKey, cardKey) => {
     db.doDeleteCard(listKey, cardKey).then(() => {
       const updatedCards = { ...this.state.cards };
