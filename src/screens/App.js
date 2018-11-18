@@ -22,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <React.Fragment>
           <Navigation />
           <Switch className="container">
             {
@@ -44,7 +44,7 @@ class App extends Component {
             <Route exact path={routes.BOARD} component={BoardScreen} />
             <Route component={NotFoundScreen} />
           </Switch>
-        </div>
+        </React.Fragment>
       </Router>
     );
   }

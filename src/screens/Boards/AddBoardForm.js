@@ -47,7 +47,6 @@ class AddBoardForm extends React.Component {
     return (
       <form
         onSubmit={event => this.handleSubmit(event, userUid)}
-        className={styles.boardForm}
       >
         <InputGroup compact>
           <Select
@@ -61,7 +60,6 @@ class AddBoardForm extends React.Component {
           </Select>
 
           <Input
-            className={styles.addBoardForm}
             placeholder="Add board"
             value={this.state.board.title}
             onChange={this.handleTitleChange}

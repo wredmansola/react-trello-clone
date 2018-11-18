@@ -6,13 +6,30 @@ const StyledBoard = styled.div`
   position: relative;
   display: inline-block;
   padding: 4px;
-  width: 30%;
+  width: 20%;
   height: 80px;
   background-color: ${props => (props.color ? props.color : '#026aa7')};
   color: white;
   margin: 1%;
   border-radius: 4px;
+  @media only screen and (max-width: 400px) and (min-width: 320px) {
+    width: 98%;
+  }
+  @media only screen and (max-width: 720px) and (min-width: 400px) {
+    width: 48%;
+  }
+  @media only screen and (max-width: 1024px) and (min-width: 720px) {
+    width: 30%;
+  }
 `;
+
+const getColor = color => {
+  if (color === 'Blue') {
+    return '#026aa7';
+  } else {
+    return color;
+  }
+};
 
 const Title = styled.div`
   font-weight: bold;
@@ -30,9 +47,8 @@ const Favorite = styled.div`
 export default class Board extends Component {
   render() {
     const { title, favorite, color } = this.props;
-    console.log(favorite);
     return (
-      <StyledBoard color={color}>
+      <StyledBoard color={getColor(color)}>
         <Title>{title}</Title>
         <Favorite favorite={favorite}>
           <Icon type="star" />

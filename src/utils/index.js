@@ -8,10 +8,7 @@ export function mergeDataWithKey(data) {
 }
 
 export function getBoardKey() {
-  return window.location.href
-    .split('/')
-    .pop()
-    .replace('-', '');
+  return window.location.href.split('/').pop();
 }
 
 export function byPropKey(propertyName, value) {

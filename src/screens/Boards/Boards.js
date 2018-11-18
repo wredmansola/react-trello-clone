@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { isEmpty } from 'lodash';
 
 import { Link } from 'react-router-dom';
 import withAuthorization from '../../utils/withAuthorization';
@@ -7,9 +8,8 @@ import { db } from '../../firebase';
 
 import { Icon } from 'antd';
 import BoardLink from '../../components/BoardLink';
-import { BoardTypes, BoardTypeTitle } from './styled';
 import Loader from '../../components/Loader';
-import { isEmpty } from 'lodash';
+import { BoardTypes, BoardTypeTitle, Boards } from './styled';
 
 class BoardsScreen extends Component {
   state = {
@@ -37,27 +37,15 @@ class BoardsScreen extends Component {
       });
   }
 
-  handleCreateBoard = board => {
-    db.doCreateBoard(board).then(response => {
-      let updatedBoards = this.state.boards;
-      console.log(response);
-      updatedBoards.push(response);
-      this.setState({
-        boards: updatedBoards
-      });
-    });
-  };
-
   render() {
     const { isLoading } = this.state;
     const { boards } = this.state;
     const starredBoards = boards.filter(board => board.favorite);
-    console.log(isEmpty(starredBoards));
 
     return isLoading ? (
       <Loader />
     ) : (
-      <div>
+      <Boards>
         {!isEmpty(starredBoards) && (
           <BoardTypes>
             <BoardTypeTitle>
@@ -97,7 +85,7 @@ class BoardsScreen extends Component {
             );
           })}
         </BoardTypes>
-      </div>
+      </Boards>
     );
   }
 }

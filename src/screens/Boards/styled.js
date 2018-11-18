@@ -13,4 +13,9 @@ const BoardTypeTitle = styled.h4`
   margin-bottom: 0px;
 `;
 
-export { BoardTypes, BoardTypeTitle };
+const Boards = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+`;
+
+export { BoardTypes, BoardTypeTitle, Boards };
