@@ -29,11 +29,10 @@ export const onceGetBoards = () => {
 
 export const doEditBoard = (boardKey, board) => {
   const uid = getUser().uid;
-  const id = boardsRef.push().key.replace('-', '');
 
   boardsRef
     .child(uid)
-    .child(id)
+    .child(boardKey)
     .update({
       ...board
     })

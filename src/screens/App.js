@@ -9,7 +9,7 @@ import {
 import * as routes from '../constants/routes';
 import withAuthentication from '../utils/withAuthentication';
 
-import Navigation from './Navigation';
+import Navigation from '../navigation';
 import SignUpScreen from './SignUp';
 import SignInScreen from './SignIn';
 import PasswordForgetScreen from './PasswordForget';
