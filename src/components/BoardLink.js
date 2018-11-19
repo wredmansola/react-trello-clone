@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'antd';
 
-const StyledBoard = styled.div`
+const StyledBoardLink = styled.div`
   position: relative;
   display: inline-block;
   padding: 4px;
@@ -12,8 +12,9 @@ const StyledBoard = styled.div`
   color: white;
   margin: 1%;
   border-radius: 4px;
-  @media only screen and (max-width: 400px) and (min-width: 320px) {
-    width: 98%;
+  @media only screen and (max-width: 400px) and (min-width: 82px) {
+    width: 96%;
+    margin: 2%;
   }
   @media only screen and (max-width: 720px) and (min-width: 400px) {
     width: 48%;
@@ -21,6 +22,21 @@ const StyledBoard = styled.div`
   @media only screen and (max-width: 1024px) and (min-width: 720px) {
     width: 30%;
   }
+`;
+
+const StyledNewBoard = styled(StyledBoardLink)`
+  color: #6b808c;
+  cursor: pointer;
+  position: relative;
+`;
+
+const NewBoardContent = styled.div`
+  text-align: center;
+`;
+
+const CreateBoardTitle = styled.div`
+  top: 25px;
+  position: relative;
 `;
 
 const getColor = color => {
@@ -44,16 +60,21 @@ const Favorite = styled.div`
   display: ${props => (props.favorite ? 'block' : 'none')};
 `;
 
-export default class Board extends Component {
-  render() {
-    const { title, favorite, color } = this.props;
-    return (
-      <StyledBoard color={getColor(color)}>
-        <Title>{title}</Title>
-        <Favorite favorite={favorite}>
-          <Icon type="star" />
-        </Favorite>
-      </StyledBoard>
-    );
-  }
-}
+const BoardLink = ({ title, favorite, color }) => (
+  <StyledBoardLink color={getColor(color)}>
+    <Title>{title}</Title>
+    <Favorite favorite={favorite}>
+      <Icon type="star" />
+    </Favorite>
+  </StyledBoardLink>
+);
+
+const NewBoard = ({ onClick }) => (
+  <StyledNewBoard color="#eee" onClick={onClick}>
+    <NewBoardContent>
+      <CreateBoardTitle>Create new board...</CreateBoardTitle>
+    </NewBoardContent>
+  </StyledNewBoard>
+);
+
+export { BoardLink, NewBoard };

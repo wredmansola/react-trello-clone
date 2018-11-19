@@ -13,7 +13,7 @@ const boardsRef = db.ref('boards');
 
 export const doCreateBoard = async board => {
   const uid = getUser().uid;
-  const id = boardsRef.push().key.replace('-', '');
+  const id = boardsRef.push().key;
   await boardsRef
     .child(uid)
     .child(id)
@@ -44,7 +44,7 @@ export const onceGetBoard = key => {
 
   return boardsRef
     .child(uid)
-    .child(key)
+    .child(`-${key}`) // TODO: Найти нормальный способ
     .once('value');
 };
 

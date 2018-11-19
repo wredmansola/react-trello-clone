@@ -1,6 +1,4 @@
-import { Select, Input } from 'antd';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 const Nav = styled.nav`
   background: #026aa7;
@@ -25,16 +23,4 @@ const NavUser = styled.div`
   }
 `;
 
-const BoardForm = styled.form`
-  width: 100%;
-`;
-
-const StyledSelect = styled(Select)`
-  width: 40% !important;
-`;
-
-const StyledInput = styled(Input)`
-  width: 60% !important;
-`;
-
-export { BoardForm, StyledSelect, StyledInput, Nav, NavItems, NavUser };
+export { Nav, NavItems, NavUser };

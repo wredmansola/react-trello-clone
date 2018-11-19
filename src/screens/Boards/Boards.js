@@ -5,19 +5,21 @@ import { Link } from 'react-router-dom';
 import withAuthorization from '../../utils/withAuthorization';
 import { mergeDataWithKey } from '../../utils/index';
 import { db } from '../../firebase';
+import CreateBoardModal from './CreateBoardModal';
 
 import { Icon } from 'antd';
-import BoardLink from '../../components/BoardLink';
+import { BoardLink, NewBoard } from '../../components/BoardLink';
 import Loader from '../../components/Loader';
-import { BoardTypes, BoardTypeTitle, Boards } from './styled';
+import { BoardTypes, BoardTypeTitle, Boards, BoardsContainer } from './styled';
 
 class BoardsScreen extends Component {
   state = {
     boards: [],
-    isLoading: false
+    isLoading: false,
+    modalVisible: false
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.setState({
       isLoading: true
     });
@@ -35,7 +37,28 @@ class BoardsScreen extends Component {
           isLoading: false
         });
       });
-  }
+  };
+
+  handleCreateBoard = board => {
+    return db.doCreateBoard(board).then(response => {
+      let updatedBoards = this.state.boards;
+      updatedBoards.push(response);
+      this.setState({
+        boards: updatedBoards,
+        modalVisible: false
+      });
+    });
+  };
+
+  setModalVisible = () => {
+    this.setState({ modalVisible: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({
+      modalVisible: false
+    });
+  };
 
   render() {
     const { isLoading } = this.state;
@@ -73,18 +96,28 @@ class BoardsScreen extends Component {
             Personal Boards
           </BoardTypeTitle>
 
-          {boards.map((board, index) => {
-            return (
-              <Link to={`b/${board.key}`} key={index}>
-                <BoardLink
-                  title={board.title}
-                  color={board.color}
-                  favorite={board.favorite}
-                />
-              </Link>
-            );
-          })}
+          <React.Fragment>
+            {boards.map((board, index) => {
+              return (
+                <Link key={index} to={`b/${board.key}`}>
+                  <BoardLink
+                    key={index}
+                    title={board.title}
+                    color={board.color}
+                    favorite={board.favorite}
+                  />
+                </Link>
+              );
+            })}
+            <NewBoard onClick={this.setModalVisible} />
+          </React.Fragment>
         </BoardTypes>
+
+        <CreateBoardModal
+          onCreateBoard={this.handleCreateBoard}
+          onCloseModal={this.handleCloseModal}
+          visible={this.state.modalVisible}
+        />
       </Boards>
     );
   }

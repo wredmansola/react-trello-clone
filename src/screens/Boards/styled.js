@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Select, Input } from 'antd';
 
 const BoardTypes = styled.div`
   margin-bottom: 10px;
@@ -18,4 +19,28 @@ const Boards = styled.div`
   margin: 0 auto;
 `;
 
-export { BoardTypes, BoardTypeTitle, Boards };
+const BoardForm = styled.form`
+  width: 100%;
+`;
+
+const StyledSelect = styled(Select)`
+  width: 40% !important;
+`;
+
+const StyledInput = styled(Input)`
+  width: 60% !important;
+`;
+
+const BoardsContainer = styled.div`
+  display: flex;
+`;
+
+export {
+  BoardForm,
+  StyledSelect,
+  StyledInput,
+  BoardTypes,
+  BoardTypeTitle,
+  Boards,
+  BoardsContainer
+};
