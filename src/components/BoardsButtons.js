@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { darken } from 'polished';
 import { Icon } from 'antd';
 
 const StyledBoardLink = styled.div`
@@ -8,10 +9,14 @@ const StyledBoardLink = styled.div`
   padding: 4px;
   width: 20%;
   height: 80px;
-  background-color: ${props => (props.color ? props.color : '#026aa7')};
+  background-color: ${props => props.color};
   color: white;
   margin: 1%;
   border-radius: 4px;
+  transition: all 0.3s;
+  &:hover {
+    background: ${props => darken(0.05, props.color)};
+  }
   @media only screen and (max-width: 400px) and (min-width: 82px) {
     width: 96%;
     margin: 2%;
