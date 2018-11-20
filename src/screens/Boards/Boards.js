@@ -8,9 +8,9 @@ import { db } from '../../firebase';
 import CreateBoardModal from './CreateBoardModal';
 
 import { Icon } from 'antd';
-import { BoardLink, NewBoard } from '../../components/BoardLink';
+import { BoardLink, NewBoard } from '../../components/BoardsButtons';
 import Loader from '../../components/Loader';
-import { BoardTypes, BoardTypeTitle, Boards, BoardsContainer } from './styled';
+import { BoardTypes, BoardTypeTitle, Boards } from './styled';
 
 class BoardsScreen extends Component {
   state = {
