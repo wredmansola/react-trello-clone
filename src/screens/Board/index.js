@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-import { Button, Icon } from 'antd';
 import { isEmpty } from 'lodash';
 
 import { db } from '../../firebase';
 import withAuthorization from '../../utils/withAuthorization';
 import { getBoardKey, mergeDataWithKey } from '../../utils/index';
 
-import List from './List';
-import CreateListForm from './List/CreateListForm';
-
-import styles from './Board.module.css';
+import BoardTitle from '../../components/BoardTitle';
+import Loader from '../../components/Loader';
+import { AddList, Lists } from './styled';
+import FormCreation from '../../components/FormCreation';
+import Cards from './Cards';
+import List from '../../components/List';
+import ListTitle from '../../components/ListTitle';
 
 class BoardScreen extends Component {
   state = {
@@ -26,71 +28,43 @@ class BoardScreen extends Component {
       isLoading: true
     });
     const boardKey = getBoardKey();
-    db.onceGetBoard(boardKey)
-      .then(snapshot => {
-        if (!snapshot.val()) {
-          return;
-        }
-        this.setState({
-          boardKey,
-          board: snapshot.val()
-        });
+    Promise.all([db.onceGetBoard(boardKey), db.onceGetLists(boardKey)])
+      .then(snapshots => {
+        const board = snapshots[0].val();
+        const lists = mergeDataWithKey(snapshots[1].val());
+        this.setState(() => ({ boardKey, board, lists }));
       })
-      .then(() => db.onceGetLists(boardKey))
-      .then(snapshot => {
-        const snapshotVal = snapshot.val();
-        if (!snapshotVal) {
-          return;
-        }
-        this.setState({
-          boardKey,
-          lists: mergeDataWithKey(snapshotVal)
-        });
-      })
-      .catch(reason => console.error(reason))
       .finally(() =>
-        this.setState({
+        this.setState(() => ({
           isLoading: false
-        })
+        }))
       );
   };
 
-  createList = (boardKey, listTitle) => {
-    if (!listTitle) {
-      return;
-    }
-    db.doCreateList(boardKey, listTitle)
-      .then(() => db.onceGetLists(boardKey))
-      .then(snapshot => {
-        let snapshotVal = snapshot.val();
-        if (!snapshotVal) {
-          return;
-        }
-        this.setState({
-          lists: mergeDataWithKey(snapshotVal)
-        });
+  handleCreateList = listTitle => {
+    const { boardKey } = this.state;
+    return db.doCreateList(boardKey, { title: listTitle }).then(response => {
+      const lists = [...this.state.lists];
+      lists.push(response);
+      this.setState({
+        lists
       });
+    });
   };
 
-  editList = (boardKey, listKey, listTitle) => {
-    if (!listTitle) {
-      return;
-    }
-    db.doEditList(boardKey, listKey, listTitle)
-      .then(() => db.onceGetLists(boardKey))
-      .then(snapshot => {
-        let snapshotVal = snapshot.val();
-        if (!snapshotVal) {
-          return;
-        }
-        this.setState({
-          lists: mergeDataWithKey(snapshotVal)
-        });
-      });
+  handleUpdateList = (listKey, title) => {
+    const { boardKey } = this.state;
+    return db.doUpdateList(boardKey, listKey, { title }).then(response => {
+      const lists = [...this.state.lists];
+      lists.push(response);
+      this.setState(() => ({
+        lists
+      }));
+    });
   };
 
-  deleteList = (boardKey, listKey) => {
-    db.doDeleteList(boardKey, listKey).then(() => {
+  handleDeleteList = (boardKey, listKey) => {
+    return db.doDeleteList(boardKey, listKey).then(() => {
       const updatedLists = this.state.lists.filter(
         list => list.key !== listKey
       );
@@ -112,36 +86,38 @@ class BoardScreen extends Component {
   render() {
     let { boardKey, board, lists } = this.state;
     return this.state.isLoading ? (
-      <div className={styles.loader}>
-        <Button shape="circle" loading />
-      </div>
+      <Loader />
     ) : (
       !isEmpty(board) && (
-        <div className={styles.board}>
-          <div className={styles.title}>
-            <h2 className={styles.title}>{board.title}</h2>
-            <div>
-              <Icon
-                type="star"
-                className={board.favorite && styles.active}
-                onClick={event => this.handleAddToFavorites(boardKey, board)}
-              />
-            </div>
-          </div>
-          <CreateListForm boardKey={boardKey} onCreateList={this.createList} />
+        <React.Fragment>
+          <BoardTitle
+            title={board.title}
+            favorite={board.favorite}
+            onAddToFavorite={this.handleAddToFavorites}
+            color={board.color}
+          />
 
-          <div className={styles.lists}>
+          <Lists>
             {lists.map((list, index) => (
-              <List
-                boardKey={boardKey}
-                key={index}
-                list={list}
-                onEditList={this.editList}
-                onDeleteList={this.deleteList}
-              />
+              <List key={index}>
+                <ListTitle
+                  boardKey={boardKey}
+                  listKey={list.key}
+                  title={list.title}
+                  onEditList={this.handleUpdateList}
+                  onDeleteList={this.handleDeleteList}
+                />
+                <Cards list={list} />
+              </List>
             ))}
-          </div>
-        </div>
+            <AddList>
+              <FormCreation
+                placeholder="Create new list"
+                onCreate={this.handleCreateList}
+              />
+            </AddList>
+          </Lists>
+        </React.Fragment>
       )
     );
   }

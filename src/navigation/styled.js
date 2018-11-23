@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 const Nav = styled.nav`
-  background: #026aa7;
+  background: ${darken(0.05, '#026aa7')};
   padding: 4px;
   margin-bottom: 20px;
 `;

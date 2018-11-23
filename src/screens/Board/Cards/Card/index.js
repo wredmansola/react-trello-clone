@@ -7,7 +7,8 @@ import Date from './Date';
 import { getBadgeColor } from '../../../../utils/index';
 
 import styles from './Card.module.css';
-import { Card, Icon, Input, Popover, Badge } from 'antd';
+import { Icon, Input, Popover, Badge } from 'antd';
+import Card from '../../../../components/Card';
 
 const cardSource = {
   beginDrag(props) {
@@ -87,67 +88,7 @@ class ItemCard extends Component {
 
     return connectDragSource(
       <div className={styles.card}>
-        <Card style={{ width: 250 }} onBlur={this.handleDisableEditMode}>
-          {editMode ? (
-            <form
-              onSubmit={event =>
-                this.handleEditCard(event, listKey, card.key, card)
-              }
-            >
-              <Input
-                className={styles.cardTitleForm}
-                value={cardTitle}
-                onChange={e => this.setState({ cardTitle: e.target.value })}
-                autoFocus
-              />
-            </form>
-          ) : (
-            <p className={styles.cardTitle} onClick={this.showModal}>
-              {card.title}
-            </p>
-          )}
-          {!editMode && (
-            <div>
-              <Popover
-                placement="rightTop"
-                content={
-                  <div>
-                    <div
-                      className={styles.cardOperations}
-                      onClick={this.handleEnableEditMode}
-                    >
-                      <Icon type="edit" /> Edit card
-                    </div>
-                    <div
-                      className={styles.cardOperations}
-                      onClick={e => this.deleteCard(listKey, card.key)}
-                    >
-                      <Icon type="delete" trigger="click" /> Delete card
-                    </div>
-                  </div>
-                }
-                trigger="click"
-              >
-                <Icon className={styles.cardControls} type="ellipsis" />
-              </Popover>
-              {card.date && <Date date={card.date} />}
-              {card.description && (
-                <Icon
-                  onClick={this.showModal}
-                  className={styles.cardDescriptionIcon}
-                  type="align-left"
-                />
-              )}
-              {card.importance && (
-                <Badge
-                  onClick={this.showModal}
-                  count={card.importance}
-                  style={{ backgroundColor: getBadgeColor(card.importance) }}
-                />
-              )}
-            </div>
-          )}
-        </Card>
+        <Card title={card.title} />
 
         <CardModal
           listKey={listKey}

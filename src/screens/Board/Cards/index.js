@@ -8,9 +8,7 @@ import { findIndex } from 'lodash';
 import { ItemTypes } from '../../../constants/ItemTypes';
 
 import ItemCard from './Card';
-import CreateCard from './CreateCard';
-
-import styles from './Cards.module.css';
+import FormCreation from '../../../components/FormCreation';
 
 const cardTarget = {
   drop(props, monitor, component) {
@@ -34,9 +32,7 @@ function collect(connect, monitor) {
 
 class Cards extends Component {
   state = {
-    cards: {},
-    showCreateCardForm: false,
-    cardEditing: false
+    cards: {}
   };
 
   componentDidMount = () => {
@@ -53,20 +49,19 @@ class Cards extends Component {
     });
   };
 
-  createCard = (listKey, cardTitle) => {
-    if (!cardTitle) {
-      return;
-    }
-    db.doAddCard(listKey, cardTitle)
-      .then(() => db.onceGetCard(listKey))
+  handleCreateCard = cardTitle => {
+    // FIXME: переделать запрос, setState
+    const { list } = this.props;
+    return db
+      .doAddCard(list.key, cardTitle)
+      .then(() => db.onceGetCard(list.key))
       .then(snapshot => {
         const snapshotVal = snapshot.val();
         if (!snapshotVal) {
           return;
         }
         const updatedCards = { ...this.state.cards };
-        updatedCards[listKey] = mergeDataWithKey(snapshotVal);
-
+        updatedCards[list.key] = mergeDataWithKey(snapshotVal);
         this.setState({
           cards: updatedCards
         });
@@ -120,41 +115,13 @@ class Cards extends Component {
     });
   };
 
-  handleShowCreateCard = () => {
-    this.setState({
-      showCreateCardForm: true
-    });
-  };
-
-  handleHideCreateCard = () => {
-    this.setState({
-      showCreateCardForm: false
-    });
-  };
-
-  handleCardEditing = () => {
-    this.setState({
-      cardEditing: true
-    });
-  };
-
-  handleCardStopEditing = () => {
-    this.setState({
-      cardEditing: false
-    });
-  };
-
   render() {
     const { list, connectDropTarget } = this.props;
-    const { cards, showCreateCardForm, cardEditing } = this.state;
+    const { cards } = this.state;
 
     const listCards = cards[list.key] ? cards[list.key] : [];
     return connectDropTarget(
-      <div
-        className={styles.cards}
-        onMouseEnter={this.handleShowCreateCard}
-        onMouseLeave={this.handleHideCreateCard}
-      >
+      <div>
         {listCards.map((card, index) => (
           <ItemCard
             key={index}
@@ -165,14 +132,10 @@ class Cards extends Component {
             onDeleteCard={this.deleteCard}
           />
         ))}
-        {(showCreateCardForm || cardEditing) && (
-          <CreateCard
-            onCreateCard={this.createCard}
-            onCardEditing={this.handleCardEditing}
-            onCardStopEditing={this.handleCardStopEditing}
-            listKey={list.key}
-          />
-        )}
+        <FormCreation
+          placeholder="Create card"
+          onCreate={this.handleCreateCard}
+        />
       </div>
     );
   }

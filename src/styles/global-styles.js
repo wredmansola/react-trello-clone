@@ -1,14 +1,20 @@
 import 'antd/dist/antd.css';
 import { createGlobalStyle } from 'styled-components';
 
-createGlobalStyle`
-
+export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+}
+
+#root {
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 code {
@@ -18,10 +24,6 @@ code {
 
 * {
   box-sizing: border-box;
-}
-
-.container {
-  padding: 15px;
 }
 
 .ant-card {

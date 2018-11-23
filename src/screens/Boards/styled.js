@@ -3,6 +3,8 @@ import { Select, Input } from 'antd';
 
 const BoardTypes = styled.div`
   margin-bottom: 10px;
+  max-width: 800px;
+  margin: auto;
 `;
 
 const BoardTypeTitle = styled.h4`
@@ -14,33 +16,14 @@ const BoardTypeTitle = styled.h4`
   margin-bottom: 0px;
 `;
 
-const Boards = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-`;
+const Boards = styled.div``;
 
 const BoardForm = styled.form`
   width: 100%;
-`;
-
-const StyledSelect = styled(Select)`
-  width: 40% !important;
-`;
-
-const StyledInput = styled(Input)`
-  width: 60% !important;
 `;
 
 const BoardsContainer = styled.div`
   display: flex;
 `;
 
-export {
-  BoardForm,
-  StyledSelect,
-  StyledInput,
-  BoardTypes,
-  BoardTypeTitle,
-  Boards,
-  BoardsContainer
-};
+export { BoardForm, BoardTypes, BoardTypeTitle, Boards, BoardsContainer };

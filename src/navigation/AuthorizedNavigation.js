@@ -8,9 +8,17 @@ import SignOutButton from '../screens/SignOut';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import { Nav, NavItems, NavUser } from './styled';
+import { lighten } from 'polished';
 
 const StyledLink = styled(Link)`
   display: inline-block !important;
+`;
+
+const StyledButton = styled(Button)`
+  background: hsla(0, 0%, 100%, 0.3);
+  &:hover {
+    background: hsla(0, 0%, 100%, 0.2);
+  }
 `;
 
 const menu = (
@@ -33,16 +41,16 @@ class NavigationAuth extends Component {
       <Nav>
         <NavItems>
           <Link to={routes.BOARDS}>
-            <Button>
+            <StyledButton>
               <Icon type="home" />
-            </Button>
+            </StyledButton>
           </Link>
         </NavItems>
         <NavUser>
           <Dropdown overlay={menu} trigger={['click']}>
-            <Button>
+            <StyledButton>
               <Icon type="setting" theme="outlined" />
-            </Button>
+            </StyledButton>
           </Dropdown>
         </NavUser>
       </Nav>

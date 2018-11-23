@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
 
 const Button = styled.div`
   transition: 0.1s ease;
-  background: hsla(0, 0%, 100%, 0.3);
   border-radius: 3px;
   color: #fff;
   display: block;
@@ -10,16 +10,16 @@ const Button = styled.div`
   line-height: 32px;
   margin-right: 4px;
   min-width: 32px;
-  padding: 0;
+  padding: 0 5px;
   text-decoration: none;
   text-align: center;
   &:hover {
-    background: hsla(0, 0%, 100%, 0.2);
+    background: ${darken(0.05, '#026aa7')};
     color: #fff;
     cursor: pointer;
   }
   &:active {
-    background: hsla(0, 0%, 100%, 0.1);
+    background: ;
   }
   i {
     font-size: 1rem !important;

@@ -6,10 +6,6 @@
   cursor: pointer;
 }
 
-.card i:hover {
-  color: #1890ff;
-}
-
 .cardTitleForm,
 .cardTitleForm:focus {
   border: none;
