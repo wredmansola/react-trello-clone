@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import { Icon, Input } from 'antd';
-import Button from './Button';
+import { GrayButton } from './Button';
 
 export default class Card extends Component {
   state = {
@@ -82,16 +82,16 @@ export default class Card extends Component {
           <React.Fragment>
             {showEditIcons && (
               <Edit>
-                <StyledButton onClick={this.handleEnableEdit}>
+                <GrayButton onClick={this.handleEnableEdit}>
                   <Icon type="edit" />
-                </StyledButton>
-                <StyledButton
+                </GrayButton>
+                <GrayButton
                   onClick={() =>
                     this.handleDeleteCard(onDeleteCard, listKey, card.key)
                   }
                 >
                   <Icon type="delete" />
-                </StyledButton>
+                </GrayButton>
               </Edit>
             )}
             <Title onClick={showModal}>{card.title}</Title>
@@ -138,19 +138,5 @@ const Edit = styled.div`
   top: 4px;
   > div {
     display: inline-block;
-  }
-`;
-
-// TODO: сделать нормальный компонент
-const StyledButton = styled(Button)`
-  color: gray;
-  margin: 0;
-  font-size: 10px;
-  padding: 4px;
-  line-height: inherit;
-  min-width: auto;
-  &:hover {
-    background: ${darken(0.05, '#eee')};
-    color: ${darken(0.05, 'gray')};
   }
 `;

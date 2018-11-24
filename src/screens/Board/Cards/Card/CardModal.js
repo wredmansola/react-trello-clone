@@ -29,7 +29,13 @@ class CardModal extends Component {
           <CardDetail
             title={<DetailTitle>Labels</DetailTitle>}
             icon={<Icon type="tag" />}
-            content={<CardLabel />}
+            content={
+              <CardLabel
+                card={card}
+                listKey={listKey}
+                onEditCard={onEditCard}
+              />
+            }
           />
 
           <CardDetail
@@ -63,18 +69,3 @@ const Details = styled.div`
 const StyledIcon = styled(Icon)`
   color: #798d99 !important;
 `;
-
-// {
-/* <div>
-          <CardDescription
-            listKey={listKey}
-            card={card}
-            onEditCard={onEditCard}
-          />
-          <CardImportance
-            listKey={listKey}
-            card={card}
-            onEditCard={onEditCard}
-          />
-        </div> */
-// }

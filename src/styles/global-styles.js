@@ -43,19 +43,19 @@ code {
 
   .card-label {
     &-green {
-      background: #519839;
+      background: #61bd4f;
     }
     &-yellow {
-      background: #d9b51c;
+      background: #f2d600;
     }
     &-orange {
-      background: #cd8313;
+      background: #ff9f1a;
     }
     &-red {
-      background: #b04632;
+      background: #eb5a46;
     }
     &-purple {
-      background: #89609e;
+      background: #c377e0;
     }
     &-blue {
       background: #0079bf;

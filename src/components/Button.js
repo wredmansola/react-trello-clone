@@ -27,3 +27,16 @@ const Button = styled.div`
 `;
 
 export default Button;
+
+export const GrayButton = styled(Button)`
+  color: gray;
+  margin: 0;
+  font-size: 10px;
+  padding: 4px;
+  line-height: inherit;
+  min-width: auto;
+  &:hover {
+    background: ${darken(0.05, '#eee')};
+    color: ${darken(0.05, 'gray')};
+  }
+`;
