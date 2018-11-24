@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Input, Icon, Button } from 'antd';
 
-import styles from './CardDescription.module.css';
-
 const { TextArea } = Input;
 
 export default class CartDescription extends Component {
@@ -38,14 +36,13 @@ export default class CartDescription extends Component {
     const { listKey, card, onEditCard } = this.props;
 
     return (
-      <div className={styles.description}>
-        <h3 className={styles.descriptionTitle}>
+      <div>
+        <h3>
           <Icon type="align-left" /> Description
         </h3>
         {descriptionEditMode ? (
-          <form className={styles.descriptionForm}>
+          <form>
             <TextArea
-              className={styles.descriptionArea}
               onChange={event =>
                 this.setState({ cardDescription: event.target.value })
               }
@@ -54,7 +51,6 @@ export default class CartDescription extends Component {
               autoFocus
             />
             <Button
-              className={styles.descriptionBtn}
               onClick={event =>
                 this.handleEditCardDescription(
                   event,
@@ -71,17 +67,9 @@ export default class CartDescription extends Component {
             <Icon type="close" onClick={this.handleDisableEditDescription} />
           </form>
         ) : card.description ? (
-          <p
-            onClick={this.handleEnableEditDescription}
-            className={styles.descriptionText}
-          >
-            {card.description}
-          </p>
+          <p onClick={this.handleEnableEditDescription}>{card.description}</p>
         ) : (
-          <div
-            className={styles.descriptionEmptyText}
-            onClick={this.handleEnableEditDescription}
-          >
+          <div onClick={this.handleEnableEditDescription}>
             Write description
           </div>
         )}

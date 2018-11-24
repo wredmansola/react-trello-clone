@@ -7,7 +7,7 @@ import { mergeDataWithKey } from '../../../utils/index';
 import { findIndex } from 'lodash';
 import { ItemTypes } from '../../../constants/ItemTypes';
 
-import ItemCard from './Card';
+import CardContainer from './Card';
 import FormCreation from '../../../components/FormCreation';
 
 const cardTarget = {
@@ -50,7 +50,6 @@ class Cards extends Component {
   };
 
   handleCreateCard = cardTitle => {
-    // FIXME: переделать запрос, setState
     const { list } = this.props;
     return db
       .doAddCard(list.key, cardTitle)
@@ -68,16 +67,18 @@ class Cards extends Component {
       });
   };
 
-  editCard = (listKey, cardKey, card) => {
-    db.doEditCard(listKey, cardKey, card).then(() => {
+  handleEditCard = (listKey, cardKey, card) => {
+    return db.doEditCard(listKey, cardKey, card).then(response => {
       const updatedCards = { ...this.state.cards };
-      const cardIndex = findIndex(updatedCards[listKey], card => {
-        return card.key === cardKey;
-      });
-      updatedCards[listKey][cardIndex] = card;
-      this.setState({
+      const cardIndex = findIndex(
+        updatedCards[listKey],
+        card => card.key === cardKey
+      );
+      updatedCards[listKey][cardIndex] = response;
+
+      this.setState(() => ({
         cards: updatedCards
-      });
+      }));
     });
   };
 
@@ -102,8 +103,8 @@ class Cards extends Component {
     });
   };
 
-  deleteCard = (listKey, cardKey) => {
-    db.doDeleteCard(listKey, cardKey).then(() => {
+  handleDeleteCard = (listKey, cardKey) => {
+    return db.doDeleteCard(listKey, cardKey).then(() => {
       const updatedCards = { ...this.state.cards };
       const listCards = this.state.cards[listKey].filter(
         card => card.key !== cardKey
@@ -122,14 +123,14 @@ class Cards extends Component {
     const listCards = cards[list.key] ? cards[list.key] : [];
     return connectDropTarget(
       <div>
-        {listCards.map((card, index) => (
-          <ItemCard
-            key={index}
+        {listCards.map(card => (
+          <CardContainer
+            key={card.key}
             listKey={list.key}
             card={card}
-            onEditCard={this.editCard}
+            onEditCard={this.handleEditCard}
             onMoveCard={this.moveCard}
-            onDeleteCard={this.deleteCard}
+            onDeleteCard={this.handleDeleteCard}
           />
         ))}
         <FormCreation

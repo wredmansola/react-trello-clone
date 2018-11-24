@@ -26,24 +26,41 @@ code {
   box-sizing: border-box;
 }
 
-.ant-card {
-  position: relative;
-  margin-bottom: 5px;
-}
-.ant-card-body {
-  padding: 10px;
-}
+.ant-modal {
+  &-body {
+    display: flex;   
+    background: #dfe3e6!important;
+    padding-top: 0!important;
+  }
+  &-header {
+    display: flex;
+    background: #dfe3e6!important;
+    border-bottom: none!important;
+  }
+  &-title {
+    width: 100%;
+  }
 
-.ant-card input {
-  height: 20px;
-}
-
-.ant-card p {
-  margin-bottom: 0;
-}
-
-.ant-modal-body {
-  display: flex;
+  .card-label {
+    &-green {
+      background: #519839;
+    }
+    &-yellow {
+      background: #d9b51c;
+    }
+    &-orange {
+      background: #cd8313;
+    }
+    &-red {
+      background: #b04632;
+    }
+    &-purple {
+      background: #89609e;
+    }
+    &-blue {
+      background: #0079bf;
+    }
+  }
 }
 
 `;

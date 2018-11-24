@@ -1,6 +1,10 @@
 import { db } from './firebase';
 import { getUser } from './user';
 
+const boardsRef = db.ref('boards');
+const listsRef = db.ref('lists');
+const cardsRef = db.ref('cards');
+
 export const doCreateUser = (id, username, email) =>
   db.ref(`users/${id}`).set({
     username,
@@ -8,9 +12,6 @@ export const doCreateUser = (id, username, email) =>
   });
 
 export const onceGetUsers = () => db.ref('users').once('value');
-
-const boardsRef = db.ref('boards');
-const listsRef = db.ref('lists');
 
 export const doCreateBoard = async board => {
   const uid = getUser().uid;
@@ -73,12 +74,12 @@ export const doDeleteList = (boardKey, listKey) =>
         .remove()
     );
 
-export const doUpdateList = (boardKey, listKey, list) => {
-  listsRef
+export const doUpdateList = async (boardKey, listKey, list) => {
+  await listsRef
     .child(boardKey)
     .child(listKey)
     .update({
-      list
+      ...list
     });
   return list;
 };
@@ -90,10 +91,16 @@ export const doAddCard = (listKey, cardTitle) =>
 
 export const onceGetCard = listKey => db.ref(`cards/${listKey}`).once('value');
 
-export const doEditCard = (listKey, cardKey, card) =>
-  db.ref(`cards/${listKey}/${cardKey}`).update({
-    ...card
-  });
+export const doEditCard = async (listKey, cardKey, card) => {
+  await cardsRef
+    .child(listKey)
+    .child(cardKey)
+    .update({
+      ...card
+    });
+  card.key = cardKey;
+  return card;
+};
 
 export const doMoveCard = (oldListKey, newListKey, cardKey, card) =>
   db
