@@ -24,21 +24,39 @@ export const doCreateBoard = async board => {
   return board;
 };
 
+export const doDeleteBoard = async boardKey => {
+  const uid = getUser().uid;
+  await boardsRef
+    .child(uid)
+    .child(boardKey)
+    .remove();
+};
+
+export const doUpdateBoard = async (boardKey, title) => {
+  const uid = getUser().uid;
+  await boardsRef
+    .child(uid)
+    .child(boardKey)
+    .update({
+      ...title
+    });
+};
+
 export const onceGetBoards = () => {
   const uid = getUser().uid;
   return boardsRef.child(uid).once('value');
 };
 
-export const doEditBoard = (boardKey, board) => {
+export const doEditBoard = async (boardKey, board) => {
   const uid = getUser().uid;
 
-  boardsRef
+  await boardsRef
     .child(uid)
     .child(boardKey)
     .update({
       ...board
-    })
-    .then(() => board);
+    });
+  return board;
 };
 
 export const onceGetBoard = key => {

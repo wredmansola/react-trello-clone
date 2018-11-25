@@ -44,14 +44,6 @@ const CreateBoardTitle = styled.div`
   position: relative;
 `;
 
-const getColor = color => {
-  if (color === 'Blue') {
-    return '#026aa7';
-  } else {
-    return color;
-  }
-};
-
 const Title = styled.div`
   font-weight: bold;
 `;
@@ -66,7 +58,7 @@ const Favorite = styled.div`
 `;
 
 const BoardLink = ({ title, favorite, color }) => (
-  <StyledBoardLink color={getColor(color)}>
+  <StyledBoardLink color="#026aa7">
     <Title>{title}</Title>
     <Favorite favorite={favorite}>
       <Icon type="star" />

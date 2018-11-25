@@ -69,11 +69,13 @@ export default class Card extends Component {
         editMode={editMode}
       >
         <LabelWrapper>
-          <Label
-            color={getColor(LABELS, card.label)}
-            text={card.label}
-            small={true}
-          />
+          {card.label && (
+            <Label
+              color={getColor(LABELS, card.label)}
+              text={card.label}
+              small={true}
+            />
+          )}
         </LabelWrapper>
         {editMode ? (
           <form

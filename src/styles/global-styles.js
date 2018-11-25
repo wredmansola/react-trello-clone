@@ -37,29 +37,34 @@ code {
     background: #dfe3e6!important;
     border-bottom: none!important;
   }
+  &-footer {
+    border-top: none!important;
+    background: #dfe3e6!important;
+  }
   &-title {
     width: 100%;
   }
+}
+.card-label {
+  &-green {
+    background: #61bd4f;
   }
-  .card-label {
-    &-green {
-      background: #61bd4f;
-    }
-    &-yellow {
-      background: #f2d600;
-    }
-    &-orange {
-      background: #ff9f1a;
-    }
-    &-red {
-      background: #eb5a46;
-    }
-    &-purple {
-      background: #c377e0;
-    }
-    &-blue {
-      background: #0079bf;
-    }
+  &-yellow {
+    background: #f2d600;
+  }
+  &-orange {
+    background: #ff9f1a;
+  }
+  &-red {
+    background: #eb5a46;
+  }
+  &-purple {
+    background: #c377e0;
+  }
+  &-blue {
+    background: #0079bf;
+  }
+  
 }
 
 `;

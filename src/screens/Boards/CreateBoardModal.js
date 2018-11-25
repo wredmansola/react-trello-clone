@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button as AButton, Input, Modal } from 'antd';
+import styled from 'styled-components';
 
 import { BoardForm } from './styled';
 import { DEFAULT_COLOR } from '../../constants';
@@ -45,7 +46,17 @@ export default class CreateBoardModal extends Component {
         style={{ top: 20 }}
         visible={visible}
         onCancel={onCloseModal}
-        footer={[
+        footer={null}
+      >
+        <BoardForm
+          onSubmit={event => this.handleCreateBoard(event, onCreateBoard)}
+        >
+          <StyledInput
+            placeholder="Add board title"
+            onChange={event => this.handleBoardTitleChange(event)}
+            value={this.state.boardTitle}
+            autoFocus
+          />
           <AButton
             disabled={!isValid}
             type="primary"
@@ -54,19 +65,12 @@ export default class CreateBoardModal extends Component {
           >
             Create
           </AButton>
-        ]}
-      >
-        <BoardForm
-          onSubmit={event => this.handleCreateBoard(event, onCreateBoard)}
-        >
-          <Input
-            placeholder="Add board title"
-            onChange={event => this.handleBoardTitleChange(event)}
-            value={this.state.boardTitle}
-            autoFocus
-          />
         </BoardForm>
       </Modal>
     );
   }
 }
+
+const StyledInput = styled(Input)`
+  margin-bottom: 10px !important;
+`;

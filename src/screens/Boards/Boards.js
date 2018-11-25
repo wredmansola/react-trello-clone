@@ -81,7 +81,7 @@ class BoardsScreen extends Component {
                 <Link to={`b/${board.key}`} key={index}>
                   <BoardLink
                     title={board.title}
-                    color={board.color}
+                    color="#026aa7"
                     favorite={board.favorite}
                   />
                 </Link>
@@ -103,7 +103,7 @@ class BoardsScreen extends Component {
                   <BoardLink
                     key={index}
                     title={board.title}
-                    color={board.color}
+                    color="#026aa7"
                     favorite={board.favorite}
                   />
                 </Link>

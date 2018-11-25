@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { isEmpty, findIndex } from 'lodash';
+import { withRouter } from 'react-router-dom';
 
 import { db } from '../../firebase';
 import withAuthorization from '../../utils/withAuthorization';
@@ -14,6 +15,8 @@ import FormCreation from '../../components/FormCreation';
 import Cards from './Cards';
 import List from '../../components/List';
 import ListHeader from '../../components/ListHeader';
+
+import { Drawer } from 'antd';
 
 class BoardScreen extends Component {
   state = {
@@ -76,17 +79,34 @@ class BoardScreen extends Component {
     });
   };
 
-  handleAddToFavorites = (boardKey, board) => {
-    let updatedBoard = { ...board };
-    updatedBoard.favorite = !board.favorite;
-    db.doEditBoard(boardKey, updatedBoard);
-    this.setState({
-      board: updatedBoard
+  handleAddToFavorites = () => {
+    const { boardKey } = this.state;
+    const updatedBoard = { ...this.state.board };
+    updatedBoard.favorite = !updatedBoard.favorite;
+    return db.doEditBoard(boardKey, updatedBoard).then(() => {
+      this.setState(() => ({
+        board: updatedBoard
+      }));
+    });
+  };
+
+  handleDeleteBoard = boardKey => {
+    return db.doDeleteBoard(boardKey).then(() => {
+      this.props.history.push('/boards');
+    });
+  };
+
+  handleUpdateBoard = (boardKey, title) => {
+    return db.doUpdateBoard(boardKey, title).then(() => {
+      const updatedBoard = { ...this.state.board, ...title };
+      this.setState({
+        board: updatedBoard
+      });
     });
   };
 
   render() {
-    let { board, lists } = this.state;
+    const { board, lists, boardKey } = this.state;
     return this.state.isLoading ? (
       <Loader />
     ) : (
@@ -95,8 +115,10 @@ class BoardScreen extends Component {
           <BoardTitle
             title={board.title}
             favorite={board.favorite}
-            onAddToFavorite={this.handleAddToFavorites}
-            color={board.color}
+            boardKey={boardKey}
+            onAddToFavorites={this.handleAddToFavorites}
+            deleteBoard={this.handleDeleteBoard}
+            updateBoard={this.handleUpdateBoard}
           />
 
           <Lists>
@@ -126,6 +148,6 @@ class BoardScreen extends Component {
 
 const authCondition = authUser => !!authUser;
 
-export default withAuthorization(authCondition)(
-  DragDropContext(HTML5Backend)(BoardScreen)
+export default withRouter(
+  withAuthorization(authCondition)(DragDropContext(HTML5Backend)(BoardScreen))
 );
