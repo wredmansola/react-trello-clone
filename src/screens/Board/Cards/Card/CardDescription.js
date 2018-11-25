@@ -1,58 +1,65 @@
 import React, { Component } from 'react';
-import { Input, Icon, Button } from 'antd';
+import { Input, Button } from 'antd';
+import styled from 'styled-components';
 
 const { TextArea } = Input;
 
 export default class CartDescription extends Component {
   state = {
-    cardDescription: '',
-    descriptionEditMode: false
+    description: '',
+    editMode: false
   };
 
-  handleEnableEditDescription = () => {
+  handleEnableEditMode = () => {
+    const { description } = this.props.card;
     this.setState({
-      cardDescription: this.props.card.description,
-      descriptionEditMode: true
+      description,
+      editMode: true
     });
   };
 
-  handleDisableEditDescription = () => {
+  handleDisableEditMode = () => {
     this.setState({
-      descriptionEditMode: false
+      editMode: false
     });
   };
 
-  handleEditCardDescription = (event, callback, listKey, cardKey, card) => {
+  handleSubmitForm = (event, callback, listKey, cardKey, card) => {
     event.preventDefault();
 
     const updatedCard = { ...card };
-    updatedCard.description = this.state.cardDescription;
-    callback(listKey, cardKey, updatedCard);
-    this.handleDisableEditDescription();
+    updatedCard.description = this.state.description;
+    callback(listKey, cardKey, updatedCard).then(() => {
+      this.handleDisableEditMode();
+    });
+  };
+
+  handleDescriptionChange = event => {
+    this.setState({ description: event.target.value });
   };
 
   render() {
-    const { descriptionEditMode } = this.state;
+    const { editMode } = this.state;
     const { listKey, card, onEditCard } = this.props;
-
+    const isValid = this.state.description;
     return (
       <div>
-        <h3>
-          <Icon type="align-left" /> Description
-        </h3>
-        {descriptionEditMode ? (
-          <form>
-            <TextArea
-              onChange={event =>
-                this.setState({ cardDescription: event.target.value })
-              }
-              value={this.state.cardDescription}
+        {editMode ? (
+          <form
+            onSubmit={event =>
+              this.handleSubmitForm(event, onEditCard, listKey, card.key, card)
+            }
+          >
+            <StyledTextArea
+              onChange={event => this.handleDescriptionChange(event)}
+              value={this.state.description}
               autosize
               autoFocus
             />
-            <Button
+            <SaveButton
+              disabled={!isValid}
               onClick={event =>
-                this.handleEditCardDescription(
+                this.handleSubmitForm(
                   event,
                   onEditCard,
                   listKey,
@@ -61,19 +68,30 @@ export default class CartDescription extends Component {
                 )
               }
             >
-              <Icon type="save" />
               Save
-            </Button>
-            <Icon type="close" onClick={this.handleDisableEditDescription} />
+            </SaveButton>
+            <Button onClick={this.handleDisableEditMode}>Cancel</Button>
           </form>
-        ) : card.description ? (
-          <p onClick={this.handleEnableEditDescription}>{card.description}</p>
         ) : (
-          <div onClick={this.handleEnableEditDescription}>
-            Write description
-          </div>
+          <DescriptionPlaceholder onClick={this.handleEnableEditMode}>
+            {card.description ? (
+              <span>{card.description}</span>
+            ) : (
+              <span>Add a more detailed description...</span>
+            )}
+          </DescriptionPlaceholder>
         )}
       </div>
     );
   }
 }
+
+const StyledTextArea = styled(TextArea)`
+  margin-bottom: 10px !important;
+`;
+
+const SaveButton = styled(Button)`
+  margin-right: 5px;
+`;
+
+const DescriptionPlaceholder = styled.div``;

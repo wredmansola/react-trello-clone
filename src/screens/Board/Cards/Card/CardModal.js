@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Modal, Icon } from 'antd';
 import { CardDetail } from '../../../../components/CardDetail';
 import CardLabel from './CardLabel';
+import CardDescription from './CardDescription';
 
 class CardModal extends Component {
   state = {
@@ -41,7 +42,13 @@ class CardModal extends Component {
           <CardDetail
             icon={<StyledIcon type="align-left" />}
             title={<DetailTitle>Description</DetailTitle>}
-            content="Content here"
+            content={
+              <CardDescription
+                card={card}
+                listKey={listKey}
+                onEditCard={onEditCard}
+              />
+            }
           />
         </Details>
       </Modal>

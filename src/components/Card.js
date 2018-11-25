@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { Icon, Input } from 'antd';
 import { GrayButton } from './Button';
+import { Label } from './Label';
+import { LABELS } from '../constants';
+import { find } from 'lodash';
 
 export default class Card extends Component {
   state = {
@@ -65,7 +68,13 @@ export default class Card extends Component {
         onBlur={this.handleDisableEdit}
         editMode={editMode}
       >
-        <Label />
+        <LabelWrapper>
+          <Label
+            color={getColor(LABELS, card.label)}
+            text={card.label}
+            small={true}
+          />
+        </LabelWrapper>
         {editMode ? (
           <form
             onSubmit={event =>
@@ -97,10 +106,15 @@ export default class Card extends Component {
             <Title onClick={showModal}>{card.title}</Title>
           </React.Fragment>
         )}
-        <Badges />
+        <Badges>{card.description && <Icon type="align-left" />}</Badges>
       </StyledCard>
     );
   }
+}
+
+function getColor(labels, text) {
+  const label = find(labels, label => label.text === text);
+  return label.color;
 }
 
 const StyledCard = styled.div`
@@ -126,7 +140,7 @@ const TitleInput = styled(Input)`
   }
 `;
 
-const Label = styled.div``;
+const LabelWrapper = styled.div``;
 
 const Title = styled.div``;
 

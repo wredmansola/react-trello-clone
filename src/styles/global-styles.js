@@ -40,7 +40,7 @@ code {
   &-title {
     width: 100%;
   }
-
+  }
   .card-label {
     &-green {
       background: #61bd4f;
@@ -60,7 +60,6 @@ code {
     &-blue {
       background: #0079bf;
     }
-  }
 }
 
 `;

@@ -55,12 +55,12 @@ const BoardTitle = ({ title, favorite, onAddToFavorite, color }) => (
         <StyledIcon type="star" className={favorite && 'active'} />
       </Button>
     </Favorite>
-    <ShowMenuButton>
+    {/* <ShowMenuButton>
       <Button>
         <Icon type="ellipsis" />
         <MenuButtonText>Show menu</MenuButtonText>
       </Button>
-    </ShowMenuButton>
+    </ShowMenuButton> */}
   </StyledBoardTitle>
 );
 

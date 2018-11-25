@@ -1,5 +1,5 @@
 import React from 'react';
 
-const UnauthorizedNavigation = () => <div>Unauthorized navigation</div>;
+const UnauthorizedNavigation = () => <div />;
 
 export default UnauthorizedNavigation;
