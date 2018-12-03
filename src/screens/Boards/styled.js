@@ -3,7 +3,7 @@ import { Select, Input } from 'antd';
 
 const BoardTypes = styled.div`
   margin-bottom: 10px;
-  max-width: 800px;
+  min-width: 800px;
   margin: auto;
 `;
 

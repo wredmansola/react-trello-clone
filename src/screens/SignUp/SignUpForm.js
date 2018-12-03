@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Form, Icon, Input, Button } from 'antd';
 
 import { byPropKey } from '../../utils/index';
-
-import styles from './SignUpForm.module.css';
+import styled from 'styled-components';
 
 const FormItem = Form.Item;
 
@@ -34,16 +33,10 @@ class SignUpForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { username, email, passwordOne, passwordTwo, error } = this.state;
-
-    const isInvalid =
-      passwordOne !== passwordTwo ||
-      passwordOne === '' ||
-      email === '' ||
-      username === '';
+    const { error } = this.state;
 
     return (
-      <div className={styles.form}>
+      <StyledSignUpForm>
         <h1 className="title">Sign Up</h1>
         <Form onSubmit={event => this.onSubmit(event)} className="login-form">
           <FormItem>
@@ -119,17 +112,25 @@ class SignUpForm extends Component {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              disabled={isInvalid}
             >
               Sign Up
             </Button>
           </FormItem>
-          <div className="errors">{error}</div>
+          <Error>{error}</Error>
         </Form>
-      </div>
+      </StyledSignUpForm>
     );
   }
 }
+
+const StyledSignUpForm = styled.div`
+  min-width: 300px;
+  margin: auto;
+`;
+
+const Error = styled.div`
+  color: red;
+`;
 
 const WrappedSignUpForm = Form.create()(SignUpForm);
 

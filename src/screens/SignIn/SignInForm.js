@@ -4,7 +4,7 @@ import { Form, Icon, Input, Button } from 'antd';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
 
-import styles from './SignInForm.module.css';
+import styled from 'styled-components';
 
 const FormItem = Form.Item;
 
@@ -40,16 +40,12 @@ class SignInForm extends React.Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { error, email, password } = this.state;
-    const isInvalid = !email || !password;
+    const { error } = this.state;
 
     return (
-      <div className={styles.form}>
-        <h1 className={styles.title}>Sign In</h1>
-        <Form
-          onSubmit={event => this.onSubmit(event)}
-          className={styles.loginForm}
-        >
+      <StyledSignInForm>
+        <h1>Sign In</h1>
+        <Form onSubmit={event => this.onSubmit(event)}>
           <FormItem>
             {getFieldDecorator('email', {
               rules: [{ required: true, message: 'Please input your email!' }]
@@ -84,21 +80,25 @@ class SignInForm extends React.Component {
             )}
           </FormItem>
           <FormItem>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={styles.loginFormButton}
-              disabled={isInvalid}
-            >
+            <Button type="primary" htmlType="submit">
               Log in
             </Button>
           </FormItem>
-          <div className={styles.errors}>{error}</div>
+          <Error>{error}</Error>
         </Form>
-      </div>
+      </StyledSignInForm>
     );
   }
 }
+
+const StyledSignInForm = styled.div`
+  min-width: 300px;
+  margin: auto;
+`;
+
+const Error = styled.div`
+  color: red;
+`;
 
 const WrappedSignInForm = Form.create()(SignInForm);
 

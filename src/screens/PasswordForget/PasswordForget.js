@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+
+import { auth } from '../../firebase';
 import { Form, Icon, Input, Button } from 'antd';
-
 import { byPropKey } from '../../utils/index';
-
-import styles from './PasswordForgetForm.module.css';
+import styled from 'styled-components';
 
 const FormItem = Form.Item;
 
@@ -12,32 +12,32 @@ const INITIAL_STATE = {
   error: null
 };
 
-class PasswordForgetForm extends Component {
-  constructor(props) {
-    super(props);
+class PasswordForgetScreen extends Component {
+  state = { ...INITIAL_STATE };
 
-    this.state = { ...INITIAL_STATE };
-  }
+  async handleSubmit(event) {
+    event.preventDefault();
 
-  onSubmit(event) {
     const { email } = this.state;
 
     this.props.onSubmit(email).catch(error => {
       this.setState(byPropKey('error', error.message));
     });
 
-    event.preventDefault();
+    return auth.doPasswordReset(email);
   }
 
   render() {
     const { getFieldDecorator } = this.props.form;
     const { error } = this.state;
-    const isInvalid = !error;
 
     return (
-      <div className={styles.form}>
+      <PasswordForgetForm>
         <h1 className="title">Password Forget</h1>
-        <Form onSubmit={event => this.onSubmit(event)} className="login-form">
+        <Form
+          onSubmit={event => this.handleSubmit(event)}
+          className="login-form"
+        >
           <FormItem>
             {getFieldDecorator('email', {
               rules: [{ required: true, message: 'Please input your email!' }]
@@ -58,18 +58,24 @@ class PasswordForgetForm extends Component {
               type="primary"
               htmlType="submit"
               className="login-form-button"
-              disabled={isInvalid}
             >
               Restore
             </Button>
           </FormItem>
-          <div className="errors">{error}</div>
+          <Error>{error}</Error>
         </Form>
-      </div>
+      </PasswordForgetForm>
     );
   }
 }
 
-const WrappedPasswordForgetForm = Form.create()(PasswordForgetForm);
+const PasswordForgetForm = styled.div`
+  min-width: 300px;
+  margin: auto;
+`;
 
-export default WrappedPasswordForgetForm;
+const Error = styled.div`
+  color: red;
+`;
+
+export default Form.create()(PasswordForgetScreen);
