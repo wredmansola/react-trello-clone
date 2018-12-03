@@ -4,8 +4,12 @@ import AuthUserContext from '../../utils/AuthUserContext';
 import withAuthorization from '../../utils/withAuthorization';
 import { doPasswordUpdate } from '../../firebase/auth';
 
+import { FormButton } from '../../components/FormButton';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { FormContainer } from '../../components/FormContainer';
+
 import { byPropKey } from '../../utils';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input } from 'antd';
 import styled from 'styled-components';
 
 const FormItem = Form.Item;
@@ -42,7 +46,7 @@ class AccountScreen extends Component {
     return (
       <AuthUserContext.Consumer>
         {authUser => (
-          <AccountFormRecover>
+          <FormContainer>
             <h2>Account: {authUser.email}</h2>
             <div>
               <Form
@@ -96,27 +100,23 @@ class AccountScreen extends Component {
                   )}
                 </FormItem>
                 <FormItem>
-                  <Button type="primary" htmlType="submit">
+                  <FormButton type="primary" htmlType="submit">
                     Reset my password
-                  </Button>
+                  </FormButton>
                 </FormItem>
-                <Error>{error}</Error>
+                <ErrorMessage>{error}</ErrorMessage>
               </Form>
             </div>
-          </AccountFormRecover>
+          </FormContainer>
         )}
       </AuthUserContext.Consumer>
     );
   }
 }
 
-const AccountFormRecover = styled.div`
-  min-width: 300px;
-  margin: auto;
-`;
-
 const Error = styled.div`
   color: red;
+  margin-bottom: 24px;
 `;
 
 const authCondition = authUser => !!authUser;

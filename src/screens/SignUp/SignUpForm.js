@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input } from 'antd';
 
 import { byPropKey } from '../../utils/index';
-import styled from 'styled-components';
+import { FormButton } from '../../components/FormButton';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { FormContainer } from '../../components/FormContainer';
 
 const FormItem = Form.Item;
 
@@ -36,7 +38,7 @@ class SignUpForm extends Component {
     const { error } = this.state;
 
     return (
-      <StyledSignUpForm>
+      <FormContainer>
         <h1 className="title">Sign Up</h1>
         <Form onSubmit={event => this.onSubmit(event)} className="login-form">
           <FormItem>
@@ -108,29 +110,20 @@ class SignUpForm extends Component {
             )}
           </FormItem>
           <FormItem>
-            <Button
+            <FormButton
               type="primary"
               htmlType="submit"
               className="login-form-button"
             >
               Sign Up
-            </Button>
+            </FormButton>
           </FormItem>
-          <Error>{error}</Error>
+          <ErrorMessage>{error}</ErrorMessage>
         </Form>
-      </StyledSignUpForm>
+      </FormContainer>
     );
   }
 }
-
-const StyledSignUpForm = styled.div`
-  min-width: 300px;
-  margin: auto;
-`;
-
-const Error = styled.div`
-  color: red;
-`;
 
 const WrappedSignUpForm = Form.create()(SignUpForm);
 

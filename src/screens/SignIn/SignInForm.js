@@ -1,10 +1,12 @@
 import React from 'react';
 import { byPropKey } from '../../utils';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input } from 'antd';
 import { auth } from '../../firebase';
 import * as routes from '../../constants/routes';
 
-import styled from 'styled-components';
+import { FormButton } from '../../components/FormButton';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { FormContainer } from '../../components/FormContainer';
 
 const FormItem = Form.Item;
 
@@ -43,7 +45,7 @@ class SignInForm extends React.Component {
     const { error } = this.state;
 
     return (
-      <StyledSignInForm>
+      <FormContainer>
         <h1>Sign In</h1>
         <Form onSubmit={event => this.onSubmit(event)}>
           <FormItem>
@@ -80,25 +82,16 @@ class SignInForm extends React.Component {
             )}
           </FormItem>
           <FormItem>
-            <Button type="primary" htmlType="submit">
+            <FormButton type="primary" htmlType="submit">
               Log in
-            </Button>
+            </FormButton>
           </FormItem>
-          <Error>{error}</Error>
+          <ErrorMessage>{error}</ErrorMessage>
         </Form>
-      </StyledSignInForm>
+      </FormContainer>
     );
   }
 }
-
-const StyledSignInForm = styled.div`
-  min-width: 300px;
-  margin: auto;
-`;
-
-const Error = styled.div`
-  color: red;
-`;
 
 const WrappedSignInForm = Form.create()(SignInForm);
 

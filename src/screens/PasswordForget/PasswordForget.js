@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
 import { auth } from '../../firebase';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input } from 'antd';
 import { byPropKey } from '../../utils/index';
-import styled from 'styled-components';
+
+import { FormButton } from '../../components/FormButton';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { FormContainer } from '../../components/FormContainer';
 
 const FormItem = Form.Item;
 
@@ -29,10 +32,10 @@ class PasswordForgetScreen extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { error } = this.state;
+    const { error } = this.Messagestate;
 
     return (
-      <PasswordForgetForm>
+      <FormContainer>
         <h1 className="title">Password Forget</h1>
         <Form
           onSubmit={event => this.handleSubmit(event)}
@@ -54,28 +57,19 @@ class PasswordForgetScreen extends Component {
             )}
           </FormItem>
           <FormItem>
-            <Button
+            <FormButton
               type="primary"
               htmlType="submit"
               className="login-form-button"
             >
               Restore
-            </Button>
+            </FormButton>
           </FormItem>
-          <Error>{error}</Error>
+          <ErrorMessage>{error}</ErrorMessage>
         </Form>
-      </PasswordForgetForm>
+      </FormContainer>
     );
   }
 }
-
-const PasswordForgetForm = styled.div`
-  min-width: 300px;
-  margin: auto;
-`;
-
-const Error = styled.div`
-  color: red;
-`;
 
 export default Form.create()(PasswordForgetScreen);

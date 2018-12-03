@@ -1,22 +1,17 @@
 import React from 'react';
-import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 
 import SignInForm from './SignInForm';
 import SignUpLink from '../SignUp/SignUpLink';
 import PasswordForgetLink from '../PasswordForget/PasswordForgetLink';
+import { FormContainer } from '../../components/FormContainer';
 
 const SignInScreen = ({ history }) => (
-  <StyledSignInScreen>
+  <FormContainer>
     <SignInForm history={history} />
     <PasswordForgetLink />
     <SignUpLink />
-  </StyledSignInScreen>
+  </FormContainer>
 );
-
-const StyledSignInScreen = styled.div`
-  min-width: 300px;
-  margin: auto;
-`;
 
 export default withRouter(SignInScreen);
