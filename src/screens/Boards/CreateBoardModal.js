@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Button as AButton, Input, Modal } from 'antd';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Button as AButton, Input, Modal } from "antd";
+import styled from "styled-components";
 
-import { BoardForm } from './styled';
-import { DEFAULT_COLOR } from '../../constants';
+import { BoardForm } from "./styled";
+import { DEFAULT_COLOR } from "../../constants";
 
 export default class CreateBoardModal extends Component {
   state = {
-    boardTitle: ''
+    boardTitle: ""
   };
 
   handleCreateBoard = (event, callback) => {
@@ -16,9 +16,12 @@ export default class CreateBoardModal extends Component {
       title: this.state.boardTitle,
       color: DEFAULT_COLOR
     };
+    if (!board.title) {
+      return;
+    }
     return callback(board).then(() => {
       this.setState(() => ({
-        boardTitle: ''
+        boardTitle: ""
       }));
     });
   };
@@ -57,14 +60,16 @@ export default class CreateBoardModal extends Component {
             value={this.state.boardTitle}
             autoFocus
           />
-          <AButton
-            disabled={!isValid}
-            type="primary"
-            onClick={event => this.handleCreateBoard(event, onCreateBoard)}
-            key="0"
-          >
-            Create
-          </AButton>
+          {isValid && (
+            <AButton
+              disabled={!isValid}
+              type="primary"
+              onClick={event => this.handleCreateBoard(event, onCreateBoard)}
+              key="0"
+            >
+              Create
+            </AButton>
+          )}
         </BoardForm>
       </Modal>
     );
