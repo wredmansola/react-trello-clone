@@ -1,0 +1,8 @@
+[declarations]
+[include]
+[ignore]
+.*/node_modules/.*
+[libs]
+[lints]
+[options]
+[version]
