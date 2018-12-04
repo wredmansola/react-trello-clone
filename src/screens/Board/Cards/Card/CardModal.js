@@ -17,7 +17,7 @@ class CardModal extends Component {
       <Modal
         title={
           <CardDetail
-            title={<DetailTitle>{card.title}</DetailTitle>}
+            title={<h4>{card.title}</h4>}
             icon={<StyledIcon type="project" />}
           />
         }
@@ -28,7 +28,7 @@ class CardModal extends Component {
       >
         <Details>
           <CardDetail
-            title={<DetailTitle>Labels</DetailTitle>}
+            title={<h4>Labels</h4>}
             icon={<Icon type="tag" />}
             content={
               <CardLabel
