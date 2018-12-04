@@ -1,4 +1,4 @@
-export const DEFAULT_COLOR = '#026aa7';
+export const DEFAULT_COLOR = '#0079BF';
 
 export const LABELS = [
   { color: 'yellow', text: 'Low' },

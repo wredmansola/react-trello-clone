@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { isEmpty } from 'lodash';
-
 import { Link } from 'react-router-dom';
+import { Icon } from 'antd';
+
 import withAuthorization from '../../utils/withAuthorization';
 import { mergeDataWithKey } from '../../utils/index';
 import { db } from '../../firebase';
 import CreateBoardModal from './CreateBoardModal';
-
-import { Icon } from 'antd';
 import { BoardLink, NewBoard } from '../../components/BoardsButtons';
 import Loader from '../../components/Loader';
 import { BoardTypes, BoardTypeTitle, Boards } from './styled';
@@ -81,7 +80,7 @@ class BoardsScreen extends Component {
                 <Link to={`b/${board.key}`} key={index}>
                   <BoardLink
                     title={board.title}
-                    color="#026aa7"
+                    color="#0079BF"
                     favorite={board.favorite}
                   />
                 </Link>
@@ -103,7 +102,7 @@ class BoardsScreen extends Component {
                   <BoardLink
                     key={index}
                     title={board.title}
-                    color="#026aa7"
+                    color="#0079BF"
                     favorite={board.favorite}
                   />
                 </Link>

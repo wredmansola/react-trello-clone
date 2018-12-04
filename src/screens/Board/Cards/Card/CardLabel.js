@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Icon } from 'antd';
 
 import { LABELS } from '../../../../constants';
 import { Label } from '../../../../components/Label';

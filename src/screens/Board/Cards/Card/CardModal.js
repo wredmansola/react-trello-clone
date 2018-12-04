@@ -41,7 +41,7 @@ class CardModal extends Component {
 
           <CardDetail
             icon={<StyledIcon type="align-left" />}
-            title={<DetailTitle>Description</DetailTitle>}
+            title={<h4>Description</h4>}
             content={
               <CardDescription
                 card={card}
@@ -57,10 +57,6 @@ class CardModal extends Component {
 }
 
 export default CardModal;
-
-const DetailTitle = styled.h4``;
-
-const TagsTitle = styled.h5``;
 
 const Details = styled.div`
   flex-direction: column;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import Button from './Button';
-
 import { Icon, Menu, Dropdown, Input } from 'antd';
+
+import Button from './Button';
 
 export default class BoardTitle extends Component {
   state = {
@@ -55,7 +55,7 @@ export default class BoardTitle extends Component {
     const { edit, boardTitle } = this.state;
     return (
       <StyledBoardTitle>
-        <Title>
+        <h3>
           {edit ? (
             <Form
               onSubmit={event =>
@@ -72,7 +72,7 @@ export default class BoardTitle extends Component {
           ) : (
             <Button onClick={this.handleEnableEdit}>{title}</Button>
           )}
-        </Title>
+        </h3>
         <Favorite>
           <StyledButton onClick={onAddToFavorites} active={favorite}>
             <StyledIcon type="star" className={favorite && 'active'} />
@@ -106,13 +106,11 @@ const Form = styled.form`
 
 const StyledBoardTitle = styled.div`
   margin-top: -20px;
-  background: #026aa7;
+  background: #0079bf;
   display: flex;
   position: relative;
   padding: 8px 8px 2px;
 `;
-
-const Title = styled.h3``;
 
 const Favorite = styled.div``;
 
@@ -137,5 +135,5 @@ const MenuButtonText = styled.span`
 `;
 
 const StyledButton = styled(Button)`
-  background: ${props => (props.active ? darken(0.05, '#026aa7') : '')};
+  background: ${props => (props.active ? darken(0.075, '#0079BF') : '')};
 `;

@@ -7,7 +7,7 @@ export const AddList = styled.div`
 `;
 
 export const Lists = styled.div`
-  background-color: #026aa7;
+  background-color: #0079BF;
   flex: 1;
   overflow: auto;
   white-space: nowrap;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Input, Icon, Menu, Dropdown, Divider } from 'antd';
+import { Input, Icon, Menu, Dropdown } from 'antd';
 import styled from 'styled-components';
 import { darken } from 'polished';
+
 import Button from './Button';
 
 export default class ListHeader extends Component {
@@ -103,7 +104,7 @@ const EditButton = styled.div`
 
 const StyledButton = styled(Button)`
   &:hover {
-    background: ${darken(0.05, '#dfe3e6')};
+    background: ${darken(0.075, '#dfe3e6')};
     color: gray;
   }
   &:active {

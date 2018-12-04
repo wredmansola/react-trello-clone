@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { Select, Input } from 'antd';
 
 const BoardTypes = styled.div`
   margin-bottom: 10px;
-  min-width: 800px;
   margin: auto;
 `;
 

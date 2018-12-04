@@ -14,7 +14,7 @@ const Button = styled.div`
   text-decoration: none;
   text-align: center;
   &:hover {
-    background: ${darken(0.05, '#026aa7')};
+    background: ${darken(0.075, '#0079BF')};
     color: #fff;
     cursor: pointer;
   }
@@ -36,7 +36,7 @@ export const GrayButton = styled(Button)`
   line-height: inherit;
   min-width: auto;
   &:hover {
-    background: ${darken(0.05, '#eee')};
-    color: ${darken(0.05, 'gray')};
+    background: ${darken(0.075, '#eee')};
+    color: ${darken(0.075, 'gray')};
   }
 `;

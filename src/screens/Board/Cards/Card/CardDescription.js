@@ -77,7 +77,7 @@ export default class CartDescription extends Component {
             {card.description ? (
               <span>{card.description}</span>
             ) : (
-              <span>Add a more detailed description...</span>
+              <Detail>Add a more detailed description...</Detail>
             )}
           </DescriptionPlaceholder>
         )}
@@ -92,6 +92,10 @@ const StyledTextArea = styled(TextArea)`
 
 const SaveButton = styled(Button)`
   margin-right: 5px;
+`;
+
+const Detail = styled.span`
+  cursor: pointer;
 `;
 
 const DescriptionPlaceholder = styled.div``;

@@ -16,8 +16,6 @@ import Cards from './Cards';
 import List from '../../components/List';
 import ListHeader from '../../components/ListHeader';
 
-import { Drawer } from 'antd';
-
 class BoardScreen extends Component {
   state = {
     isLoading: false,

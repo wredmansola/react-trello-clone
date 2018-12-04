@@ -8,7 +8,6 @@ import SignOutButton from '../screens/SignOut';
 import styled from 'styled-components';
 import Button from '../components/Button';
 import { Nav, NavItems, NavUser } from './styled';
-import { lighten } from 'polished';
 
 class NavigationAuth extends Component {
   render() {

@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import { DropTarget } from "react-dnd";
+import React, { Component } from 'react';
+import { DropTarget } from 'react-dnd';
+import { findIndex } from 'lodash';
 
-import { db } from "../../../firebase";
-import { mergeDataWithKey } from "../../../utils/index";
-
-import { findIndex } from "lodash";
-import { ItemTypes } from "../../../constants/ItemTypes";
-
-import CardContainer from "./Card";
-import FormCreation from "../../../components/FormCreation";
+import { db } from '../../../firebase';
+import { mergeDataWithKey } from '../../../utils/index';
+import { ItemTypes } from '../../../constants/ItemTypes';
+import CardContainer from './Card';
+import FormCreation from '../../../components/FormCreation';
 
 const cardTarget = {
   drop(props, monitor, component) {

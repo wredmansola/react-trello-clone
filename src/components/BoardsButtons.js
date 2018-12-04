@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { darken } from "polished";
-import { Icon } from "antd";
+import React from 'react';
+import styled from 'styled-components';
+import { darken } from 'polished';
+import { Icon } from 'antd';
 
 const StyledBoardLink = styled.div`
   position: relative;
@@ -15,7 +15,7 @@ const StyledBoardLink = styled.div`
   border-radius: 4px;
   transition: all 0.3s;
   &:hover {
-    background: ${props => darken(0.05, props.color)};
+    background: ${props => darken(0.075, props.color)};
   }
   @media only screen and (max-width: 400px) and (min-width: 82px) {
     width: 96%;
@@ -56,12 +56,12 @@ const Favorite = styled.div`
   bottom: 4px;
   right: 4px;
   transition: all 0.1s;
-  color: ${props => (props.favorite ? "#f2d600" : "white")};
-  display: ${props => (props.favorite ? "block" : "none")};
+  color: ${props => (props.favorite ? '#f2d600' : 'white')};
+  display: ${props => (props.favorite ? 'block' : 'none')};
 `;
 
 const BoardLink = ({ title, favorite, color }) => (
-  <StyledBoardLink color="#026aa7">
+  <StyledBoardLink color="#0079BF">
     <Title>{title}</Title>
     <Favorite favorite={favorite}>
       <Icon type="star" />

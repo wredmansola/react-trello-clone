@@ -10,7 +10,6 @@ import { FormContainer } from '../../components/FormContainer';
 
 import { byPropKey } from '../../utils';
 import { Form, Icon, Input } from 'antd';
-import styled from 'styled-components';
 
 const FormItem = Form.Item;
 
@@ -113,11 +112,6 @@ class AccountScreen extends Component {
     );
   }
 }
-
-const Error = styled.div`
-  color: red;
-  margin-bottom: 24px;
-`;
 
 const authCondition = authUser => !!authUser;
 

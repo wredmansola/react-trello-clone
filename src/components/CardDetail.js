@@ -6,9 +6,9 @@ export const CardDetail = props => {
     <CardDetailWrapper>
       <CardDetailHead>
         <CardDetailIcon>{props.icon}</CardDetailIcon>
-        <CardDetailTitle>{props.title}</CardDetailTitle>
+        <div>{props.title}</div>
       </CardDetailHead>
-      <CardDetailContent>{props.content}</CardDetailContent>
+      <div>{props.content}</div>
     </CardDetailWrapper>
   );
 };
@@ -24,7 +24,3 @@ const CardDetailHead = styled.div`
 const CardDetailIcon = styled.div`
   width: 7%;
 `;
-
-const CardDetailTitle = styled.div``;
-
-const CardDetailContent = styled.div``;

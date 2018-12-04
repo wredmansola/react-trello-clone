@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
+import { Form, Icon, Input } from 'antd';
 
 import { auth } from '../../firebase';
-import { Form, Icon, Input } from 'antd';
 import { byPropKey } from '../../utils/index';
-
 import { FormButton } from '../../components/FormButton';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { FormContainer } from '../../components/FormContainer';

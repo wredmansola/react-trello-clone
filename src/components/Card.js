@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { darken } from "polished";
-import { Icon, Input } from "antd";
-import { GrayButton } from "./Button";
-import { Label } from "./Label";
-import { LABELS } from "../constants";
-import { find } from "lodash";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Icon, Input } from 'antd';
+import { find } from 'lodash';
+
+import { GrayButton } from './Button';
+import { Label } from './Label';
+import { LABELS } from '../constants';
 
 export default class Card extends Component {
   state = {
     showEditIcons: false,
     editMode: false,
-    title: ""
+    title: ''
   };
 
   handleShowEditButton = () => {
@@ -53,13 +53,14 @@ export default class Card extends Component {
     const { showModal, onEditCard, onDeleteCard, card, listKey } = this.props;
     const { showEditIcons, editMode, title } = this.state;
     return (
-      <StyledCard
+      <CardBlock
         onMouseEnter={this.handleShowEditButton}
         onMouseLeave={this.handleHideEditButton}
         onBlur={this.handleDisableEdit}
         editMode={editMode}
+        onClick={showModal}
       >
-        <LabelWrapper>
+        <div>
           {card.label && (
             <Label
               color={getColor(LABELS, card.label)}
@@ -67,7 +68,7 @@ export default class Card extends Component {
               small={true}
             />
           )}
-        </LabelWrapper>
+        </div>
         {editMode ? (
           <form
             onSubmit={event =>
@@ -83,7 +84,7 @@ export default class Card extends Component {
         ) : (
           <React.Fragment>
             {showEditIcons && (
-              <Edit>
+              <Edit onClick={event => event.stopPropagation()}>
                 <GrayButton onClick={this.handleEnableEdit}>
                   <Icon type="edit" />
                 </GrayButton>
@@ -96,11 +97,11 @@ export default class Card extends Component {
                 </GrayButton>
               </Edit>
             )}
-            <Title onClick={showModal}>{card.title}</Title>
+            <div>{card.title}</div>
           </React.Fragment>
         )}
-        <Badges>{card.description && <Icon type="align-left" />}</Badges>
-      </StyledCard>
+        <div>{card.description && <Icon type="align-left" />}</div>
+      </CardBlock>
     );
   }
 }
@@ -110,7 +111,7 @@ function getColor(labels, text) {
   return label.color;
 }
 
-const StyledCard = styled.div`
+const CardBlock = styled.div`
   position: relative;
   background: white;
   margin-bottom: 7px;
@@ -118,7 +119,7 @@ const StyledCard = styled.div`
   padding: 6px 10px 6px;
   box-shadow: 0px 1px 0px grey;
   &:hover {
-    background: ${props => (props.editMode ? "#fff" : "#efefef")};
+    background: ${props => (props.editMode ? '#fff' : '#efefef')};
     cursor: pointer;
   }
 `;
@@ -132,12 +133,6 @@ const TitleInput = styled(Input)`
     box-shadow: none !important;
   }
 `;
-
-const LabelWrapper = styled.div``;
-
-const Title = styled.div``;
-
-const Badges = styled.div``;
 
 const Edit = styled.div`
   position: absolute;
