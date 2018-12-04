@@ -31,7 +31,7 @@ class PasswordForgetScreen extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { error } = this.Messagestate;
+    const { error } = this.error;
 
     return (
       <FormContainer>
