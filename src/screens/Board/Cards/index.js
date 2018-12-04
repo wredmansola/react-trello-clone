@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { DropTarget } from 'react-dnd';
+import React, { Component } from "react";
+import { DropTarget } from "react-dnd";
 
-import { db } from '../../../firebase';
-import { mergeDataWithKey } from '../../../utils/index';
+import { db } from "../../../firebase";
+import { mergeDataWithKey } from "../../../utils/index";
 
-import { findIndex } from 'lodash';
-import { ItemTypes } from '../../../constants/ItemTypes';
+import { findIndex } from "lodash";
+import { ItemTypes } from "../../../constants/ItemTypes";
 
-import CardContainer from './Card';
-import FormCreation from '../../../components/FormCreation';
+import CardContainer from "./Card";
+import FormCreation from "../../../components/FormCreation";
 
 const cardTarget = {
   drop(props, monitor, component) {
@@ -68,13 +68,16 @@ class Cards extends Component {
   };
 
   handleEditCard = (listKey, cardKey, card) => {
-    return db.doEditCard(listKey, cardKey, card).then(response => {
+    return db.doEditCard(listKey, cardKey, card).then(() => {
       const updatedCards = { ...this.state.cards };
       const cardIndex = findIndex(
         updatedCards[listKey],
         card => card.key === cardKey
       );
-      updatedCards[listKey][cardIndex] = response;
+      updatedCards[listKey][cardIndex] = {
+        ...updatedCards[listKey][cardIndex],
+        ...card
+      };
 
       this.setState(() => ({
         cards: updatedCards

@@ -1,5 +1,5 @@
-import 'antd/dist/antd.css';
-import { createGlobalStyle } from 'styled-components';
+import "antd/dist/antd.css";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 body {
@@ -29,17 +29,14 @@ code {
 .ant-modal {
   &-body {
     display: flex;   
-    background: #dfe3e6!important;
     padding-top: 0!important;
   }
   &-header {
     display: flex;
-    background: #dfe3e6!important;
     border-bottom: none!important;
   }
   &-footer {
     border-top: none!important;
-    background: #dfe3e6!important;
   }
   &-title {
     width: 100%;

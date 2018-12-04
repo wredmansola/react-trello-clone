@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { darken } from 'polished';
-import { Icon, Input } from 'antd';
-import { GrayButton } from './Button';
-import { Label } from './Label';
-import { LABELS } from '../constants';
-import { find } from 'lodash';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { darken } from "polished";
+import { Icon, Input } from "antd";
+import { GrayButton } from "./Button";
+import { Label } from "./Label";
+import { LABELS } from "../constants";
+import { find } from "lodash";
 
 export default class Card extends Component {
   state = {
     showEditIcons: false,
     editMode: false,
-    title: ''
+    title: ""
   };
 
   handleShowEditButton = () => {
@@ -50,16 +50,7 @@ export default class Card extends Component {
   };
 
   render() {
-    const {
-      tag,
-      date,
-      description,
-      showModal,
-      onEditCard,
-      onDeleteCard,
-      card,
-      listKey
-    } = this.props;
+    const { showModal, onEditCard, onDeleteCard, card, listKey } = this.props;
     const { showEditIcons, editMode, title } = this.state;
     return (
       <StyledCard
@@ -127,7 +118,7 @@ const StyledCard = styled.div`
   padding: 6px 10px 6px;
   box-shadow: 0px 1px 0px grey;
   &:hover {
-    background: ${props => (props.editMode ? '#fff' : '#efefef')};
+    background: ${props => (props.editMode ? "#fff" : "#efefef")};
     cursor: pointer;
   }
 `;
