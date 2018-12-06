@@ -6,12 +6,6 @@ import * as routes from '../../constants/routes';
 import WrappedSignUpForm from './SignUpForm';
 
 class SignUpScreen extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
   async onSubmit(email, password, username) {
     const { history } = this.props;
     return auth

@@ -17,12 +17,7 @@ const INITIAL_STATE = {
 };
 
 class SignInForm extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { ...INITIAL_STATE };
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+  state = { ...INITIAL_STATE };
 
   async onSubmit(event) {
     event.preventDefault();
