@@ -9,7 +9,7 @@ For a live demo of the project have a look at https://trello-board-b720f.firebas
   
 - Clone the repository
 ```
-$ git clone https://github.com/dmitry-moiseev/trello-clone.git
+$ git clone https://github.com/bmarvinb/trello-clone.git
 ```
 - Install npm
 ```
