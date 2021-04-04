@@ -3,12 +3,13 @@ import 'firebase/auth';
 import 'firebase/database';
 
 var config = {
-  apiKey: 'AIzaSyCobI5sUZzHV5IXliwFGevxnzs1IWTuYK8',
-  authDomain: 'trello-board-b720f.firebaseapp.com',
-  databaseURL: 'https://trello-board-b720f.firebaseio.com',
-  projectId: 'trello-board-b720f',
-  storageBucket: 'trello-board-b720f.appspot.com',
-  messagingSenderId: '572468307248'
+    apiKey: "AIzaSyBzCWI63GArP8iwB11C-4_ON_u9BYR9IAY",
+    authDomain: "trello-e352d.firebaseapp.com",
+    projectId: "trello-e352d",
+    storageBucket: "trello-e352d.appspot.com",
+    messagingSenderId: "418832723345",
+    appId: "1:418832723345:web:4a361f9c072ed68f9dbe30",
+    measurementId: "G-K8ZK9LB83C"
 };
 
 if (!firebase.apps.length) {
